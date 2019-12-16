@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './resume.css';
 import Contacts from '../contacts/contacts'
+import Education from '../education/education'
 
 class Resume extends Component {
     constructor(){
@@ -20,8 +21,9 @@ componentDidMount(){
     render() {
         return (
             <div>
-            <h1>Gabriel Peter</h1>
-            <Contacts/>
+                <h1>Gabriel Peter</h1>
+                <Contacts className='menu-tab'/>
+                <Education className='menu-tab'/>
             </div>
         );
     }

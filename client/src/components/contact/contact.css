@@ -1,9 +1,16 @@
-.contact_name {
+.contact-name {
     font-family: 'Courier New', Courier, monospace;
+    float: left;
 }
 .contact {
-    flex-flow: wrap;
     float: left;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 2%;
+}
+.contact-link {
+    float: left;
+    margin: 20px;
+}
+a, img, .contact {
+    float: left;
+    margin-right: 50px;
 }

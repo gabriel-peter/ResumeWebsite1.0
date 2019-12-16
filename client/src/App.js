@@ -11,8 +11,9 @@ function App() {
         <a className='Router-link' href='/'>Gabriel Peter</a>
         <a className='Router-link' href='/'>Welcome</a>
       </header>
-      <Customers/>
-      <Resume />
+      <div className='Resume'>
+        <Resume/>
+      </div>
     </div>
   );
 }
