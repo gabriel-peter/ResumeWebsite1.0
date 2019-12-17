@@ -9,13 +9,12 @@ class Contact extends Component {
 componentDidMount(){
     
 }
-
     render() {
         return (
             <div className='contact'>
-                <img src={this.props.src} alt="img" height="42" width="42"/>
+                <img src={this.props.src} alt='img' height='42' width='42'/>
                 <h3 className='contact-name'>{this.props.name}</h3>
-                <a className='contact-link' href={this.props.link}>{this.props.content}</a>
+                <a href={this.props.link}>{this.props.content}</a>
             </div>
         );
     }

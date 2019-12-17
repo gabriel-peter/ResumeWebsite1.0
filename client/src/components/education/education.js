@@ -28,14 +28,23 @@ componentDidMount(){
         if (this.state.visibility) {
             return (
                 <div>
-                  <button onClick={this.toggleVisibility}><h1>Education</h1></button>
-                    <h3>This is my education</h3>
+                    <button className='menu-tab-button' onClick={this.toggleVisibility}>Education</button>
+                    <div className='schools'> 
+                        <div className='school'>
+                            <h2>Northeastern University</h2>
+                            <p>sdoksodksdoksodksdoksdoskdosdosdojsdoj</p>
+                        </div>
+                        <div className='school'>
+                            <h2>Harvard-Westlake Highschool</h2>
+                            <p>sdoksodksdoksodksdoksdoskdosdosdojsdoj</p>
+                        </div>
+                    </div>
                 </div>
             );
             } else {
               return (
                 <div>
-                  <button onClick={this.toggleVisibility}><h1>Education</h1></button>
+                  <button className='menu-tab-button' onClick={this.toggleVisibility}>Education</button>
                 </div>
               );
             }

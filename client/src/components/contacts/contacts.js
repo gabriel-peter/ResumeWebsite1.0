@@ -27,15 +27,17 @@ class Contacts extends Component {
         if (this.state.visibility) {
         return (
             <div>
-              <button onClick={this.toggleVisibility}><h1>Contacts</h1></button>
+              <button className='menu-tab-button' onClick={this.toggleVisibility}>Contacts</button>
+              <div className='contacts'>
                 {this.state.contacts.map(contact => 
-                <div ><Contact key={contact.id} name={contact.name} src={contact.img_src} content={contact.content} link={contact.link}/></div>)}
+                <div><Contact key={contact.id} name={contact.name} src={contact.img_src} content={contact.content} link={contact.link}/></div>)}
+              </div>
             </div>
         );
         } else {
           return (
             <div>
-              <button onClick={this.toggleVisibility}><h1>Contacts</h1></button>
+              <button className='menu-tab-button' onClick={this.toggleVisibility}>Contacts</button>
             </div>
           );
         }

@@ -1,0 +1,7 @@
+.schools {
+    display: flex;
+    flex-flow: wrap;
+}
+.school {
+    /* flex-basis: 27%; */
+}
