@@ -51,6 +51,7 @@ app.get('/api/contact', (req, res) => {
 });
 
 // SPOTIFY COMPONENT
+// https://developer.spotify.com/dashboard/applications/1bb626d08698445daef7e4dee1970679
 
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
