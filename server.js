@@ -31,6 +31,13 @@ app.get('/api/customer', (req, res) => {
     res.json(customers);
 });
 
+app.get('/api/education', (req, res) => {
+    const schools = [
+        {name: 'Northeastern University', location: 'Boston, MA' , gpa: '3.433', concetration: 'Computer Science, Class of 2022', activities: 'FFffff'},
+        {name: 'Harvard-Westlake High School', location: 'Studio City, CA' , gpa: '3.433', concetration: 'Computer Science, Class of 2022', activities: 'FFffff'}
+    ]
+});
+
 app.get('/api/contact', (req, res) => {
     const contacts = [
         {id: 0, name: 'LinkedIn', img_src: '/images/linkedin.png', link: 'https://www.linkedin.com/in/gabriel-peter/', content: '/in/gabriel-peter/'},

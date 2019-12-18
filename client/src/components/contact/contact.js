@@ -4,17 +4,27 @@ import './contact.css';
 class Contact extends Component {
     constructor(props){
         super(props);
+        this.handleImageHover = this.handleImageHover.bind(this);
+        this.state = {didHover: false}
     }
 
-componentDidMount(){
-    
-}
+    handleImageHover() {   
+        this.setState(state => ({
+            didHover: true,
+        }));
+    }
+
     render() {
         return (
-            <div className='contact'>
+            <div onMouseEnter={this.handleImageHover} className='contact'>
                 <img src={this.props.src} alt='img' height='42' width='42'/>
-                <h3 className='contact-name'>{this.props.name}</h3>
-                <a href={this.props.link}>{this.props.content}</a>
+                {this.state.didHover &&  
+                <div>
+                    <h3 className='contact-name contact-item'>{this.props.name}</h3>
+                    <a className='contact-item' href={this.props.link}>{this.props.content}</a>
+                </div>
+                
+                }
             </div>
         );
     }

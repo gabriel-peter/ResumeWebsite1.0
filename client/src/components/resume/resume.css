@@ -1,10 +1,9 @@
 .menu-tab {
   display: flex;
 }
-
 .menu-tab-button {
     border: none;
-    padding: 15px 48px 15px 0px;
+    padding: 15px 15px 15px 0px;
     text-decoration: none;
     display: inline-block;
     font-size: 24px;
@@ -15,4 +14,7 @@
 }
 .menu-tab-button:focus{
     outline: none;
+}
+.open-menu-arrow {
+    transform: rotate(90deg);
 }

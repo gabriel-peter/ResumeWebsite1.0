@@ -1,7 +1,12 @@
 .schools {
     display: flex;
     flex-flow: wrap;
+    justify-content: space-around;
+}
+.menu-tab-div {
+    display: flex;
+    flex-flow: row;
 }
 .school {
-    /* flex-basis: 27%; */
+    /* flex-basis: 45%; */
 }

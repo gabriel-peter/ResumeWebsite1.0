@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './education.css';
+// import './interships.css';
 
-class Education extends Component {
+class Interships extends Component {
     constructor(){
         super();
         this.state = {
-            contacts: [],
+            internships: [],
             visibility: false,
         }
         this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -28,25 +28,25 @@ componentDidMount(){
             return (
                 <div>
                     <div className='menu-tab-div'>
-                    <button className='menu-tab-button' onClick={this.toggleVisibility}>Education</button>
-                    <img className='open-menu-arrow' src='/images/arrow.png' height='20' width='20' alt='arrow'/>
+                        <button className='menu-tab-button' onClick={this.toggleVisibility}>Interships</button>
+                        <img className='open-menu-arrow' src='/images/arrow.png' height='20' width='20' alt='arrow'/>
                     </div>
-                    <div className='schools'> 
+                    {/* <div className='schools'> 
                         <div className='school'>
                             <h2>Northeastern University</h2>
                             <p>sdoksodksdoksodksdoksdoskdosdosdojsdoj</p>
                         </div>
                         <div className='school'>
                             <h2>Harvard-Westlake Highschool</h2>
-                            <p>sdoksodksdoksodksdoksdoskdosdosdojsdoj</p>
-                        </div>
-                    </div>
+                            <p>sdoksodksdoksodksdoksdoskdosdosdojsdoj</p> */}
+                        {/* </div> */}
+                    {/* </div> */}
                 </div>
             );
             } else {
               return (
                 <div className='menu-tab-div'>
-                    <button className='menu-tab-button' onClick={this.toggleVisibility}>Education</button>
+                    <button className='menu-tab-button' onClick={this.toggleVisibility}>Interships</button>
                     <img src='/images/arrow.png' height='20' width='20' alt='arrow'/>
                 </div>
               );
@@ -54,4 +54,4 @@ componentDidMount(){
     }
 }
 
-export default Education;
+export default Interships;

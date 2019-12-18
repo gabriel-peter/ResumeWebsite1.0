@@ -27,7 +27,10 @@ class Contacts extends Component {
         if (this.state.visibility) {
         return (
             <div>
-              <button className='menu-tab-button' onClick={this.toggleVisibility}>Contacts</button>
+              <div className='menu-tab-div'>
+                  <button className='menu-tab-button' onClick={this.toggleVisibility}>Contacts</button>
+                  <img className='open-menu-arrow' src='/images/arrow.png' height='20' width='20' alt='arrow'/>
+                </div>
               <div className='contacts'>
                 {this.state.contacts.map(contact => 
                 <div><Contact key={contact.id} name={contact.name} src={contact.img_src} content={contact.content} link={contact.link}/></div>)}
@@ -36,8 +39,9 @@ class Contacts extends Component {
         );
         } else {
           return (
-            <div>
-              <button className='menu-tab-button' onClick={this.toggleVisibility}>Contacts</button>
+            <div className='menu-tab-div'>
+                <button className='menu-tab-button' onClick={this.toggleVisibility}>Contacts</button>
+                <img src='/images/arrow.png' height='20' width='20' alt='arrow'/>
             </div>
           );
         }
