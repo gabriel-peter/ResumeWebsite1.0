@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './education.css';
+import School from './school/school'
 
 class Education extends Component {
     constructor(){
         super();
         this.state = {
-            contacts: [],
+            schools: [],
             visibility: false,
         }
         this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -17,10 +18,10 @@ class Education extends Component {
     }
 
 componentDidMount(){
-    // fetch('/api/customer')
-    // .then(res => res.json())
-    // .then(customers => this.setState({customers},
-    //     () => console.log('Customers fetched...', customers)))
+    fetch('/api/education')
+    .then(res => res.json())
+    .then(schools => this.setState({schools},
+        () => console.log('Schools fetched...')))
 }
 
     render() {
@@ -33,12 +34,10 @@ componentDidMount(){
                     </div>
                     <div className='schools'> 
                         <div className='school'>
-                            <h2>Northeastern University</h2>
-                            <p>sdoksodksdoksodksdoksdoskdosdosdojsdoj</p>
+                            <School school = {this.state.schools[0]}/>
                         </div>
                         <div className='school'>
-                            <h2>Harvard-Westlake Highschool</h2>
-                            <p>sdoksodksdoksodksdoksdoskdosdosdojsdoj</p>
+                            <School school = {this.state.schools[1]} />
                         </div>
                     </div>
                 </div>

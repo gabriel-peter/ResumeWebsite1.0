@@ -23,7 +23,6 @@ componentDidMount(){
     render() {
         return (
             <div>
-                <h1>Gabriel Peter</h1>
                 <Contacts className='menu-tab'/>
                 <Education className='menu-tab'/>
                 <Interships className='menu-tab'/>

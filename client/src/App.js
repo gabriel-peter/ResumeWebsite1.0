@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Nav from './components/nav/nav';
 import Resume from './components/resume/resume';
 import Footer from './components/footer/footer';
 import Spotify_Previewer from './components/spotify_previewer/spotify_previewer';
@@ -7,16 +9,19 @@ import Spotify_Previewer from './components/spotify_previewer/spotify_previewer'
 function App() {
   return (
     <div className="App">
-      <header className="App-header Router-link">
-        <a className='Router-link' href='/'>Resume</a>
-        <a className='Router-link' href='/'>Game</a>
-      </header>
-      <Spotify_Previewer/>
-      <div className='Resume'>
-        <Resume/>
-      </div>
+      <Router>
+        <Nav/>
+        <div className='site-body'>
+        <Switch>
+          <Route path='/' exact component={Resume}/>
+          <Route path='/spotify' component={Spotify_Previewer}/>
+          <Route path='/somethingelse' component={Spotify_Previewer}/>
+        </Switch>
         <Footer/>
+        </div>
+      </Router>
     </div>
+
   );
 }
 

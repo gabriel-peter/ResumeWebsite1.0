@@ -7,21 +7,27 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #84a7ee;
   min-height: 10vh;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: left;
   justify-content: space-evenly;
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
 .Router-link {
-  color: #09d3ac;
+  color: white;
   text-decoration: none;
 }
-
-.Resume {
-  margin: 5%;
+.nav-links {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: left;
+  list-style: none;
+  color: #dfdfdf;
+}
+.site-body {
+  margin: 2%;
 }
