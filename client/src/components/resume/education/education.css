@@ -3,10 +3,6 @@
     flex-flow: wrap;
     justify-content: space-around;
 }
-.menu-tab-div {
-    display: flex;
-    flex-flow: row;
-}
 .school {
     /* flex-basis: 45%; */
 }

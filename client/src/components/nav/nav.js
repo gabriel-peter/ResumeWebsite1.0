@@ -14,6 +14,9 @@ function Nav() {
           <Link to='/spotify' className='Router-link'>
             <li>Spotify</li>
           </Link>
+          <Link to='/something' className='Router-link'>
+            <li>Misc</li>
+          </Link>
       </ul>
     </nav>
 

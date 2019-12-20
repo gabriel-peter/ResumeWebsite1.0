@@ -1,5 +1,11 @@
 .menu-tab {
   display: flex;
+  flex-direction: row;
+  max-width: 10vh;
+}
+.menu-tab-div {
+    display: flex;
+    flex-direction: row;
 }
 .menu-tab-button {
     border: none;
@@ -17,4 +23,8 @@
 }
 .open-menu-arrow {
     transform: rotate(90deg);
+}
+.resume-categories {
+    /* display: flex; */
+    /* flex-direction: row; */
 }

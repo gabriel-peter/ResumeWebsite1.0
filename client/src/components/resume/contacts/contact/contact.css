@@ -8,7 +8,7 @@
 
 /* .contacts {
     display: flex;
-    flex-flow: wrap;
+    flex-flow: row;
 } */
 .contact-img {
     padding-bottom: 30px;
