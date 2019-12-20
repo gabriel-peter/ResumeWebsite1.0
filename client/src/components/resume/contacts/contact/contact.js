@@ -18,13 +18,10 @@ class Contact extends Component {
         return (
             <div onMouseEnter={this.handleImageHover} className='contact'>
                 <img src={this.props.src} alt='img' height='42' width='42'/>
-                {this.state.didHover &&  
-                <div>
-                    <h3 className='contact-name contact-item'>{this.props.name}</h3>
-                    <a className='contact-item' href={this.props.link}>{this.props.content}</a>
-                </div>
-                
-                }
+                <h3 className='contact-name contact-item'>{this.props.name}</h3>
+                {/* {this.state.didHover &&  
+                    <a className='contact-item' href={this.props.link}>{this.props.content}</a>  
+                } */}
             </div>
         );
     }

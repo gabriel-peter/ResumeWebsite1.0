@@ -3,13 +3,12 @@
 }
 .contact {
     display: flex;
-    margin: 2%;
 }
-
-/* .contacts {
+.contacts {
     display: flex;
-    flex-flow: row;
-} */
+    flex-direction: row;
+    justify-content: space-evenly;
+}
 .contact-img {
     padding-bottom: 30px;
 }
