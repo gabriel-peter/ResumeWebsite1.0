@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Spotify from 'spotify-web-api-js';
 import * as $ from "jquery";
-import { URL, URLSearchParams } from 'url';
+import Chart_Constructor from './chart_constructor';
 // https://medium.com/@jonnykalambay/now-playing-using-spotifys-awesome-api-with-react-7db8173a7b13?
 
 const spotifyWebApi = new Spotify();
@@ -21,18 +21,23 @@ class Spotify_Previewer extends Component {
         if (params.access_token) {
             spotifyWebApi.setAccessToken(params.access_token);
             this.setState(({
-                    access_token: params.access_token
+                access_token: params.access_token
             }));
         }
     }
     analyseData(data) {
-        var total_pop = 0
-        var artists = []
-        console.log(data);
+        // console.log(data);
         console.log(data.items)
-        data.items.forEach(element => {
-            console.log(element.name)
-        });
+        let average_artist_rank = data.items.reduce((accumulator, currentValue) => accumulator + currentValue.popularity, 0)/50;
+        let top_artists = data.items.reduce((accumulator, currentValue) => accumulator.concat(currentValue.name), []);
+        let genre_quantity = data.items.reduce((accumulator, currentValue) => accumulator.concat([currentValue.genres]), []).flat();
+        this.setState({top_artists, average_artist_rank, genre_quantity});
+        console.log(this.state.top_artists)
+        console.log(this.state.average_artist_rank);
+        console.log(this.state.genre_quantity);
+        const test_array = ["pop", "rap", "ssdsdsd"];
+        const genre_intersection = test_array.filter(element => genre_quantity.includes(element));
+        console.log('intersection', genre_intersection)
     }
     // getNowPlaying() {
     //     spotifyWebApi.getMyCurrentPlaybackState ()
@@ -57,11 +62,11 @@ class Spotify_Previewer extends Component {
         });
     }
     componentDidMount(){
-        // if(this.state.loggedIn) {
-        //     this.getNowPlaying();
-        // }
+        if(this.state.loggedIn) {
+            this.getTopArtists();
+        }
         // this.forceUpdate();
-        this.getTopArtists();
+        
     }
    
     getHashParams() {
@@ -92,6 +97,7 @@ class Spotify_Previewer extends Component {
                 </div>
                 )
                 } 
+                <Chart_Constructor/>
                 </div>
             );
     }
