@@ -25,19 +25,19 @@ class Spotify_Previewer extends Component {
             }));
         }
     }
-    analyseData(data) {
-        // console.log(data);
-        console.log(data.items)
-        let average_artist_rank = data.items.reduce((accumulator, currentValue) => accumulator + currentValue.popularity, 0)/50;
-        let top_artists = data.items.reduce((accumulator, currentValue) => accumulator.concat(currentValue.name), []);
-        let genre_quantity = data.items.reduce((accumulator, currentValue) => accumulator.concat([currentValue.genres]), []).flat();
-        this.setState({top_artists, average_artist_rank, genre_quantity});
+    analyseTermData(data, term) {
+        const test_array = ["pop", "rap", "ssdsdsd"];
+        const items = data.items;
+        let top_artists = items.reduce((accumulator, currentValue) => accumulator.concat(currentValue.name), []);
+        let top_artists_popularity = items.reduce((accumulator, currentValue) => accumulator.concat(currentValue.popularity), []);
+        let average_artist_rank = top_artists_popularity.reduce((accumulator, currentValue) => accumulator + currentValue, 0)/50;
+        let genre_quantity = items.reduce((accumulator, currentValue) => accumulator.concat([currentValue.genres]), []).flat(); 
+        const genre_intersection = test_array.filter(element => genre_quantity.includes(element));
+        this.setState({top_artists, top_artists_popularity, average_artist_rank, genre_quantity, genre_intersection,});
+        console.log('intersection', genre_intersection)
         console.log(this.state.top_artists)
         console.log(this.state.average_artist_rank);
         console.log(this.state.genre_quantity);
-        const test_array = ["pop", "rap", "ssdsdsd"];
-        const genre_intersection = test_array.filter(element => genre_quantity.includes(element));
-        console.log('intersection', genre_intersection)
     }
     // getNowPlaying() {
     //     spotifyWebApi.getMyCurrentPlaybackState ()
@@ -50,16 +50,19 @@ class Spotify_Previewer extends Component {
     //     }) 
     // }
     getTopArtists() {
+        ['short_term', 'medium_term', 'long_term'].map(e => {
         $.ajax({
-            url: "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50&offset=0",
+            url: `https://api.spotify.com/v1/me/top/artists?time_range=${e}&limit=50&offset=0`,
             type: "GET",
             beforeSend: (xhr) => {
               xhr.setRequestHeader("Authorization", "Bearer " + this.getHashParams().access_token);
             },
             success: (data) => {
-              this.analyseData(data);
+              this.analyseTermData(data);
             }
         });
+    });
+        
     }
     componentDidMount(){
         if(this.state.loggedIn) {
@@ -97,6 +100,7 @@ class Spotify_Previewer extends Component {
                 </div>
                 )
                 } 
+                
                 <Chart_Constructor/>
                 </div>
             );

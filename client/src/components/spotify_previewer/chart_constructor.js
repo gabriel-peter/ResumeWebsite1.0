@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {XYPlot, LineSeries, VerticalBarSeries} from 'react-vis';
+import {XYPlot, LineSeries, VerticalBarSeries, RadialChart} from 'react-vis';
 import './react-vis-graph-style.css';
 // http://uber.github.io/react-vis/documentation
 
@@ -28,6 +28,13 @@ class Chart_Constructor extends Component {
         <XYPlot height={300} width={300}>
             <LineSeries data={data} />
         </XYPlot>
+        <RadialChart
+            data={[ {angle: 1, radius: 10}, 
+                {angle: 2, label: 'Super Custom label', subLabel: 'With annotation', radius: 20},
+                {angle: 5, radius: 5, label: 'Alt Label'}, {angle: 3, radius: 14}, 
+                {angle: 5, radius: 12, subLabel: 'Sub Label only', className: 'custom-class'} ]}
+            width={300}
+            height={300} />
       </div>
     );
   }
