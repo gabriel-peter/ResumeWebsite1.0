@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import * as $ from "jquery";
 import Chart_Constructor from './chart_constructor';
+import { Redirect } from 'react-router-dom'
 import spotifyServiceWorker from './spotify-service-worker';
 import './graph_styling.css';
+import Artists_Preview from './artists_preview';
 // https://medium.com/@jonnykalambay/now-playing-using-spotifys-awesome-api-with-react-7db8173a7b13?
 
 class Spotify_Previewer extends Component {
@@ -10,13 +12,19 @@ class Spotify_Previewer extends Component {
         super();
         const params = this.getHashParams()
         const default_data = [{'x': 4, 'y': 2}];
+        if (window.performance) {
+            if (performance.navigation.type == 1) {
+                window.location.replace('http://localhost:5000/login');
+            }
+          }
         this.state = {
             access_token: '',
             loggedIn: params.access_token ? true : false,
             top_artists: default_data,
             genre_weights: 
                 [{'pop': 0,'rap': 0,'country': 0,'rock': 0,'metal': 0,'alternative': 0}],
-            top_5_artists: [{'x': 'A', 'y': 2}],
+            top_5_artists_graph: [{'x': 'A', 'y': 2}],
+            top_5_artists_images: [{'name': '', 'images': [{'url': ''}]}],
             top_artists_popularity: default_data,
             popularity_list: default_data, 
             average_artist_rank: default_data, 
@@ -31,7 +39,7 @@ class Spotify_Previewer extends Component {
         }
     }
     radarChartGenreWeighting (genres) {
-        var categories = ['pop', 'rap', 'country', 'rock', 'metal', 'alternative',];
+        var categories = ['pop', 'rap', 'country', 'rock', 'metal', 'alternative', 'r&b'];
         const weights = {};
         categories.forEach(e => {
             var count = 0;
@@ -82,11 +90,14 @@ class Spotify_Previewer extends Component {
         const genre_quantity = items.reduce((accumulator, currentValue) => accumulator.concat([currentValue.genres]), []).flat(); 
         const genre_intersection = test_array.filter(element => genre_quantity.includes(element));
         const radialRankings = this.piChartRankings(popularity_list)
-        const top_5_artists = (items.slice(0,5)).reduce((accumulator, currentValue) => accumulator.concat({'x': currentValue.name, 'y': currentValue.popularity}), []);
+        const top_5_artists_graph = (items.slice(0,5)).reduce((accumulator, currentValue) => accumulator.concat({'x': currentValue.name, 'y': currentValue.popularity}), []);
+        const top_5_artists_images = items.slice(0,5);
         const genre_weights = this.radarChartGenreWeighting(genre_quantity);
+        console.log(genre_quantity)
         this.setState( { 
             top_artists_names,
-            top_5_artists,
+            top_5_artists_graph,
+            top_5_artists_images,
             genre_weights,
             top_artists_popularity,
             popularity_list, 
@@ -98,7 +109,7 @@ class Spotify_Previewer extends Component {
     }
     getTopArtists(token) {
             $.ajax({
-                url: 'https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50&offset=0',
+                url: 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50&offset=0',
                 type: "GET",
                 beforeSend: (xhr) => {
                 xhr.setRequestHeader("Authorization", "Bearer " + token);
@@ -111,7 +122,7 @@ class Spotify_Previewer extends Component {
     componentDidMount(){
         if(this.state.loggedIn) {
             this.getTopArtists(this.getHashParams().access_token);
-        }
+        } 
     }
    
     getHashParams() {
@@ -126,7 +137,7 @@ class Spotify_Previewer extends Component {
 
     render() {
             return (
-                <div>
+                <div className='spotify-components'>
                     <h1>How Similar Are Our Music Tastes?</h1>
                     <h3>This is super important...</h3>
                 {!this.state.loggedIn ? (
@@ -137,9 +148,14 @@ class Spotify_Previewer extends Component {
                 </div>
                 ) : (
                 <div>
+                    <div className='my-top-artists'>
+                    {this.state.top_5_artists_images.map(artist =>
+                        <Artists_Preview key={artist.id} artist={artist}/>
+                    )}
+                    </div>
                     <Chart_Constructor 
                         data1={this.state.radialRankings} 
-                        data2={this.state.top_5_artists}
+                        data2={this.state.top_5_artists_graph}
                         data3={this.state.genre_weights}/>
                 </div>
                 )

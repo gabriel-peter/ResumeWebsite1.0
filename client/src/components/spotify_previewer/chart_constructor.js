@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {XYPlot, LineSeries, VerticalBarSeries,MarkSeries, RadialChart, RadarChart} from 'react-vis';
+import {XYPlot, LineSeries, YAxis, VerticalBarSeries, LabelSeries, RadialChart, RadarChart} from 'react-vis';
 // import RadarChart from 'radar-chart';
 import {format} from 'd3-format';
 import './graph_styling.css'
@@ -8,7 +8,9 @@ import './graph_styling.css'
 class Chart_Constructor extends Component {
     constructor(props) {
         super(props)
-
+      this.state= {
+        index: null
+      }
     }
   render() {
       const data1 = this.props.data1
@@ -17,8 +19,45 @@ class Chart_Constructor extends Component {
       const wideFormat = format('.3r');
       console.log(data2)
       console.log(data3)
+      const { index } = this.state;
+      const dataWithColor = data2.map((d, i) => ({...d, color: Number(i == index)}));
+      console.log(dataWithColor)
+      const labelData = data2.map((d, idx) => ({
+        x: d.x,
+        y: d.y
+      }));
     return (
       <div className='my-graphs'>
+        <XYPlot
+          xType="ordinal"
+          width={300}
+          height={300}
+          onMouseLeave={() => this.setState({ index: null })}
+        >
+          <VerticalBarSeries
+            data={dataWithColor}        
+            onNearestX={(d, { index }) => this.setState({ index })}
+          />
+        </XYPlot>
+        {/* <XYPlot  xType="ordinal" height={300} width={300}>
+        <YAxis />
+            <VerticalBarSeries 
+              color={'orange'}
+              data={data2}
+              showLabels={true}
+              
+            />
+             <LabelSeries 
+              data={labelData}
+              getLabel={d => d.x}
+              style={
+                {
+                  text: {
+                    fontSize: 8
+                  }
+              }}/>
+        </XYPlot> */}
+
       <RadarChart
         data={data3}
         // startingAngle={Math.PI / 7}
@@ -27,11 +66,11 @@ class Chart_Constructor extends Component {
           {name: 'rap', domain: [0, 100],},
           {name: 'country', domain: [0, 100],},
           {name: 'rock', domain: [0, 100],},
-          {name: 'metal', domain: [0, 100],},
-          {name: 'alternative', domain: [0, 100],}
+          {name: 'alternative', domain: [0, 100],},
+          {name: 'r&b', domain: [0, 100],}
         ]}
-        width={400}
-        height={400}
+        width={300}
+        height={300}
         style={{
           polygons: {
             strokeWidth: 1,
@@ -52,7 +91,7 @@ class Chart_Constructor extends Component {
               strokeOpacity: 0.3,
             },
             text: {
-              fontSize: 9
+              fontSize: 4
             }
           }
         }}
@@ -71,11 +110,6 @@ class Chart_Constructor extends Component {
           </Hint>
         )}  */}
       </RadarChart>
-
-        <XYPlot  xType="ordinal" height={300} width={300}>
-            <VerticalBarSeries color={'orange'}
-            data={data2}/>
-         </XYPlot>
          
         {/* <XYPlot height={300} width={300}>
             <LineSeries data={data2} />
