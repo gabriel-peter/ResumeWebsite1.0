@@ -3,7 +3,6 @@ const app = express();
 const port = 5000;
 const cors = require('cors');
 app.use(cors());
-
 // const mysql = require('mysql');
 // const SELECT_ALL = "SELECT * FROM customer";
 // const connection = mysql.createConnection({
@@ -98,6 +97,11 @@ app.get('/login', function(req, res) {
       state: state
     }));
 });
+
+// app.get('/api/spotify-user-data/', (req, res) => {  
+//   const data = spotify_worker.getTopArtists()
+//   console.log('/api/spotify-user-data/ hit', data);
+// });
 
 app.get('/callback', function(req, res) {
 

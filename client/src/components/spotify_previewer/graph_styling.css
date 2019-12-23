@@ -1,0 +1,15 @@
+.my-graphs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.spotify-button-div {
+    display: flex;
+}
+.spotify-button {
+    width: 20vw;
+    min-height: 50px;
+    background-color: limegreen;
+    color: white;
+    font-size: 24px;
+}

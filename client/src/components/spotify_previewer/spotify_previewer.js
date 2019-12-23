@@ -1,30 +1,28 @@
 import React, { Component } from 'react';
-import Spotify from 'spotify-web-api-js';
 import * as $ from "jquery";
 import Chart_Constructor from './chart_constructor';
+import spotifyServiceWorker from './spotify-service-worker';
+import './graph_styling.css';
 // https://medium.com/@jonnykalambay/now-playing-using-spotifys-awesome-api-with-react-7db8173a7b13?
-
-const spotifyWebApi = new Spotify();
 
 class Spotify_Previewer extends Component {
     constructor(){
         super();
         const params = this.getHashParams()
-        const top_artists_popularity = [{'x': 4, 'y': 2}];
+        const default_data = [{'x': 4, 'y': 2}];
         this.state = {
-            formattedResult: top_artists_popularity,
             access_token: '',
             loggedIn: params.access_token ? true : false,
-            // nowPlaying: {
-            //     name: 'Not Checked',
-            //     image: ''
-            // },
-            short_term: {top_artists_popularity},
-            medium_term: {top_artists_popularity},
-            long_term: {top_artists_popularity},
+            top_artists: default_data,
+            top_5_artists: [{'x': 'A', 'y': 2}],
+            top_artists_popularity: default_data,
+            popularity_list: default_data, 
+            average_artist_rank: default_data, 
+            genre_quantity: default_data, 
+            genre_intersection: default_data,
+            radialRankings: [{'angle': 360}], 
         }
         if (params.access_token) {
-            spotifyWebApi.setAccessToken(params.access_token);
             this.setState(({
                 access_token: params.access_token
             }));
@@ -56,70 +54,46 @@ class Spotify_Previewer extends Component {
         //         formattedResult.push({'x': i, 'y': values[i],})
         //     }
         // }
-        
-        console.log('formatted pi Chart Data',formattedResult)
-        this.setState({
-            formattedResult
-        })
+        return formattedResult;
     }
-    analyseTermData(data, term) {
+    analyseTermData(data) {
         const test_array = ["pop", "rap", "ssdsdsd"];
         const items = data.items;
-        let top_artists = items.reduce((accumulator, currentValue) => accumulator.concat(currentValue.name), []);
-        // let top_artists_popularity = items.reduce((accumulator, currentValue) => accumulator.concat({'artist': currentValue.name, 'rank': currentValue.popularity}), []);
-        let top_artists_popularity = items.reduce((accumulator, currentValue) => accumulator.concat(currentValue.popularity), []);
-        let average_artist_rank = items.reduce((accumulator, currentValue) => accumulator + currentValue.popularity, 0)/50;
-        let genre_quantity = items.reduce((accumulator, currentValue) => accumulator.concat([currentValue.genres]), []).flat(); 
+        const top_artists_names = items.reduce((accumulator, currentValue) => accumulator.concat(currentValue.name), []);
+        const top_artists_popularity = items.reduce((accumulator, currentValue) => accumulator.concat({'artist': currentValue.name, 'rank': currentValue.popularity}), []);
+        const popularity_list = items.reduce((accumulator, currentValue) => accumulator.concat(currentValue.popularity), []);
+        const average_artist_rank = items.reduce((accumulator, currentValue) => accumulator + currentValue.popularity, 0)/50;
+        const genre_quantity = items.reduce((accumulator, currentValue) => accumulator.concat([currentValue.genres]), []).flat(); 
         const genre_intersection = test_array.filter(element => genre_quantity.includes(element));
-        if(term === 'short_term'){
-            this.setState({ short_term: {top_artists,
-                 top_artists_popularity, 
-                 average_artist_rank, genre_quantity, genre_intersection,}});
-        } else if(term === 'medium_term'){
-            this.setState({ medium_term: {top_artists, 
-                top_artists_popularity,
-                 average_artist_rank, genre_quantity, genre_intersection,}});
-        } else {
-            this.setState({ long_term: {top_artists, 
-                top_artists_popularity, 
-                average_artist_rank, genre_quantity, genre_intersection,}});
-            console.log(this.state.short_term.top_artists_popularity)
-            console.log(this.state.medium_term.average_artist_rank);
-            console.log(this.state.long_term.genre_quantity);
-            this.piChartRankings(top_artists_popularity)
-        }        
+        const radialRankings = this.piChartRankings(popularity_list)
+        const top_5_artists = (items.slice(0,5)).reduce((accumulator, currentValue) => accumulator.concat({'x': currentValue.name, 'y': currentValue.popularity}), []);
+        this.setState( { 
+            top_artists_names,
+            top_5_artists,
+            top_artists_popularity,
+            popularity_list, 
+            average_artist_rank, 
+            genre_quantity, 
+            genre_intersection,
+            radialRankings 
+        });     
     }
-    // getNowPlaying() {
-    //     spotifyWebApi.getMyCurrentPlaybackState ()
-    //     .then((response) => {
-    //         this.setState({
-    //             name: response.item.name,
-    //             image: response.item.album.images[0].url
-    //         })
-    //         console.log(this.state.name);
-    //     }) 
-    // }
-    getTopArtists() {
-        ['short_term', 'medium_term', 'long_term'].map(e => {
+    getTopArtists(token) {
             $.ajax({
-                url: `https://api.spotify.com/v1/me/top/artists?time_range=${e}&limit=50&offset=0`,
+                url: 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50&offset=0',
                 type: "GET",
                 beforeSend: (xhr) => {
-                xhr.setRequestHeader("Authorization", "Bearer " + this.getHashParams().access_token);
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: (data) => {
-                this.analyseTermData(data, e);
+                    this.analyseTermData(data)
                 }
             });
-        });
-        
     }
-    componentWillMount(){
+    componentDidMount(){
         if(this.state.loggedIn) {
-            this.getTopArtists();
+            this.getTopArtists(this.getHashParams().access_token);
         }
-        // this.forceUpdate();
-        
     }
    
     getHashParams() {
@@ -136,18 +110,16 @@ class Spotify_Previewer extends Component {
             return (
                 <div>
                     <h1>How Similar Are Our Music Tastes?</h1>
-                    <h3>This is super important in order to ensure..</h3>
+                    <h3>This is super important...</h3>
                 {!this.state.loggedIn ? (
-                <div>
+                <div className='spotify-button-div'>
                     <a href='http://localhost:5000/login'>
-                        <button>'Do Something with Spotify'</button>
+                        <button className='spotify-button'>'Do Something with Spotify'</button>
                     </a>
                 </div>
                 ) : (
                 <div>
-                    <h3>{this.state.name}</h3>
-                    <img src={this.state.image} alt='Album Image' height='auto' width='auto'/>
-                    <Chart_Constructor data={this.state.formattedResult}/>
+                    <Chart_Constructor data1={this.state.radialRankings} data2={this.state.top_5_artists}/>
                 </div>
                 )
                 } 
