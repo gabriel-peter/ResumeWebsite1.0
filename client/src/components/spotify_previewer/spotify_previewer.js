@@ -14,6 +14,8 @@ class Spotify_Previewer extends Component {
             access_token: '',
             loggedIn: params.access_token ? true : false,
             top_artists: default_data,
+            genre_weights: 
+                [{'pop': 0,'rap': 0,'country': 0,'rock': 0,'metal': 0,'alternative': 0}],
             top_5_artists: [{'x': 'A', 'y': 2}],
             top_artists_popularity: default_data,
             popularity_list: default_data, 
@@ -27,6 +29,20 @@ class Spotify_Previewer extends Component {
                 access_token: params.access_token
             }));
         }
+    }
+    radarChartGenreWeighting (genres) {
+        var categories = ['pop', 'rap', 'country', 'rock', 'metal', 'alternative',];
+        const weights = {};
+        categories.forEach(e => {
+            var count = 0;
+            genres.forEach(x => {
+                if(x.includes(e)) {
+                    count ++;
+                }
+            });
+            weights[e] = count;
+        });
+        return [weights];
     }
     piChartRankings(ranks) {
         let keys = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
@@ -67,9 +83,11 @@ class Spotify_Previewer extends Component {
         const genre_intersection = test_array.filter(element => genre_quantity.includes(element));
         const radialRankings = this.piChartRankings(popularity_list)
         const top_5_artists = (items.slice(0,5)).reduce((accumulator, currentValue) => accumulator.concat({'x': currentValue.name, 'y': currentValue.popularity}), []);
+        const genre_weights = this.radarChartGenreWeighting(genre_quantity);
         this.setState( { 
             top_artists_names,
             top_5_artists,
+            genre_weights,
             top_artists_popularity,
             popularity_list, 
             average_artist_rank, 
@@ -80,7 +98,7 @@ class Spotify_Previewer extends Component {
     }
     getTopArtists(token) {
             $.ajax({
-                url: 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50&offset=0',
+                url: 'https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50&offset=0',
                 type: "GET",
                 beforeSend: (xhr) => {
                 xhr.setRequestHeader("Authorization", "Bearer " + token);
@@ -119,7 +137,10 @@ class Spotify_Previewer extends Component {
                 </div>
                 ) : (
                 <div>
-                    <Chart_Constructor data1={this.state.radialRankings} data2={this.state.top_5_artists}/>
+                    <Chart_Constructor 
+                        data1={this.state.radialRankings} 
+                        data2={this.state.top_5_artists}
+                        data3={this.state.genre_weights}/>
                 </div>
                 )
                 } 
