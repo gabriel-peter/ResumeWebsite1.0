@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {XYPlot, LineSeries, YAxis, VerticalBarSeries, LabelSeries, RadialChart, RadarChart} from 'react-vis';
-// import RadarChart from 'radar-chart';
+import Artists_Preview from './artists_preview'
 import {format} from 'd3-format';
 import './graph_styling.css'
 // http://uber.github.io/react-vis/documentation
@@ -9,36 +9,45 @@ class Chart_Constructor extends Component {
     constructor(props) {
         super(props)
       this.state= {
-        index: null
+        index: null,
+        artistsWithFocus: props.top_5_artists_images
       }
     }
   render() {
       const data1 = this.props.data1
       const data2 = this.props.data2
       const data3 = this.props.data3
-      const wideFormat = format('.3r');
-      console.log(data2)
-      console.log(data3)
       const { index } = this.state;
-      const dataWithColor = data2.map((d, i) => ({...d, color: Number(i == index)}));
-      console.log(dataWithColor)
+      const dataWithColor = data2.map((d, i) => ({...d, color: Number(i !== index)}));
+      const artistsWithFocus = this.props.top_5_artists_images.map((d, i) => ({...d, highlight: i === index}));
       const labelData = data2.map((d, idx) => ({
         x: d.x,
         y: d.y
       }));
     return (
       <div className='my-graphs'>
+        <div className='top-5-artists'>
         <XYPlot
           xType="ordinal"
           width={300}
           height={300}
-          onMouseLeave={() => this.setState({ index: null })}
+          onMouseLeave={() => this.setState({ index: null, artistsWithFocus: this.props.top_5_artists_images })}
         >
           <VerticalBarSeries
-            data={dataWithColor}        
-            onNearestX={(d, { index }) => this.setState({ index })}
+            data={dataWithColor}    
+            animation={{damping: 9, stiffness: 300}}    
+            onNearestX={(d, { index }) => this.setState({ index, artistsWithFocus })}
           />
         </XYPlot>
+        <div className='my-top-artists'>
+          {this.state.artistsWithFocus.map((artist) =>
+          <div class='an-artist'>
+              <img src={artist.images[0].url} alt={''} height={150} width={150}/>
+              {artist.highlight ? (<p><strong>{artist.name}</strong></p>):(<p>{artist.name}</p>)}
+          </div>
+          )}
+        </div>
+        </div>
         {/* <XYPlot  xType="ordinal" height={300} width={300}>
         <YAxis />
             <VerticalBarSeries 
@@ -58,7 +67,7 @@ class Chart_Constructor extends Component {
               }}/>
         </XYPlot> */}
 
-      <RadarChart
+      {/* <RadarChart
         data={data3}
         // startingAngle={Math.PI / 7}
         domains={[
@@ -94,8 +103,8 @@ class Chart_Constructor extends Component {
               fontSize: 4
             }
           }
-        }}
-        // colorRange={['red']}
+        }} */}
+        {/* // colorRange={['red']}
         // hideInnerMostValues={true}
         // renderAxesOverPolygons={true}
         // showLabels={true}
@@ -108,8 +117,8 @@ class Chart_Constructor extends Component {
           <Hint value={{x: 0, y: 0}}>
             <div style={tipStyle}>{hoveredCell.name}</div>
           </Hint>
-        )}  */}
-      </RadarChart>
+        )}  
+      </RadarChart> */}
          
         {/* <XYPlot height={300} width={300}>
             <LineSeries data={data2} />

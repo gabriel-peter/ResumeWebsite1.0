@@ -148,12 +148,13 @@ class Spotify_Previewer extends Component {
                 </div>
                 ) : (
                 <div>
-                    <div className='my-top-artists'>
+                    {/* <div className='my-top-artists'>
                     {this.state.top_5_artists_images.map(artist =>
                         <Artists_Preview key={artist.id} artist={artist}/>
                     )}
-                    </div>
-                    <Chart_Constructor 
+                    </div> */}
+                    <Chart_Constructor
+                        top_5_artists_images ={this.state.top_5_artists_images}
                         data1={this.state.radialRankings} 
                         data2={this.state.top_5_artists_graph}
                         data3={this.state.genre_weights}/>

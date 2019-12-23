@@ -17,6 +17,19 @@
     display: flex;
     justify-content: space-evenly;
 }
+.top-5-artists {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .spotify-components {
     margin: 30px;
+}
+.an-artist {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* align-items: center; */
+    align-content: center;
+    text-align: center;
 }
