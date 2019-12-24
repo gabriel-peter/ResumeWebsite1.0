@@ -20,7 +20,7 @@ class Spotify_Previewer extends Component {
             loggedIn: params.access_token ? true : false,
             top_artists: default_data,
             genre_weights: 
-                [{'pop': 0,'rap': 0,'country': 0,'rock': 0,'metal': 0,'alternative': 0}],
+                [{'x': 1, 'y': 'rap'}],
             top_5_artists_graph: [{'x': 'A', 'y': 2}],
             top_5_artists_images: [{'name': '', 'images': [{'url': ''}]}],
             top_artists_popularity: default_data,
@@ -37,8 +37,8 @@ class Spotify_Previewer extends Component {
         }
     }
     radarChartGenreWeighting (genres) {
-        var categories = ['pop', 'rap', 'country', 'rock', 'metal', 'alternative', 'r&b'];
-        const weights = {};
+        var categories = ['pop', 'rap', 'country', 'rock', 'metal', 'alternative', 'r&b', 'house'];
+        const weights = [];
         categories.forEach(e => {
             var count = 0;
             genres.forEach(x => {
@@ -46,9 +46,12 @@ class Spotify_Previewer extends Component {
                     count ++;
                 }
             });
-            weights[e] = count;
+            if(count>0) {
+            weights.push({'y': e, 'x': count*2,}); // (x 2) makes a ratio of 50 artists * 100 -> percent
+            }
         });
-        return [weights];
+        console.log(weights)
+        return weights;
     }
     piChartRankings(ranks) {
         let keys = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
@@ -91,7 +94,7 @@ class Spotify_Previewer extends Component {
         const top_5_artists_graph = (items.slice(0,5)).reduce((accumulator, currentValue) => accumulator.concat({'x': currentValue.name, 'y': currentValue.popularity}), []);
         const top_5_artists_images = items.slice(0,5);
         const genre_weights = this.radarChartGenreWeighting(genre_quantity);
-        console.log(genre_quantity)
+        console.log(genre_weights)
         this.setState( { 
             top_artists_names,
             top_5_artists_graph,

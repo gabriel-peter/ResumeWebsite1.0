@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { FlexibleHeightXYPlot } from 'react-vis/dist/make-vis-flexible';
 
 function Nav() {
   return (
