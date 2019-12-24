@@ -1,5 +1,4 @@
 import React from 'react';
-// import './nav.css';
 import {Link} from 'react-router-dom';
 
 function Nav() {
@@ -8,15 +7,16 @@ function Nav() {
       <img src='/images/websiteIcon.png' height='64' width='64'/>
       <h1>Gabriel Peter</h1>
       <ul className='nav-links'>
-          <Link to='/' className='Router-link'>
-            <li>Resume</li>
-          </Link>
           <Link to='/spotify' className='Router-link'>
-            <li>Spotify</li>
+            <img className='router-link-img' src={'/images/spotify.png'} alt={''} height={40} width={40}/>
+            <li>Spotify Compatibility</li>
           </Link>
           <Link to='/something' className='Router-link'>
             <li>Misc</li>
           </Link>
+          <a href='https://github.com/gabriel-peter'>
+            <li><img src={'/images/github.png'} alt={''} height={40} width={40}/></li>
+          </a>
       </ul>
     </nav>
 

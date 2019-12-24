@@ -139,6 +139,7 @@ class Spotify_Previewer extends Component {
                     <h1>How Similar Are Our Music Tastes?</h1>
                     <h3>This is super important...</h3>
                 {!this.state.loggedIn ? (
+                    
                 <div className='spotify-button-div'>
                     <a href='http://localhost:5000/login'>
                         <button className='spotify-button'>'Do Something with Spotify'</button>
@@ -147,17 +148,13 @@ class Spotify_Previewer extends Component {
                 ) : (
                 <div>
                     <h2>You Like:</h2>
-                    {/* <div className='my-top-artists'>
-                    {this.state.top_5_artists_images.map(artist =>
-                        <Artists_Preview key={artist.id} artist={artist}/>
-                    )}
-                    </div> */}
                     <Chart_Constructor
                         average_artist_rank={this.state.average_artist_rank}
                         top_5_artists_images={this.state.top_5_artists_images}
                         data1={this.state.radialRankings} 
                         data2={this.state.top_5_artists_graph}
-                        data3={this.state.genre_weights}/>
+                        data3={this.state.genre_weights}
+                    />
                 </div>
                 )
                 } 
