@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import * as $ from "jquery";
 import Chart_Constructor from './chart_constructor';
-import { Redirect } from 'react-router-dom'
 import spotifyServiceWorker from './spotify-service-worker';
 import './graph_styling.css';
-import Artists_Preview from './artists_preview';
 // https://medium.com/@jonnykalambay/now-playing-using-spotifys-awesome-api-with-react-7db8173a7b13?
 
 class Spotify_Previewer extends Component {
@@ -27,7 +25,7 @@ class Spotify_Previewer extends Component {
             top_5_artists_images: [{'name': '', 'images': [{'url': ''}]}],
             top_artists_popularity: default_data,
             popularity_list: default_data, 
-            average_artist_rank: default_data, 
+            average_artist_rank: 0, 
             genre_quantity: default_data, 
             genre_intersection: default_data,
             radialRankings: [{'angle': 360}], 
@@ -148,21 +146,21 @@ class Spotify_Previewer extends Component {
                 </div>
                 ) : (
                 <div>
+                    <h2>You Like:</h2>
                     {/* <div className='my-top-artists'>
                     {this.state.top_5_artists_images.map(artist =>
                         <Artists_Preview key={artist.id} artist={artist}/>
                     )}
                     </div> */}
                     <Chart_Constructor
-                        top_5_artists_images ={this.state.top_5_artists_images}
+                        average_artist_rank={this.state.average_artist_rank}
+                        top_5_artists_images={this.state.top_5_artists_images}
                         data1={this.state.radialRankings} 
                         data2={this.state.top_5_artists_graph}
                         data3={this.state.genre_weights}/>
                 </div>
                 )
                 } 
-                
-                
                 </div>
             );
     }

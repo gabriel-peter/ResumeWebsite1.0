@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {XYPlot, LineSeries, YAxis, VerticalBarSeries, LabelSeries, RadialChart, RadarChart} from 'react-vis';
-import Artists_Preview from './artists_preview'
-import {format} from 'd3-format';
 import './graph_styling.css'
 // http://uber.github.io/react-vis/documentation
 
@@ -26,11 +24,12 @@ class Chart_Constructor extends Component {
       }));
     return (
       <div className='my-graphs'>
-        <div className='top-5-artists'>
+        <div className='top-5-artists_w_graph'>
         <XYPlot
           xType="ordinal"
           width={300}
           height={300}
+          // https://codesandbox.io/s/bar-series-that-change-colors-on-mouseover-d9zh8
           onMouseLeave={() => this.setState({ index: null, artistsWithFocus: this.props.top_5_artists_images })}
         >
           <VerticalBarSeries
@@ -38,91 +37,26 @@ class Chart_Constructor extends Component {
             animation={{damping: 9, stiffness: 300}}    
             onNearestX={(d, { index }) => this.setState({ index, artistsWithFocus })}
           />
+          <LabelSeries 
+              data={labelData}
+              allowOffsetToBeReversed
+              getLabel={d => d.y}/>
         </XYPlot>
         <div className='my-top-artists'>
           {this.state.artistsWithFocus.map((artist) =>
-          <div class='an-artist'>
-              <img src={artist.images[0].url} alt={''} height={150} width={150}/>
+          <div className={`an-artist ${artist.highlight && 'highlighted-artist'}`}>
+              <img src={artist.images[0].url} alt={''} height={200} width={200}/>
               {artist.highlight ? (<p><strong>{artist.name}</strong></p>):(<p>{artist.name}</p>)}
           </div>
           )}
         </div>
         </div>
-        {/* <XYPlot  xType="ordinal" height={300} width={300}>
-        <YAxis />
-            <VerticalBarSeries 
-              color={'orange'}
-              data={data2}
-              showLabels={true}
-              
-            />
-             <LabelSeries 
-              data={labelData}
-              getLabel={d => d.x}
-              style={
-                {
-                  text: {
-                    fontSize: 8
-                  }
-              }}/>
-        </XYPlot> */}
-
-      {/* <RadarChart
-        data={data3}
-        // startingAngle={Math.PI / 7}
-        domains={[
-          {name: 'pop', domain: [0, 100],},
-          {name: 'rap', domain: [0, 100],},
-          {name: 'country', domain: [0, 100],},
-          {name: 'rock', domain: [0, 100],},
-          {name: 'alternative', domain: [0, 100],},
-          {name: 'r&b', domain: [0, 100],}
-        ]}
-        width={300}
-        height={300}
-        style={{
-          polygons: {
-            strokeWidth: 1,
-            strokeOpacity: 0.8,
-            fillOpacity: 0.8
-          },
-          labels: {
-            textAnchor: 'middle'
-          },
-          axes: {
-            line: {
-              fillOpacity: 0.8,
-              strokeWidth: 0.5,
-              strokeOpacity: 0.8
-            },
-            ticks: {
-              fillOpacity: 0.3,
-              strokeOpacity: 0.3,
-            },
-            text: {
-              fontSize: 4
-            }
-          }
-        }} */}
-        {/* // colorRange={['red']}
-        // hideInnerMostValues={true}
-        // renderAxesOverPolygons={true}
-        // showLabels={true}
-        // onSeriesMouseOver={(data) => {
-        //   this.setState({hoveredCell: data.event[0]});
-        // }}
-        // onSeriesMouseOut={() => this.setState({hoveredCell: false})}
-      >
-         {/* {hoveredCell && (
-          <Hint value={{x: 0, y: 0}}>
-            <div style={tipStyle}>{hoveredCell.name}</div>
-          </Hint>
-        )}  
-      </RadarChart> */}
-         
-        {/* <XYPlot height={300} width={300}>
-            <LineSeries data={data2} />
-        </XYPlot> */}
+        <div className='popularity-analysis'>
+          <div className='average-popularity'>
+            <div>Your favorite artists averaged around:</div>
+            <div className='big-number'>{this.props.average_artist_rank}/100</div>
+            <div>in their overall popularity score!</div>
+          </div>
         <RadialChart
             // data={[ {angle: 1, radius: 10}, 
             //     {angle: 2, label: 'Super Custom label', subLabel: 'With annotation', radius: 20},
@@ -131,9 +65,11 @@ class Chart_Constructor extends Component {
             data={data1}
             width={300}
             height={300}
+            labelsStyle={{text: {fontSize: 20}}}
+            
             animation={{damping: 9, stiffness: 300}}
-
             showLabels={true}/> 
+        </div>
       </div>
     );
   }

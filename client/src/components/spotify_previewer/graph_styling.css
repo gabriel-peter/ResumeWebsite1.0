@@ -15,9 +15,9 @@
 }
 .my-top-artists {
     display: flex;
-    justify-content: space-evenly;
+    text-align: center;
 }
-.top-5-artists {
+.top-5-artists_w_graph {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,11 +25,42 @@
 .spotify-components {
     margin: 30px;
 }
+.highlighted-artist {
+    border-color: orange;
+    border-width: 2px;
+    background-color: lightskyblue;
+}
 .an-artist {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
     align-content: center;
-    text-align: center;
+    justify-content: center;
+}
+.popularity-analysis {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+/* .fill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
+.fill img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+} */
+ .average-popularity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.big-number {
+    font-size: 48px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
