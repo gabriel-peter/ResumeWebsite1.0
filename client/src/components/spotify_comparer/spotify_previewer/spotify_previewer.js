@@ -19,8 +19,7 @@ class Spotify_Previewer extends Component {
             access_token: '',
             loggedIn: params.access_token ? true : false,
             top_artists: default_data,
-            genre_weights: 
-                [{'x': 1, 'y': 'rap'}],
+            genre_weights: [{'x': 1, 'y': 'rap'}],
             top_5_artists_graph: [{'x': 'A', 'y': 2}],
             top_5_artists_images: [{'name': '', 'images': [{'url': ''}]}],
             top_artists_popularity: default_data,
@@ -47,10 +46,9 @@ class Spotify_Previewer extends Component {
                 }
             });
             if(count>0) {
-                weights.push({'y': e, 'x': count/genres.length});
+                weights.push({'y': e, 'x': (count/genres.length)*100}); // percent ration of total
             }
         });
-        console.log(weights)
         return weights;
     }
     piChartRankings(ranks) {
@@ -69,16 +67,9 @@ class Spotify_Previewer extends Component {
         var formattedResult = [];
         for (var i = 0; i <= values.length -1; i++) {
             if(values[i] !== 0) {
-                formattedResult.push({'angle': values[i], 'label': 10*i, 'radius': i/2+5 })
+                formattedResult.push({'angle': values[i],'subLabel': values[i] + '%', 'label': 10*i, 'radius': i/2+5 })
             }
         }
-        // Bar Series
-        // var formattedResult = [];
-        // for (var i = 0; i <= values.length -1; i++) {
-        //     if(values[i] !== 0) {
-        //         formattedResult.push({'x': i, 'y': values[i],})
-        //     }
-        // }
         return formattedResult;
     }
     analyseTermData(data) {
@@ -156,7 +147,7 @@ class Spotify_Previewer extends Component {
                         top_5_artists_images={this.state.top_5_artists_images}
                         data1={this.state.radialRankings} 
                         data2={this.state.top_5_artists_graph}
-                        data3={this.state.genre_weights}
+                        genres={this.state.genre_weights}
                     />
                 </div>
                 )

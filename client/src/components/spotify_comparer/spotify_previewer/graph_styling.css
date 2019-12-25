@@ -33,6 +33,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 .spotify-components {
     margin: 30px;
@@ -44,15 +45,20 @@
     align-content: center;
     justify-content: center;
 }
+.artist-image {
+    border-radius: 50%;
+}
 .secondary-analysis {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    margin-top: 100px;
 }
 .popularity-analysis {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     justify-content: space-evenly;
 }
 .genre-analysis {

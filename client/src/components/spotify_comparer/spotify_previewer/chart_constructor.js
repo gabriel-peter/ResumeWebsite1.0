@@ -6,19 +6,29 @@ import xAxis from 'react-vis/dist/plot/axis/x-axis';
 // http://uber.github.io/react-vis/documentation
 
 class Chart_Constructor extends Component {
+  
     constructor(props) {
-        super(props)
+      super(props)
       this.state= {
         index: null,
         index2: null,
-        artistsWithFocus: props.top_5_artists_images
+        artistsWithFocus: props.top_5_artists_images,
       }
     }
   render() {
+      console.log(this.props.genres)
       const data1 = this.props.data1
       const data2 = this.props.data2
-      const data3 = this.props.data3
+      const genres = this.props.genres
+      const chart_dimension = 300;
       const { index } = this.state;
+      var genre_max = {'x': 0, 'y': 'Undef'};
+      genres.forEach(element => {
+        if(element['x'] > genre_max['x']) {
+          genre_max = element;
+          console.log(element)
+        }
+      })
       const dataWithColor = data2.map((d, i) => ({...d, color: Number(i !== index)}));
       const artistsWithFocus = this.props.top_5_artists_images.map((d, i) => ({...d, highlight: i === index}));
       const labelData = data2.map((d, idx) => ({
@@ -26,21 +36,14 @@ class Chart_Constructor extends Component {
         y: d.y
       }));
       const { index2 } = this.state;
-      const dataWithColor2 = data3.map((d, i) => ({...d, color: (Number(i !== index2)+1)}));
-      const labelData2 = data3.map((d, idx) => ({
-          x: d.x,
-          y: d.y
-      }));
-      console.log(data3)
-      console.log(dataWithColor2)
-      console.log(dataWithColor)
+      const dataWithColor2 = genres.map((d, i) => ({...d, color: (Number(i !== index2)+1)}));
     return (
       <div className='my-graphs'>
         <div className='top-5-artists_w_graph'>
         <XYPlot
           xType="ordinal"
-          width={400}
-          height={400}
+          width={chart_dimension}
+          height={chart_dimension}
           // https://codesandbox.io/s/bar-series-that-change-colors-on-mouseover-d9zh8
           onMouseLeave={() => this.setState({ index: null, artistsWithFocus: this.props.top_5_artists_images })}
         >
@@ -60,7 +63,7 @@ class Chart_Constructor extends Component {
           <div>
           {!artist.highlight===true ? (
             <div className={'an-artist'}>
-              <img src={artist.images[0].url} alt={''} height={200} width={200}/>
+              <img className='artist-image' src={artist.images[0].url} alt={''} height={200} width={200}/>
             </div>) : (
             <div className={'highlighted-title'}>{artist.name}</div>
             )}
@@ -70,15 +73,11 @@ class Chart_Constructor extends Component {
         </div>
         <div className='secondary-analysis'>
         <div className='popularity-analysis'>
+        <div className='big-number'>Popularity Analysis</div>
         <RadialChart
-            // data={[ {angle: 1, radius: 10}, 
-            //     {angle: 2, label: 'Super Custom label', subLabel: 'With annotation', radius: 20},
-            //     {angle: 5, radius: 5, label: 'Alt Label'}, {angle: 3, radius: 14}, 
-            //     {angle: 5, radius: 12, subLabel: 'Sub Label only', className: 'custom-class'} ]}
             data={data1}
-            width={400}
-            height={400}
-            labelsStyle={{text: {fontSize: 20}}}
+            width={chart_dimension}
+            height={chart_dimension}
             animation={{damping: 9, stiffness: 300}}
             showLabels={true}
             /> 
@@ -90,13 +89,13 @@ class Chart_Constructor extends Component {
         
         </div>
         <div className='genre-analysis'>
-
+        <div className='big-number'>Genre Analysis</div>
         <XYPlot
           stackBy="x"
           yType="ordinal"
           margin={{left: 100}} 
-          width={400}
-          height={400}
+          width={chart_dimension}
+          height={chart_dimension}
           // https://codesandbox.io/s/bar-series-that-change-colors-on-mouseover-d9zh8
           onMouseLeave={() => this.setState({ index2: null })}
         >
@@ -110,7 +109,9 @@ class Chart_Constructor extends Component {
           <VerticalGridLines />
           <HorizontalGridLines />
         </XYPlot>
-        <h1>sfosjfosjfosjf</h1>
+            <div>Your music primarly consists of:
+              <div className='big-number'>{genre_max['y']}</div>
+              </div>
         </div>
       </div>
       </div>

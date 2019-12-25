@@ -94,14 +94,10 @@ app.get('/login', function(req, res) {
       client_id: client_id,
       scope: scope,
       redirect_uri: redirect_uri,
-      state: state
+      state: state,
+      show_dialog: true,
     }));
 });
-
-// app.get('/api/spotify-user-data/', (req, res) => {  
-//   const data = spotify_worker.getTopArtists()
-//   console.log('/api/spotify-user-data/ hit', data);
-// });
 
 app.get('/callback', function(req, res) {
 
@@ -112,7 +108,8 @@ app.get('/callback', function(req, res) {
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
-  if (state === null || state !== storedState) {
+if (state === null || state !== storedState) {
+// if (state === null) {
     res.redirect('/#' +
       querystring.stringify({
         error: 'state_mismatch'
@@ -124,7 +121,7 @@ app.get('/callback', function(req, res) {
       form: {
         code: code,
         redirect_uri: redirect_uri,
-        grant_type: 'authorization_code'
+        grant_type: 'authorization_code',
       },
       headers: {
         'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
