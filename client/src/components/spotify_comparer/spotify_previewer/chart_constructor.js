@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {XYPlot, YAxis, XAxis, VerticalBarSeries, LabelSeries, RadialChart, HorizontalBarSeries, HorizontalRectSeries} from 'react-vis';
+import {XYPlot, VerticalGridLines, XAxis, VerticalBarSeries, LabelSeries, RadialChart, HorizontalBarSeries, HorizontalGridLines, YAxis} from 'react-vis';
 import './graph_styling.css';
 import verticalBarSeries from 'react-vis/dist/plot/series/vertical-bar-series';
+import xAxis from 'react-vis/dist/plot/axis/x-axis';
 // http://uber.github.io/react-vis/documentation
 
 class Chart_Constructor extends Component {
@@ -38,8 +39,8 @@ class Chart_Constructor extends Component {
         <div className='top-5-artists_w_graph'>
         <XYPlot
           xType="ordinal"
-          width={300}
-          height={300}
+          width={400}
+          height={400}
           // https://codesandbox.io/s/bar-series-that-change-colors-on-mouseover-d9zh8
           onMouseLeave={() => this.setState({ index: null, artistsWithFocus: this.props.top_5_artists_images })}
         >
@@ -51,6 +52,7 @@ class Chart_Constructor extends Component {
           <LabelSeries 
               data={labelData}
               allowOffsetToBeReversed
+              animation={{damping: 9, stiffness: 300}} 
               getLabel={d => d.y}/>
         </XYPlot>
         <div className='my-top-artists'>
@@ -66,47 +68,51 @@ class Chart_Constructor extends Component {
           )}
         </div>
         </div>
+        <div className='secondary-analysis'>
         <div className='popularity-analysis'>
-          <div className='average-popularity'>
-            <div>Your favorite artists averaged around:</div>
-            <div className='big-number'>{this.props.average_artist_rank}/100</div>
-            <div>in their overall popularity score!</div>
-          </div>
         <RadialChart
             // data={[ {angle: 1, radius: 10}, 
             //     {angle: 2, label: 'Super Custom label', subLabel: 'With annotation', radius: 20},
             //     {angle: 5, radius: 5, label: 'Alt Label'}, {angle: 3, radius: 14}, 
             //     {angle: 5, radius: 12, subLabel: 'Sub Label only', className: 'custom-class'} ]}
             data={data1}
-            width={300}
-            height={300}
+            width={400}
+            height={400}
             labelsStyle={{text: {fontSize: 20}}}
-            // animation={{damping: 9, stiffness: 300}}
-            // showLabels={true}
+            animation={{damping: 9, stiffness: 300}}
+            showLabels={true}
             /> 
+          <div className='average-popularity'>
+            <div>Your favorite artists averaged around:</div>
+            <div className='big-number'>{this.props.average_artist_rank}/100</div>
+            <div>in their overall popularity score!</div>
+          </div>
+        
         </div>
         <div className='genre-analysis'>
-          <XYPlot
+
+        <XYPlot
           stackBy="x"
           yType="ordinal"
-          width={300}
-          height={300}
+          margin={{left: 100}} 
+          width={400}
+          height={400}
           // https://codesandbox.io/s/bar-series-that-change-colors-on-mouseover-d9zh8
           onMouseLeave={() => this.setState({ index2: null })}
         >
+          <YAxis/>
           <XAxis />
           <HorizontalBarSeries
-            data={dataWithColor2}    
+            data={dataWithColor2} 
             animation={{damping: 9, stiffness: 300}}    
             onNearestX={(d, { index2 }) => this.setState({ index2 })}
           />
-          <LabelSeries 
-              data={labelData2}
-              allowOffsetToBeReversed
-              getLabel={d => d.y}/>
+          <VerticalGridLines />
+          <HorizontalGridLines />
         </XYPlot>
         <h1>sfosjfosjfosjf</h1>
         </div>
+      </div>
       </div>
     );
   }

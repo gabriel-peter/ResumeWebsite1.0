@@ -30,16 +30,12 @@
 }
 .top-5-artists_w_graph {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-evenly;
 }
 .spotify-components {
     margin: 30px;
-}
-.highlighted-artist {
-    border-color: orange;
-    border-width: 2px;
-    background-color: lightskyblue;
 }
 .an-artist {
     display: flex;
@@ -48,15 +44,20 @@
     align-content: center;
     justify-content: center;
 }
-.popularity-analysis {
+.secondary-analysis {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+}
+.popularity-analysis {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
 }
 .genre-analysis {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     text-align: center;
     align-items: center;
     justify-content: space-evenly;

@@ -36,18 +36,18 @@ class Spotify_Previewer extends Component {
             }));
         }
     }
-    radarChartGenreWeighting (genres) {
-        var categories = ['pop', 'rap', 'country', 'rock', 'metal', 'alternative', 'r&b', 'house'];
+    genreWeighting (genres) {
+        var categories = ['Pop', 'Rap', 'Country', 'Rock', 'Metal', 'Alternative', 'R&b', 'House'];
         const weights = [];
         categories.forEach(e => {
             var count = 0;
             genres.forEach(x => {
-                if(x.includes(e)) {
+                if(x.includes(e.toLowerCase())) {
                     count ++;
                 }
             });
             if(count>0) {
-            weights.push({'y': e, 'x': count*2,}); // (x 2) makes a ratio of 50 artists * 100 -> percent
+                weights.push({'y': e, 'x': count/genres.length});
             }
         });
         console.log(weights)
@@ -93,7 +93,7 @@ class Spotify_Previewer extends Component {
         const radialRankings = this.piChartRankings(popularity_list)
         const top_5_artists_graph = (items.slice(0,5)).reduce((accumulator, currentValue) => accumulator.concat({'x': currentValue.name, 'y': currentValue.popularity}), []);
         const top_5_artists_images = items.slice(0,5);
-        const genre_weights = this.radarChartGenreWeighting(genre_quantity);
+        const genre_weights = this.genreWeighting(genre_quantity);
         console.log(genre_weights)
         this.setState( { 
             top_artists_names,
