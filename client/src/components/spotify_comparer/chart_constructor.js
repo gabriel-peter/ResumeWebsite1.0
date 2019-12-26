@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {XYPlot, VerticalGridLines, XAxis, VerticalBarSeries, LabelSeries, RadialChart, HorizontalBarSeries, HorizontalGridLines, YAxis} from 'react-vis';
 import './graph_styling.css';
-import verticalBarSeries from 'react-vis/dist/plot/series/vertical-bar-series';
-import xAxis from 'react-vis/dist/plot/axis/x-axis';
 // http://uber.github.io/react-vis/documentation
 
 class Chart_Constructor extends Component {
@@ -16,6 +14,7 @@ class Chart_Constructor extends Component {
       }
     }
   render() {
+      console.log(this.props.foo())
       console.log(this.props.genres)
       const data1 = this.props.data1
       const data2 = this.props.data2

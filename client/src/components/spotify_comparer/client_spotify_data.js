@@ -10,11 +10,11 @@ class Spotify_Previewer extends Component {
         super();
         const params = this.getHashParams()
         const default_data = [{'x': 4, 'y': 2}];
-        // if (window.performance) {
-        //     if (performance.navigation.type == 1) {
-        //         window.location.replace('http://localhost:5000/login');
-        //     }
-        //   }
+        if (window.performance) {
+            if (performance.navigation.type == 1) {
+                window.location.replace('http://localhost:5000/login');
+            }
+          }
         this.state = {
             access_token: '',
             loggedIn: params.access_token ? true : false,
@@ -29,11 +29,15 @@ class Spotify_Previewer extends Component {
             genre_intersection: default_data,
             radialRankings: [{'angle': 360}], 
         }
-        if (params.access_token) {
-            this.setState(({
-                access_token: params.access_token
-            }));
-        }
+        // if (params.access_token) {
+        //     this.setState(({
+        //         access_token: params.access_token
+        //     }));
+        // }
+        console.log(params.access_token);
+    }
+    foo(){
+        return 'hello'
     }
     genreWeighting (genres) {
         var categories = ['Pop', 'Rap', 'Country', 'Rock', 'Metal', 'Alternative', 'R&b', 'House'];
@@ -147,6 +151,7 @@ class Spotify_Previewer extends Component {
                         data1={this.state.radialRankings} 
                         data2={this.state.top_5_artists_graph}
                         genres={this.state.genre_weights}
+                        foo={this.foo}
                     />
                 </div>
                 )
