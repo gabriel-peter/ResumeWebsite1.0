@@ -65,7 +65,7 @@ class Chart_Constructor extends Component {
             <div className={'an-artist'}>
               <img className='artist-image' src={artist.images[0].url} alt={''} height={200} width={200}/>
             </div>) : (
-            <div className={'highlighted-title'}>{artist.name}</div>
+            <div className='highlighted-title'>{artist.name}</div>
             )}
           </div>
           )}

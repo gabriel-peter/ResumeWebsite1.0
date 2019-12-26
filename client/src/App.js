@@ -5,7 +5,7 @@ import Nav from './components/nav/nav';
 import Popup from './components/modal/modal';
 import Resume from './components/resume/resume';
 import Footer from './components/footer/footer';
-import Spotify_Previewer from './components/spotify_comparer/spotify_previewer/spotify_previewer';
+import Spotify_Previewer from './components/spotify_comparer/client_spotify_data';
 
 function App() {
   return (

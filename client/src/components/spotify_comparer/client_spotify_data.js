@@ -1,8 +1,8 @@
+import './graph_styling.css';
 import React, { Component } from 'react';
 import * as $ from "jquery";
 import Chart_Constructor from './chart_constructor';
-import spotifyServiceWorker from './spotify-service-worker';
-import './graph_styling.css';
+import Personal_Spotify_Data from './personal_spotify_data';
 // https://medium.com/@jonnykalambay/now-playing-using-spotifys-awesome-api-with-react-7db8173a7b13?
 
 class Spotify_Previewer extends Component {
@@ -10,11 +10,11 @@ class Spotify_Previewer extends Component {
         super();
         const params = this.getHashParams()
         const default_data = [{'x': 4, 'y': 2}];
-        if (window.performance) {
-            if (performance.navigation.type == 1) {
-                window.location.replace('http://localhost:5000/login');
-            }
-          }
+        // if (window.performance) {
+        //     if (performance.navigation.type == 1) {
+        //         window.location.replace('http://localhost:5000/login');
+        //     }
+        //   }
         this.state = {
             access_token: '',
             loggedIn: params.access_token ? true : false,
@@ -116,7 +116,6 @@ class Spotify_Previewer extends Component {
             this.getTopArtists(this.getHashParams().access_token);
         } 
     }
-   
     getHashParams() {
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -126,7 +125,6 @@ class Spotify_Previewer extends Component {
         }
         return hashParams;
     }
-
     render() {
             return (
                 <div className='spotify-components'>
@@ -135,8 +133,9 @@ class Spotify_Previewer extends Component {
                 {!this.state.loggedIn ? (
                     
                 <div className='spotify-button-div'>
-                    <a href='http://localhost:5000/login'>
-                        <button className='spotify-button'>'Do Something with Spotify'</button>
+                    <a className='spotify-button-aref' href='http://localhost:5000/login'>
+                        <img src='/images/spotify_button_image.png' height={50} width={150}/>
+                        <p className='spotify-button-text'>{'Connect & Compare'}</p>
                     </a>
                 </div>
                 ) : (
@@ -152,6 +151,7 @@ class Spotify_Previewer extends Component {
                 </div>
                 )
                 } 
+                <Personal_Spotify_Data/>
                 </div>
             );
     }
