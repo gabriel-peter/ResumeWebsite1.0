@@ -14,7 +14,6 @@ class Chart_Constructor extends Component {
       }
     }
   render() {
-      console.log(this.props.foo())
       console.log(this.props.genres)
       const data1 = this.props.data1
       const data2 = this.props.data2
