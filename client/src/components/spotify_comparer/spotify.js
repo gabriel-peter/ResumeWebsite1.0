@@ -64,18 +64,6 @@ class Spotify extends Component {
         const top_5_artists_graph = (items.slice(0,5)).reduce((accumulator, currentValue) => accumulator.concat({'x': currentValue.name, 'y': currentValue.popularity}), []);
         const top_5_artists_images = items.slice(0,5);
         const genre_weights = this.genreWeighting(genre_quantity);
-        // this.setState( { 
-        //     top_artists_names,
-        //     top_5_artists_graph,
-        //     top_5_artists_images,
-        //     genre_weights,
-        //     top_artists_popularity,
-        //     popularity_list, 
-        //     average_artist_rank, 
-        //     genre_quantity, 
-        //     genre_intersection,
-        //     radialRankings 
-        // });
         const spotify_data = {
             top_artists_names,
             top_5_artists_graph,

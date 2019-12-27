@@ -2,7 +2,6 @@ import './graph_styling.css';
 import React, { Component } from 'react';
 import * as $ from "jquery";
 import Chart_Constructor from './chart_constructor';
-import Personal_Spotify_Data from './personal_spotify_data';
 // https://medium.com/@jonnykalambay/now-playing-using-spotifys-awesome-api-with-react-7db8173a7b13?
 
 class Spotify_Previewer extends Component {
@@ -47,6 +46,8 @@ class Spotify_Previewer extends Component {
     componentDidMount(){
         if(this.state.loggedIn) {
             this.getTopArtists(this.getHashParams().access_token);
+            console.log('Access Token:', this.getHashParams().access_token);
+            console.log('Refresh Token:', this.getHashParams().refresh_token);
         } 
     }
     getHashParams() {
