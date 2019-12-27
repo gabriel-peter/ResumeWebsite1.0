@@ -15,16 +15,16 @@ class Spotify_Previewer extends Component {
         this.state = {
             access_token: this.props.getHashParams().access_token,
             spotify_data: {
-                top_artists: [{'x': 1, 'y': 1}],
-                genre_weights: [{'x': 1, 'y': 'Undef'}],
-                top_5_artists_graph: [{'x': 'Undef', 'y': 1}],
+                top_artists: [{'x': 0, 'y': 0}],
+                genre_weights: [{'x': 0, 'y': 'Undef'}],
+                top_5_artists_graph: [{'x': 'Undef', 'y': 0}],
                 top_5_artists_images: [{'name': '', 'images': [{'url': ''}]}],
-                top_artists_popularity: [{'x': 1, 'y': 1}],
-                popularity_list: [{'x': 1, 'y': 1}], 
+                top_artists_popularity: [{'x': 0, 'y': 0}],
+                popularity_list: [{'x': 0, 'y': 0}], 
                 average_artist_rank: 0, 
-                genre_quantity: [{'x': 1, 'y': 1}], 
-                genre_intersection: [{'x': 1, 'y': 1}],
-                radialRankings: [{'angle': 360}], 
+                genre_quantity: [{'x': 0, 'y': 0}], 
+                genre_intersection: [{'x': 0, 'y': 0}],
+                radialRankings: [{'angle': 360}],  
             }
         }
         this.getTopArtists(this.state.access_token);
@@ -45,9 +45,6 @@ class Spotify_Previewer extends Component {
     render() {
         return (
             <div className='spotify-components'>
-                <h1>How Similar Are Our Music Tastes?</h1>
-                <h3>This is super important...</h3>
-                <div>
                 <h2>You Like:</h2>
                 <Chart_Constructor
                     average_artist_rank={this.state.spotify_data.average_artist_rank}
@@ -56,7 +53,6 @@ class Spotify_Previewer extends Component {
                     data2={this.state.spotify_data.top_5_artists_graph}
                     genres={this.state.spotify_data.genre_weights}
                 />
-                </div>
             </div>
         );
     }

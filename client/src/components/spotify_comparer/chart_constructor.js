@@ -7,10 +7,11 @@ class Chart_Constructor extends Component {
   
     constructor(props) {
       super(props)
+      const index = 0;
       this.state= {
-        index: null,
-        index2: null,
-        artistsWithFocus: props.top_5_artists_images,
+        index: index,
+        index2: index,
+        artistsWithFocus: props.top_5_artists_images.map((d, i) => ({...d, highlight: 1})),
       }
     }
   render() {
@@ -23,7 +24,6 @@ class Chart_Constructor extends Component {
       genres.forEach(element => {
         if(element['x'] > genre_max['x']) {
           genre_max = element;
-          console.log(element)
         }
       })
       const dataWithColor = data2.map((d, i) => ({...d, color: Number(i !== index)}));
@@ -57,13 +57,12 @@ class Chart_Constructor extends Component {
         </XYPlot>
         <div className='my-top-artists'>
           {this.state.artistsWithFocus.map((artist) =>
-          <div>
-          {!artist.highlight===true ? (
-            <div className={'an-artist'}>
-              <img className='artist-image' src={artist.images[0].url} alt={''} height={200} width={200}/>
-            </div>) : (
-            <div className='highlighted-title'>{artist.name}</div>
-            )}
+            <div>
+              {!artist.highlight===true ? (
+                <div className={'an-artist'}>
+                  <img className='artist-image' src={artist.images[0].url} alt={''} height={200} width={200}/>
+                </div>) : (
+            <div className='highlighted-title'>{artist.name}</div>)}
           </div>
           )}
         </div>

@@ -1,6 +1,5 @@
 import './graph_styling.css';
 import React, { Component } from 'react';
-import * as $ from "jquery";
 import Client_Spotify_Data from './client_spotify_data';
 import Personal_Spotify_Data from './personal_spotify_data';
 class Spotify extends Component {
@@ -10,6 +9,7 @@ class Spotify extends Component {
         this.state = {
             access_token: '',
             loggedIn: params.access_token ? true : false,
+            currentSlide: 'Client',
         }
     }
     getHashParams() {
@@ -85,39 +85,47 @@ class Spotify extends Component {
         }
         return spotify_data;
     }
-    // componentDidMount() {
-    //     console.log(this.state.access_token, this.state.loggedIn)
-    //     if(this.state.loggedIn) {
-    //         this.setState({
-    //             access_token: this.getHashParams().access_token,
-    //         })
-    //         this.forceUpdate() 
-    //     }
-    // }
     render() {
         return(
             <div>
+                <h1>How Similar Are Our Music Tastes?</h1>
+                
                 {!this.state.loggedIn ? (
+                    <div>
+                    <h3>Find out if we match!</h3>
                     <div className='spotify-button-div'>
                         <a className='spotify-button-aref' href='http://localhost:5000/login'>
                             <img src='/images/spotify_button_image.png' height={50} width={150}/>
                             <p className='spotify-button-text'>{'Connect & Compare'}</p>
                         </a>
                     </div>
+                    </div>
                 ) : (
                 <div>
-                <Client_Spotify_Data
-                    analyseTermData={this.analyseTermData}
-                    piChartRankings={this.piChartRankings}
-                    genreWeighting={this.genreWeighting}
-                    getHashParams={this.getHashParams}
+                    <div>
+                        <button onClick={() => this.setState({currentSlide: 'Client'})} className='slide-button'>YOU</button>
+                        <button onClick={() => this.setState({currentSlide: 'Me'})} className='slide-button'>Gabriel</button>
+                        <button onClick={() => this.setState({currentSlide: 'Both'})} className='slide-button'>Match?</button>
+                    </div>
+                    {this.state.currentSlide === 'Client' &&
+                    <Client_Spotify_Data
+                        analyseTermData={this.analyseTermData}
+                        piChartRankings={this.piChartRankings}
+                        genreWeighting={this.genreWeighting}
+                        getHashParams={this.getHashParams}
 
-                />
-                <Personal_Spotify_Data
-                    analyseTermData={this.analyseTermData}
-                    piChartRankings={this.piChartRankings}
-                    genreWeighting={this.genreWeighting}
-                />
+                    />
+                    }
+                    {this.state.currentSlide === 'Me' &&
+                    <Personal_Spotify_Data
+                        analyseTermData={this.analyseTermData}
+                        piChartRankings={this.piChartRankings}
+                        genreWeighting={this.genreWeighting}
+                    />
+                    }
+                    {this.state.currentSlide === 'Both' &&
+                    <h1>Hello</h1>
+                    }
                 </div>
                 )}
             </div>

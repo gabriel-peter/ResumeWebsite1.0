@@ -13,15 +13,15 @@ class Personal_Spotify_Data extends Component {
             refresh_token: refresh_token,
             loggedIn: access_token ? true : false,
             spotify_data: {
-                top_artists: [{'x': 1, 'y': 1}],
-                genre_weights: [{'x': 1, 'y': 'Undef'}],
-                top_5_artists_graph: [{'x': 'Undef', 'y': 1}],
+                top_artists: [{'x': 0, 'y': 0}],
+                genre_weights: [{'x': 0, 'y': 'Undef'}],
+                top_5_artists_graph: [{'x': 'Undef', 'y': 0}],
                 top_5_artists_images: [{'name': '', 'images': [{'url': ''}]}],
-                top_artists_popularity: [{'x': 1, 'y': 1}],
-                popularity_list: [{'x': 1, 'y': 1}], 
+                top_artists_popularity: [{'x': 0, 'y': 0}],
+                popularity_list: [{'x': 0, 'y': 0}], 
                 average_artist_rank: 0, 
-                genre_quantity: [{'x': 1, 'y': 1}], 
-                genre_intersection: [{'x': 1, 'y': 1}],
+                genre_quantity: [{'x': 0, 'y': 0}], 
+                genre_intersection: [{'x': 0, 'y': 0}],
                 radialRankings: [{'angle': 360}], 
             }
         }
