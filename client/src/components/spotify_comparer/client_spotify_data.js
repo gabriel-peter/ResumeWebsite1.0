@@ -5,17 +5,15 @@ import Chart_Constructor from './chart_constructor';
 // https://medium.com/@jonnykalambay/now-playing-using-spotifys-awesome-api-with-react-7db8173a7b13?
 
 class Spotify_Previewer extends Component {
-    constructor(){
-        super();
-        const params = this.getHashParams()
+    constructor(props){
+        super(props);
         if (window.performance) {
             if (performance.navigation.type == 1) {
                 window.location.replace('http://localhost:5000/login');
             }
           }
         this.state = {
-            access_token: '',
-            loggedIn: params.access_token ? true : false,
+            access_token: this.props.getHashParams().access_token,
             spotify_data: {
                 top_artists: [{'x': 1, 'y': 1}],
                 genre_weights: [{'x': 1, 'y': 'Undef'}],
@@ -29,6 +27,7 @@ class Spotify_Previewer extends Component {
                 radialRankings: [{'angle': 360}], 
             }
         }
+        this.getTopArtists(this.state.access_token);
     }
     getTopArtists(token) {
         $.ajax({
@@ -43,36 +42,11 @@ class Spotify_Previewer extends Component {
             }
         });
     }
-    componentDidMount(){
-        if(this.state.loggedIn) {
-            this.getTopArtists(this.getHashParams().access_token);
-            console.log('Access Token:', this.getHashParams().access_token);
-            console.log('Refresh Token:', this.getHashParams().refresh_token);
-        } 
-    }
-    getHashParams() {
-        var hashParams = {};
-        var e, r = /([^&;=]+)=?([^&;]*)/g,
-            q = window.location.hash.substring(1);
-        while ( e = r.exec(q)) {
-        hashParams[e[1]] = decodeURIComponent(e[2]);
-        }
-        return hashParams;
-    }
     render() {
         return (
             <div className='spotify-components'>
                 <h1>How Similar Are Our Music Tastes?</h1>
                 <h3>This is super important...</h3>
-            {!this.state.loggedIn ? (
-                
-            <div className='spotify-button-div'>
-                <a className='spotify-button-aref' href='http://localhost:5000/login'>
-                    <img src='/images/spotify_button_image.png' height={50} width={150}/>
-                    <p className='spotify-button-text'>{'Connect & Compare'}</p>
-                </a>
-            </div>
-            ) : (
                 <div>
                 <h2>You Like:</h2>
                 <Chart_Constructor
@@ -82,7 +56,7 @@ class Spotify_Previewer extends Component {
                     data2={this.state.spotify_data.top_5_artists_graph}
                     genres={this.state.spotify_data.genre_weights}
                 />
-                </div>)} 
+                </div>
             </div>
         );
     }

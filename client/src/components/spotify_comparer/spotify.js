@@ -1,18 +1,25 @@
 import './graph_styling.css';
 import React, { Component } from 'react';
 import * as $ from "jquery";
-import Chart_Constructor from './chart_constructor';
 import Client_Spotify_Data from './client_spotify_data';
 import Personal_Spotify_Data from './personal_spotify_data';
-import Spotify_Previewer from './client_spotify_data';
 class Spotify extends Component {
     constructor() {
-        // const access_token ='BQD7brPt2c3ENXb-WkF0X1a0IlM7HeFUrIRiay7TPRAd-2ekyVjltCLNLJTiS_eU6RBYFhCxZWq7qRwVMPWWLwYu-fEbE1A9HQeqzzqwQUHbFGG_OU3iF2Gkrt8B6jLb-mYIxtCKlKjXLD5DlRnQyVDSvIZ9L83VMm30TuZcDeU'
         super();
+        const params = this.getHashParams()
         this.state = {
-
+            access_token: '',
+            loggedIn: params.access_token ? true : false,
         }
-        // this.getTopArtists(access_token)
+    }
+    getHashParams() {
+        var hashParams = {};
+        var e, r = /([^&;=]+)=?([^&;]*)/g,
+            q = window.location.hash.substring(1);
+        while ( e = r.exec(q)) {
+        hashParams[e[1]] = decodeURIComponent(e[2]);
+        }
+        return hashParams;
     }
     genreWeighting (genres) {
         var categories = ['Pop', 'Rap', 'Country', 'Rock', 'Metal', 'Alternative', 'R&b', 'House'];
@@ -76,26 +83,43 @@ class Spotify extends Component {
             genre_intersection,
             radialRankings,
         }
-        console.log('From Spotify Class',spotify_data)
-        return spotify_data
+        return spotify_data;
     }
+    // componentDidMount() {
+    //     console.log(this.state.access_token, this.state.loggedIn)
+    //     if(this.state.loggedIn) {
+    //         this.setState({
+    //             access_token: this.getHashParams().access_token,
+    //         })
+    //         this.forceUpdate() 
+    //     }
+    // }
     render() {
         return(
             <div>
+                {!this.state.loggedIn ? (
+                    <div className='spotify-button-div'>
+                        <a className='spotify-button-aref' href='http://localhost:5000/login'>
+                            <img src='/images/spotify_button_image.png' height={50} width={150}/>
+                            <p className='spotify-button-text'>{'Connect & Compare'}</p>
+                        </a>
+                    </div>
+                ) : (
+                <div>
                 <Client_Spotify_Data
                     analyseTermData={this.analyseTermData}
                     piChartRankings={this.piChartRankings}
                     genreWeighting={this.genreWeighting}
+                    getHashParams={this.getHashParams}
+
                 />
                 <Personal_Spotify_Data
                     analyseTermData={this.analyseTermData}
                     piChartRankings={this.piChartRankings}
                     genreWeighting={this.genreWeighting}
                 />
-
-                {/* <Compared_Spotify_Data
-
-                /> */}
+                </div>
+                )}
             </div>
         );
     }
