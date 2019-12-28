@@ -1,16 +1,39 @@
 import './graph_styling.css';
+import * as $ from 'jquery';
 import React, { Component } from 'react';
 import Client_Spotify_Data from './client_spotify_data';
 import Personal_Spotify_Data from './personal_spotify_data';
+import Comparison from './comparison';
 class Spotify extends Component {
     constructor() {
         super();
         const params = this.getHashParams()
         this.state = {
-            access_token: '',
+            access_token: this.getHashParams().access_token,
             loggedIn: params.access_token ? true : false,
             currentSlide: 'Client',
+            userData: {
+                display_name: ''
+            },
         }
+        this.getPersonalInformation();
+    }
+    getPersonalInformation() {
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me',
+            type: "GET",
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader("Authorization", "Bearer " + this.state.access_token);
+            },
+            success: (data) => {
+                console.log(data)
+                this.setState({userData: data});
+            },
+            error: (XMLHttpRequest, textStatus, errorThrown) => { 
+                console.log("Status: " + textStatus); 
+                console.log("Error: " + errorThrown); 
+            },
+        });
     }
     getHashParams() {
         var hashParams = {};
@@ -89,13 +112,14 @@ class Spotify extends Component {
         return(
             <div>
                 <h1>How Similar Are Our Music Tastes?</h1>
-                
                 {!this.state.loggedIn ? (
                     <div>
                     <h3>Find out if we match!</h3>
+                    <h4>Click the button in order to fetch your long-term listening data for analyis!</h4>
+                    <h5>(This service is follows Spotify's Auth-Flow Guidelines for Security)</h5>
                     <div className='spotify-button-div'>
                         <a className='spotify-button-aref' href='http://localhost:5000/login'>
-                            <img src='/images/spotify_button_image.png' height={50} width={150}/>
+                            <img src='/images/spotify_button_image.png' height={50} width={167}/>
                             <p className='spotify-button-text'>{'Connect & Compare'}</p>
                         </a>
                     </div>
@@ -103,28 +127,32 @@ class Spotify extends Component {
                 ) : (
                 <div>
                     <div>
-                        <button onClick={() => this.setState({currentSlide: 'Client'})} className='slide-button'>YOU</button>
-                        <button onClick={() => this.setState({currentSlide: 'Me'})} className='slide-button'>Gabriel</button>
-                        <button onClick={() => this.setState({currentSlide: 'Both'})} className='slide-button'>Match?</button>
+                        <button onClick={() => this.setState({currentSlide: 'Client'})} 
+                        className='slide-button'>{this.state.userData.display_name}</button>
+                        <button onClick={() => this.setState({currentSlide: 'Me'})} 
+                        className='slide-button'>Gabriel</button>
+                        <button onClick={() => this.setState({currentSlide: 'Both'})} 
+                        className='slide-button'>Match?</button>
                     </div>
                     {this.state.currentSlide === 'Client' &&
-                    <Client_Spotify_Data
-                        analyseTermData={this.analyseTermData}
-                        piChartRankings={this.piChartRankings}
-                        genreWeighting={this.genreWeighting}
-                        getHashParams={this.getHashParams}
-
-                    />
+                        <Client_Spotify_Data
+                            analyseTermData={this.analyseTermData}
+                            piChartRankings={this.piChartRankings}
+                            genreWeighting={this.genreWeighting}
+                            getHashParams={this.getHashParams}
+                        />
                     }
                     {this.state.currentSlide === 'Me' &&
-                    <Personal_Spotify_Data
-                        analyseTermData={this.analyseTermData}
-                        piChartRankings={this.piChartRankings}
-                        genreWeighting={this.genreWeighting}
-                    />
+                        <Personal_Spotify_Data
+                            analyseTermData={this.analyseTermData}
+                            piChartRankings={this.piChartRankings}
+                            genreWeighting={this.genreWeighting}
+                        />
                     }
                     {this.state.currentSlide === 'Both' &&
-                    <h1>Hello</h1>
+                        <Comparison
+
+                        />
                     }
                 </div>
                 )}

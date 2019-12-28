@@ -4,15 +4,15 @@ import './graph_styling.css';
 // http://uber.github.io/react-vis/documentation
 
 class Chart_Constructor extends Component {
-  
     constructor(props) {
       super(props)
       const index = 0;
       this.state= {
         index: index,
         index2: index,
-        artistsWithFocus: props.top_5_artists_images.map((d, i) => ({...d, highlight: 1})),
+        artistsWithFocus: [],
       }
+      this.setState({artistsWithFocus: props.top_5_artists_images.map((d, i) => ({...d, highlight: 0}))})
     }
   render() {
       const data1 = this.props.data1
@@ -37,6 +37,7 @@ class Chart_Constructor extends Component {
     return (
       <div className='my-graphs'>
         <div className='top-5-artists_w_graph'>
+          <div className='graph-and-directions'>
         <XYPlot
           xType="ordinal"
           width={chart_dimension}
@@ -55,12 +56,16 @@ class Chart_Constructor extends Component {
               animation={{damping: 9, stiffness: 300}} 
               getLabel={d => d.y}/>
         </XYPlot>
+        <div>Hover over the graph to show your top 5 artists!</div>
+        </div>
         <div className='my-top-artists'>
           {this.state.artistsWithFocus.map((artist) =>
             <div>
               {!artist.highlight===true ? (
                 <div className={'an-artist'}>
-                  <img className='artist-image' src={artist.images[0].url} alt={''} height={200} width={200}/>
+                  <a href={artist.uri}>
+                    <img className='artist-image' src={artist.images[0].url} alt={''} height={200} width={200}/>
+                  </a>
                 </div>) : (
             <div className='highlighted-title'>{artist.name}</div>)}
           </div>
