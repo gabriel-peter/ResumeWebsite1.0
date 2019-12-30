@@ -1,8 +1,0 @@
-.schools {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-around;
-}
-.school {
-    /* flex-basis: 45%; */
-}

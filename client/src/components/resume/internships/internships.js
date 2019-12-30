@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import './interships.css';
-
+import MapContainer from './google-maps';
 class Interships extends Component {
     constructor(){
         super();
@@ -31,16 +31,12 @@ componentDidMount(){
                         <button className='menu-tab-button' onClick={this.toggleVisibility}>Interships</button>
                         <img className='open-menu-arrow' src='/images/arrow.png' height='20' width='20' alt='arrow'/>
                     </div>
-                    {/* <div className='schools'> 
-                        <div className='school'>
-                            <h2>Northeastern University</h2>
-                            <p>sdoksodksdoksodksdoksdoskdosdosdojsdoj</p>
+                    <div className='map-container'>
+                        <div className='map-info'>
+                            
                         </div>
-                        <div className='school'>
-                            <h2>Harvard-Westlake Highschool</h2>
-                            <p>sdoksodksdoksodksdoksdoskdosdosdojsdoj</p> */}
-                        {/* </div> */}
-                    {/* </div> */}
+                        <MapContainer/>
+                    </div> 
                 </div>
             );
             } else {

@@ -45,7 +45,7 @@ class Spotify extends Component {
         return hashParams;
     }
     genreWeighting (genres) {
-        var categories = ['Pop', 'Rap', 'Country', 'Rock', 'Metal', 'Alternative', 'R&b', 'House'];
+        var categories = ['Pop', 'Jazz', 'Dance', 'Classical', 'Indie', 'Folk', 'Rap', 'Country', 'Rock', 'Metal', 'Alternative', 'R&b', 'House'];
         const weights = [];
         categories.forEach(e => {
             var count = 0;

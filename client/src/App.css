@@ -29,6 +29,10 @@
 .router-link-img {
   padding-right: 15px;
 }
+.footer {
+  float: right;
+  margin-right: 40px;
+}
 .site-body {
   margin: 2%;
 }

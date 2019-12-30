@@ -75,6 +75,11 @@
     justify-content: space-evenly;
     margin-top: 100px;
 }
+.charts-footer {
+    float: right;
+    margin-right: 40px;
+    text-align: right;
+}
 .popularity-analysis {
     display: flex;
     flex-direction: column;

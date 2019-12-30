@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './resume.css';
-import Contacts from './contacts/contacts'
 import Education from './education/education'
 import Interships from './internships/internships'
 import Skills from './skills/skills'
@@ -24,8 +23,7 @@ componentDidMount(){
         return (
             <div>
                 <div className='resume-categories'>
-                    <Contacts/>
-                    <Education/>
+                    {/* <Education/> */}
                     <Interships/>
                     <Skills/>
                 </div>

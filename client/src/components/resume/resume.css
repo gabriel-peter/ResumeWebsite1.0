@@ -6,6 +6,7 @@
 .menu-tab-div {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 .menu-tab-button {
     border: none;
@@ -25,6 +26,30 @@
     transform: rotate(90deg);
 }
 .resume-categories {
-    /* display: flex; */
-    /* flex-direction: row; */
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+.map-container {
+    display: flex;
+    height: 400px;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.map-info {
+    width: 40%;
+    border: 5px solid black;
+    margin-right: 100;
+}
+.skill-category {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+.skill {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
 }
