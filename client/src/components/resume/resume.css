@@ -37,9 +37,14 @@
     justify-content: flex-start;
 }
 .map-info {
-    width: 40%;
-    border: 5px solid black;
-    margin-right: 100;
+    width: 45%;
+    margin-right: 30px;
+    border: 2px solid orange;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: left;
+    padding-left: 30px;
 }
 .skill-category {
     display: flex;
@@ -52,4 +57,20 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
+}
+.location-text {
+    color: gray;
+}
+#hw-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.location-image {
+    margin: 50px;
+}
+.location-body {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }

@@ -6,9 +6,14 @@ class Interships extends Component {
         super();
         this.state = {
             internships: [],
-            visibility: false,
+            visibility: true,
+            name: '',
+            title: '',
+            location: '',
+            body: <div></div>,
         }
         this.toggleVisibility = this.toggleVisibility.bind(this);
+        this.updateLocationPanel = this.updateLocationPanel.bind(this);
     }
     toggleVisibility() {
         this.setState(state => ({
@@ -16,13 +21,14 @@ class Interships extends Component {
     }));
     }
 
-componentDidMount(){
-    // fetch('/api/customer')
-    // .then(res => res.json())
-    // .then(customers => this.setState({customers},
-    //     () => console.log('Customers fetched...', customers)))
-}
-
+    updateLocationPanel(prop, marker) {
+        this.setState({
+            name : prop.name,
+            title: prop.title,
+            location: prop.location,
+            body: prop.body,
+        })
+    }
     render() {
         if (this.state.visibility) {
             return (
@@ -33,9 +39,20 @@ componentDidMount(){
                     </div>
                     <div className='map-container'>
                         <div className='map-info'>
-                            
+                            {this.state.name === '' ? (
+                            <h3>Click a location to learn more about it</h3>
+                            ):(
+                            <div className='location-body'>
+                                <h1>{this.state.name}</h1>
+                                <h4 className='location-text'>{this.state.location}</h4>
+                                <h3>{this.state.title}</h3>
+                                <div>{this.state.body}</div>
+                            </div>
+                            )}   
                         </div>
-                        <MapContainer/>
+                        <MapContainer
+                            updateLocationPanel={this.updateLocationPanel}
+                        />
                     </div> 
                 </div>
             );

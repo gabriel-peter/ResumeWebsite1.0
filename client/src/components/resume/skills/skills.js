@@ -6,24 +6,19 @@ class Skills extends Component {
         super();
         this.state = {
             internships: [],
-            visibility: false,
+            visibility: true,
         }
         this.toggleVisibility = this.toggleVisibility.bind(this);
+        
     }
+    
     toggleVisibility() {
         this.setState(state => ({
         visibility: !state.visibility,
-    }));
+        }));
     }
-
-    componentDidMount(){
-        // fetch('/api/customer')
-        // .then(res => res.json())
-        // .then(customers => this.setState({customers},
-        //     () => console.log('Customers fetched...', customers)))
-    }
-
     render() {
+        const style={paddingTop: 20};
         if (this.state.visibility) {
             return (
                 <div>
@@ -34,18 +29,21 @@ class Skills extends Component {
                     <div className='skill-category'>
                         <div className='skill'>
                             <h4>Frameworks</h4>
-                            <img src={'/logo192.png'} alt={''} height={100}/>
-                            <img src={'/images/nodejs-new-pantone-black.png'} alt={''} height={100}/>
+                            <img src={'/logo192.png'} style={style} alt={''} height={100}/>
+                            <img src={'/images/nodejs-new-pantone-black.png'} style={style} alt={''} height={150}/>
                         </div>
                         <div className='skill'>
                             <h4>Languages</h4>
                             <img src={'https://www.python.org/static/community_logos/python-logo-generic.svg'} alt={''} height={100} />
-                            <img src={'/images/js-logo.png'} alt={''} width={100} height={100} />
-                            <img src={'/images/cpp_logo.png'} alt={''} width={100} height={100} />
+                            <img src={'/images/js-logo.png'} style={style} alt={''} width={100} height={100} />
+                            <img src={'/images/cpp_logo.png'} style={style} alt={''} width={100} height={100} />
+                            <img src={'/images/swift.png'} style={style} alt={''} height={150} />
                         </div>
                         <div className='skill'>
                             <h4>Hardware</h4>
-                            <img src={'/images/3DS_BRAND_ICONS_RGB_SOLIDWORKS.png'} alt={''} height={150}/>
+                            <img src={'/images/3DS_BRAND_ICONS_RGB_SOLIDWORKS.png'} style={style} alt={''} height={150}/>
+                            <img src={'/images/autocad.png'} style={style} alt={''} height={50}/>
+                            <img src={'/images/arduino.png'} style={style} alt={''} height={125}/>
                         </div>
                     </div>
                 </div>
