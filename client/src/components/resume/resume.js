@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './resume.css';
-import Education from './education/education'
 import Interships from './internships/internships'
 import Skills from './skills/skills'
 

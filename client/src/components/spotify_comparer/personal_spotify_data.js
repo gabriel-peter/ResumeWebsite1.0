@@ -1,10 +1,10 @@
 import './graph_styling.css';
 import React, { Component } from 'react';
 import * as $ from "jquery";
-import Chart_Constructor from './chart_constructor';
+import ChartConstructor from './chart_constructor';
 class Personal_Spotify_Data extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         const access_token ='BQD7brPt2c3ENXb-WkF0X1a0IlM7HeFUrIRiay7TPRAd-2ekyVjltCLNLJTiS_eU6RBYFhCxZWq7qRwVMPWWLwYu-fEbE1A9HQeqzzqwQUHbFGG_OU3iF2Gkrt8B6jLb-mYIxtCKlKjXLD5DlRnQyVDSvIZ9L83VMm30TuZcDeU'
         const refresh_token = 'AQAoiRmHjuYjbQz51gEUXjL98e_PlSwPcGonvYfxS6oOs7tHhakvYvWhohZNwrNMx1k4OnIdyeKBg77UL9w9xpmQC0MpAZ92uHpzobO0pFNaADhU9eKHzeg8OtmNatvoY84';
         // https://developer.spotify.com/documentation/general/guides/authorization-guide/
@@ -12,10 +12,11 @@ class Personal_Spotify_Data extends Component {
             access_token: access_token,
             refresh_token: refresh_token,
             loggedIn: access_token ? true : false,
+            timeFrame: props.timeFrame,
             spotify_data: {
                 top_artists: [{'x': 0, 'y': 0}],
                 genre_weights: [{'x': 0, 'y': 'Undef'}],
-                top_5_artists_graph: [{'x': 'Undef', 'y': 0}],
+                top_5_artists_graph: [{'x': 'Undef', 'y': 0,}],
                 top_5_artists_images: [{'name': '', 'images': [{'url': ''}]}],
                 top_artists_popularity: [{'x': 0, 'y': 0}],
                 popularity_list: [{'x': 0, 'y': 0}], 
@@ -25,6 +26,8 @@ class Personal_Spotify_Data extends Component {
                 radialRankings: [{'angle': 360}], 
             }
         }
+    }
+    componentDidMount() {
         this.refreshToken();
     }
     refreshToken() {
@@ -44,7 +47,7 @@ class Personal_Spotify_Data extends Component {
     }
     getTopArtists() {
         $.ajax({
-            url: 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50&offset=0',
+            url: `https://api.spotify.com/v1/me/top/artists?time_range=${this.props.timeFrame}&limit=50&offset=0`,
             type: "GET",
             beforeSend: (xhr) => {
                 xhr.setRequestHeader("Authorization", "Bearer " + this.state.access_token);
@@ -61,9 +64,10 @@ class Personal_Spotify_Data extends Component {
     }
     render() {
         return (
-            <div>
+            <div className='spotify-components'>
                 <h2>I Like:</h2>
-                <Chart_Constructor
+                <ChartConstructor
+                    owner='me'
                     average_artist_rank={this.state.spotify_data.average_artist_rank}
                     top_5_artists_images={this.state.spotify_data.top_5_artists_images}
                     data1={this.state.spotify_data.radialRankings} 

@@ -28,20 +28,20 @@ class Skills extends Component {
                     </div>
                     <div className='skill-category'>
                         <div className='skill'>
-                            <h4>Frameworks</h4>
+                            <h2>Frameworks</h2>
                             <img src={'/logo192.png'} style={style} alt={''} height={100}/>
                             <img src={'/images/nodejs-new-pantone-black.png'} style={style} alt={''} height={150}/>
                             <img src={'/images/flask.png'} style={style} alt={''} height={150}/>
                         </div>
                         <div className='skill'>
-                            <h4>Languages</h4>
+                            <h2>Languages</h2>
                             <img src={'https://www.python.org/static/community_logos/python-logo-generic.svg'} alt={''} height={100} />
                             <img src={'/images/js-logo.png'} style={style} alt={''} width={100} height={100} />
                             <img src={'/images/cpp_logo.png'} style={style} alt={''} width={100} height={100} />
                             <img src={'/images/swift.png'} style={style} alt={''} height={150} />
                         </div>
                         <div className='skill'>
-                            <h4>Hardware</h4>
+                            <h2>Hardware</h2>
                             <img src={'/images/3DS_BRAND_ICONS_RGB_SOLIDWORKS.png'} style={style} alt={''} height={150}/>
                             <img src={'/images/autocad.png'} style={style} alt={''} height={50}/>
                             <img src={'/images/arduino.png'} style={style} alt={''} height={125}/>

@@ -11,9 +11,12 @@ class Chart_Constructor extends Component {
         index: index,
         index2: index,
         artistsWithFocus: [],
+        owner: props.owner,
       }
-      this.setState({artistsWithFocus: props.top_5_artists_images.map((d, i) => ({...d, highlight: 0}))})
     }
+  componentDidMount() {
+    this.setState({artistsWithFocus: this.props.top_5_artists_images.map((d, i) => ({...d, highlight: 0}))})
+  }
   render() {
       const data1 = this.props.data1
       const data2 = this.props.data2
@@ -53,14 +56,13 @@ class Chart_Constructor extends Component {
           <LabelSeries 
               data={labelData}
               allowOffsetToBeReversed
-              animation={{damping: 9, stiffness: 300}} 
               getLabel={d => d.y}/>
         </XYPlot>
-        <div>Hover over the graph to show your top 5 artists!</div>
+        <div>Hover over the graph to show {this.state.owner === 'you' ? ('your'):('my')} top 5 artists!</div>
         </div>
         <div className='my-top-artists'>
           {this.state.artistsWithFocus.map((artist) =>
-            <div>
+            <div key={artist.name}>
               {!artist.highlight===true ? (
                 <div className={'an-artist'}>
                   <a href={artist.uri}>
@@ -83,7 +85,7 @@ class Chart_Constructor extends Component {
             showLabels={true}
             /> 
           <div className='average-popularity'>
-            <div>Your favorite artists averaged around:</div>
+            <div>{this.state.owner === 'you' ? ('Your'):('My')} favorite artists averaged around:</div>
             <div className='big-number'>{this.props.average_artist_rank}/100</div>
             <div>in their overall popularity score!</div>
           </div>
@@ -110,7 +112,7 @@ class Chart_Constructor extends Component {
           <VerticalGridLines />
           <HorizontalGridLines />
         </XYPlot>
-            <div>Your music primarly consists of:
+            <div>{this.state.owner === 'you' ? ('Your'):('My')} music primarly consists of:
               <div className='big-number'>{genre_max['y']}</div>
               </div>
         </div>

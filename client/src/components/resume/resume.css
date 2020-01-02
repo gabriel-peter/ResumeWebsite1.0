@@ -35,10 +35,11 @@
     height: 400px;
     flex-direction: row;
     justify-content: flex-start;
-    align-content: center;
+    /* align-content: center; */
 }
 .map-info {
     width: 45%;
+    border-radius: 3%;
     margin-right: 30px;
     border: 2px solid orange;
     padding-left: 30px;
@@ -46,7 +47,7 @@
 .map-info-items {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-evenly;
 }
 .map-hint {
@@ -85,9 +86,11 @@
 }
 .location-image {
     margin: 25px;
+    border-radius: 20%;
 }
-.location-body {
-    /* display: flex;
-    flex-direction: column;
-    align-content: center; */
+.big-name {
+    font-size: 2vw;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 20px 20px 20px 0px;
 }

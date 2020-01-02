@@ -2,8 +2,9 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import React, {Component} from 'react';
 // https://www.npmjs.com/package/google-maps-react#sample-usage-with-lazy-loading-google-api
 const style = {
-    display: 'flex',
-    flexDirection: 'row',
+    // display: 'flex',
+    // flexDirection: 'row',
+    borderRadius: '3%',
     width: '45%',
     height: '400px',
 }
@@ -38,7 +39,7 @@ const neuBody=
     <p>Main Activities</p>
     <ul>
         <li>Front-End Engineer for Non-Profit 'Code 4 Community'</li>
-        <li><a href=''>
+        <li><a href='http://www.ieee.neu.edu/'>
             E-Board IEEE Member</a></li>
         <li>Cloud Computing Research</li>
         <li>ITS CTx Employee</li>
@@ -81,7 +82,7 @@ export class MapContainer extends Component {
     return (
       <Map 
         google={google} 
-        zoom={3}
+        zoom={3.5}
         initialCenter={{
             lat: 39.8283,
             lng: -98.5795
@@ -107,6 +108,7 @@ export class MapContainer extends Component {
             title={"3-month BioMedical Internship at "}
             name={'University of Southern California'}
             location={"Viterbi's Armani Labs, Los Angeles, CA"}
+            images={'/images/salmon.JPG'}
             position={{lat: 34.0224, lng: -118.2851}} 
             icon={{
                 url: "/images/usc.png",
@@ -133,7 +135,7 @@ export class MapContainer extends Component {
             title={'Graduated June 2018'}
             name={'Harvard-Westlake High School'}
             location={'Studio City, CA'}
-            images={'/images/jazz.png'}
+            images={'/images/jazz.jpg'}
             body={hwBody}
             position={{lat: 34.0887, lng: -118.4340}} 
             icon={{

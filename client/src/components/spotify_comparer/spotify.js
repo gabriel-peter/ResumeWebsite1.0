@@ -1,8 +1,8 @@
 import './graph_styling.css';
 import * as $ from 'jquery';
 import React, { Component } from 'react';
-import Client_Spotify_Data from './client_spotify_data';
-import Personal_Spotify_Data from './personal_spotify_data';
+import ClientSpotifyData from './client_spotify_data';
+import PersonalSpotifyData from './personal_spotify_data';
 import Comparison from './comparison';
 class Spotify extends Component {
     constructor() {
@@ -15,8 +15,14 @@ class Spotify extends Component {
             userData: {
                 display_name: ''
             },
+            timeFrame: 'long_term',
         }
-        this.getPersonalInformation();
+        this.handleTimeFrameChange = this.handleTimeFrameChange.bind(this);
+    }
+    componentDidMount() {
+        if(this.state.loggedIn) {
+            this.getPersonalInformation();
+        }
     }
     getPersonalInformation() {
         $.ajax({
@@ -26,7 +32,6 @@ class Spotify extends Component {
                 xhr.setRequestHeader("Authorization", "Bearer " + this.state.access_token);
             },
             success: (data) => {
-                console.log(data)
                 this.setState({userData: data});
             },
             error: (XMLHttpRequest, textStatus, errorThrown) => { 
@@ -39,7 +44,8 @@ class Spotify extends Component {
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
             q = window.location.hash.substring(1);
-        while ( e = r.exec(q)) {
+        // eslint-disable-next-line
+        while (e = r.exec(q)) {
         hashParams[e[1]] = decodeURIComponent(e[2]);
         }
         return hashParams;
@@ -76,7 +82,7 @@ class Spotify extends Component {
         var formattedResult = [];
         for (var i = 0; i <= values.length -1; i++) {
             if(values[i] !== 0) {
-                formattedResult.push({'angle': values[i],'subLabel': values[i] + '%', 'label': 10*i, 'radius': i/2+5 })
+                formattedResult.push({'angle': values[i],'subLabel': values[i].toString(10) + '%', 'label': (10*i).toString(10), 'radius': i/2+5 })
             }
         }
         return formattedResult;
@@ -108,6 +114,10 @@ class Spotify extends Component {
         }
         return spotify_data;
     }
+    handleTimeFrameChange(event) {
+        this.setState({timeFrame: event.target.value});
+        this.forceUpdate()
+      }
     render() {
         return(
             <div>
@@ -119,7 +129,7 @@ class Spotify extends Component {
                     <h5>(This service follows Spotify's <a href='https://developer.spotify.com/documentation/general/guides/authorization-guide/'>Auth-Flow Guidelines</a>)</h5>
                     <div className='spotify-button-div'>
                         <a className='spotify-button-aref' href='http://localhost:5000/login'>
-                            <img src='/images/spotify_button_image.png' height={50} width={167}/>
+                            <img src='/images/spotify_button_image.png' alt={''} height={50} width={167}/>
                             <p className='spotify-button-text'>{'Connect & Compare'}</p>
                         </a>
                     </div>
@@ -131,11 +141,22 @@ class Spotify extends Component {
                         className='slide-button'>{this.state.userData.display_name}</button>
                         <button onClick={() => this.setState({currentSlide: 'Me'})} 
                         className='slide-button'>Gabriel</button>
-                        <button onClick={() => this.setState({currentSlide: 'Both'})} 
-                        className='slide-button'>Match?</button>
+                        {/* <button onClick={() => this.setState({currentSlide: 'Both'})} 
+                        className='slide-button'>Match?</button> */}
+                        <div>
+                        <label>
+                        Pick your time-frame:
+                        <select value={this.state.timeFrame} onChange={this.handleTimeFrameChange}>
+                            <option value="long_term">Long Term</option>
+                            <option value="medium_term">Medium Term</option>
+                            <option value="short_term">Short Term</option>
+                        </select>
+                        </label>
+                        </div>
                     </div>
                     {this.state.currentSlide === 'Client' &&
-                        <Client_Spotify_Data
+                        <ClientSpotifyData
+                            timeFrame={this.state.timeFrame}
                             analyseTermData={this.analyseTermData}
                             piChartRankings={this.piChartRankings}
                             genreWeighting={this.genreWeighting}
@@ -143,7 +164,8 @@ class Spotify extends Component {
                         />
                     }
                     {this.state.currentSlide === 'Me' &&
-                        <Personal_Spotify_Data
+                        <PersonalSpotifyData
+                            timeFrame={this.state.timeFrame}
                             analyseTermData={this.analyseTermData}
                             piChartRankings={this.piChartRankings}
                             genreWeighting={this.genreWeighting}

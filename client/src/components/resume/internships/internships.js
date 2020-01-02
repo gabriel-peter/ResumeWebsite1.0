@@ -45,11 +45,11 @@ class WorkExperience extends Component {
                             <div className='big-number map-hint'>Click a location to learn more about it</div>
                             ):(
                             <div>
-                            <h1>{this.state.name}</h1>
+                            <div className='big-name'>{this.state.name}</div>
                             <div className='map-info-items'>
-                                <div className='location-body'>   
-                                <h4 className='location-text'>{this.state.location}</h4>
-                                <h3>{this.state.title}</h3>
+                                <div>   
+                                <div className='location-text'>{this.state.location}</div>
+                                <div>{this.state.title}</div>
                                 <div>{this.state.body}</div>
                                 </div>
                                 <img className='location-image' src={this.state.images} alt={''} width={200} height={200}/>

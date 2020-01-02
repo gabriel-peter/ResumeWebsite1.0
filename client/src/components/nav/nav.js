@@ -1,11 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { FlexibleHeightXYPlot } from 'react-vis/dist/make-vis-flexible';
-
 function Nav() {
   return (
     <nav className='App-header Router-link'>
-      <img src='/images/websiteIcon.png' height='64' width='64'/>
+      <img src='/images/websiteIcon.png' alt='' height='64' width='64'/>
       <h1>Gabriel Peter</h1>
       <ul className='nav-links'>
           <Link to='/' className='Router-link'>
