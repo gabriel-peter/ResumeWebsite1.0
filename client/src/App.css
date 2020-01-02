@@ -19,7 +19,7 @@
   align-items: center;
 }
 .nav-links {
-  flex-basis: 50%;
+  flex-basis: 65%;
   display: flex;
   justify-content: space-around;
   align-items: left;

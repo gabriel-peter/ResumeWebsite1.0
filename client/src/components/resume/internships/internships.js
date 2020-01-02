@@ -44,14 +44,16 @@ class WorkExperience extends Component {
                             {this.state.name === '' ? (
                             <div className='big-number map-hint'>Click a location to learn more about it</div>
                             ):(
+                            <div>
+                            <h1>{this.state.name}</h1>
                             <div className='map-info-items'>
-                                <div className='location-body'>
-                                <h1>{this.state.name}</h1>
+                                <div className='location-body'>   
                                 <h4 className='location-text'>{this.state.location}</h4>
                                 <h3>{this.state.title}</h3>
                                 <div>{this.state.body}</div>
                                 </div>
-                                <img src={this.state.images} alt={''} width={200} height={200}/>
+                                <img className='location-image' src={this.state.images} alt={''} width={200} height={200}/>
+                            </div>
                             </div>
                             )}   
                         </div>
@@ -64,7 +66,7 @@ class WorkExperience extends Component {
             } else {
               return (
                 <div className='menu-tab-div'>
-                    <button className='menu-tab-button' onClick={this.toggleVisibility}>Interships</button>
+                    <button className='menu-tab-button' onClick={this.toggleVisibility}>Important Locations</button>
                     <img src='/images/arrow.png' height='20' width='20' alt='arrow'/>
                 </div>
               );

@@ -114,9 +114,9 @@ class Spotify extends Component {
                 <h1>How Similar Are Our Music Tastes?</h1>
                 {!this.state.loggedIn ? (
                     <div>
-                    <h3>Find out if we match!</h3>
-                    <h4>Click the button in order to fetch your long-term listening data for analyis!</h4>
-                    <h5>(This service is follows Spotify's Auth-Flow Guidelines for Security)</h5>
+                    <h3>Find out if our libraries match!</h3>
+                    <h3>Click the button in order to fetch your long-term listening data for analysis!</h3>
+                    <h5>(This service follows Spotify's <a href='https://developer.spotify.com/documentation/general/guides/authorization-guide/'>Auth-Flow Guidelines</a>)</h5>
                     <div className='spotify-button-div'>
                         <a className='spotify-button-aref' href='http://localhost:5000/login'>
                             <img src='/images/spotify_button_image.png' height={50} width={167}/>

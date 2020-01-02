@@ -30,11 +30,10 @@ const vlBody=
         <li>Arduino Developement - Both Hardware/Software</li>
     </ul>
     </div>
-    <img className='locaton-image' src={'/images/'} height={100} width={100} />
 </div>;
 
 const neuBody=
-<div>
+<div id='neu-body'>
     <div>
     <p>Main Activities</p>
     <ul>
@@ -45,7 +44,6 @@ const neuBody=
         <li>ITS CTx Employee</li>
     </ul>
     </div>
-    <img src={'/images/'} height={100} width={100} />
 </div>;
 
 export class MapContainer extends Component {
@@ -92,9 +90,10 @@ export class MapContainer extends Component {
         >
         <Marker
             onClick={this.onMarkerHover}
-            title={'3-month Software Engineering Internship'}
+            title={'3-month Internship'}
             location={'Menlo Park, CA'}
             body={vlBody}
+            images={'/images/arduino-vl.png'}
             name={'Visual Labs Inc.'}
             position={{lat: 37.4528649, lng: -122.1829978}} 
             icon={{
@@ -105,9 +104,9 @@ export class MapContainer extends Component {
         />
         <Marker
             onClick={this.onMarkerHover}
-            title={"3-month BioMedical Internship at Viterbi's Armani Labs"}
+            title={"3-month BioMedical Internship at "}
             name={'University of Southern California'}
-            location={'Los Angeles, CA'}
+            location={"Viterbi's Armani Labs, Los Angeles, CA"}
             position={{lat: 34.0224, lng: -118.2851}} 
             icon={{
                 url: "/images/usc.png",
@@ -117,10 +116,10 @@ export class MapContainer extends Component {
         />
         <Marker
             onClick={this.onMarkerHover}
-            title={'Computer Engineering Major. Class of 2022'}
+            title={'Computer Engineering Major'}
             name={'Northeastern University'}
             body={neuBody}
-            images={'/images/hw.png'}
+            images={'/images/rise.png'}
             location={'Boston, MA'}
             position={{lat: 42.3398, lng: -71.0892}} 
             icon={{
@@ -134,6 +133,7 @@ export class MapContainer extends Component {
             title={'Graduated June 2018'}
             name={'Harvard-Westlake High School'}
             location={'Studio City, CA'}
+            images={'/images/jazz.png'}
             body={hwBody}
             position={{lat: 34.0887, lng: -118.4340}} 
             icon={{

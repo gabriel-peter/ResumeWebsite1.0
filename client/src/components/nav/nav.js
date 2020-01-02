@@ -15,9 +15,9 @@ function Nav() {
             <img className='router-link-img' src={'/images/spotify.png'} alt={''} height={26}/>
             <li>Spotify Compatibility</li>
           </Link>
-          <Link to='/something' className='Router-link'>
+          {/* <Link to='/something' className='Router-link'>
             <li>Misc</li>
-          </Link>
+          </Link> */}
           <a href='https://github.com/gabriel-peter'>
             <li><img src={'/images/github.png'} alt={''} height={40} width={40}/></li>
           </a>

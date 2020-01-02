@@ -31,6 +31,7 @@ class Skills extends Component {
                             <h4>Frameworks</h4>
                             <img src={'/logo192.png'} style={style} alt={''} height={100}/>
                             <img src={'/images/nodejs-new-pantone-black.png'} style={style} alt={''} height={150}/>
+                            <img src={'/images/flask.png'} style={style} alt={''} height={150}/>
                         </div>
                         <div className='skill'>
                             <h4>Languages</h4>

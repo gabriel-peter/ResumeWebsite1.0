@@ -78,8 +78,13 @@
     flex-direction: row;
     justify-content: space-evenly;
 }
+#neu-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
 .location-image {
-    margin: 50px;
+    margin: 25px;
 }
 .location-body {
     /* display: flex;
