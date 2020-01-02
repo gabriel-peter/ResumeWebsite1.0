@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import './interships.css';
 import MapContainer from './google-maps';
-class Interships extends Component {
+
+class WorkExperience extends Component {
     constructor(){
         super();
         this.state = {
@@ -10,6 +10,7 @@ class Interships extends Component {
             name: '',
             title: '',
             location: '',
+            images: '',
             body: <div></div>,
         }
         this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -27,6 +28,7 @@ class Interships extends Component {
             title: prop.title,
             location: prop.location,
             body: prop.body,
+            images: prop.images,
         })
     }
     render() {
@@ -34,19 +36,22 @@ class Interships extends Component {
             return (
                 <div>
                     <div className='menu-tab-div'>
-                        <button className='menu-tab-button' onClick={this.toggleVisibility}>Interships</button>
+                        <button className='menu-tab-button' onClick={this.toggleVisibility}>Important Locations</button>
                         <img className='open-menu-arrow' src='/images/arrow.png' height='20' width='20' alt='arrow'/>
                     </div>
                     <div className='map-container'>
                         <div className='map-info'>
                             {this.state.name === '' ? (
-                            <h3>Click a location to learn more about it</h3>
+                            <div className='big-number map-hint'>Click a location to learn more about it</div>
                             ):(
-                            <div className='location-body'>
+                            <div className='map-info-items'>
+                                <div className='location-body'>
                                 <h1>{this.state.name}</h1>
                                 <h4 className='location-text'>{this.state.location}</h4>
                                 <h3>{this.state.title}</h3>
                                 <div>{this.state.body}</div>
+                                </div>
+                                <img src={this.state.images} alt={''} width={200} height={200}/>
                             </div>
                             )}   
                         </div>
@@ -67,4 +72,4 @@ class Interships extends Component {
     }
 }
 
-export default Interships;
+export default WorkExperience;

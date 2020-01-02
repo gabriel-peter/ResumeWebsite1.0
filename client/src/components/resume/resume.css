@@ -35,16 +35,23 @@
     height: 400px;
     flex-direction: row;
     justify-content: flex-start;
+    align-content: center;
 }
 .map-info {
     width: 45%;
     margin-right: 30px;
     border: 2px solid orange;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    text-align: left;
     padding-left: 30px;
+}
+.map-info-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.map-hint {
+    opacity: 0.6;
+    margin-top: 150px;
 }
 .skill-category {
     display: flex;
@@ -66,11 +73,16 @@
     flex-direction: row;
     justify-content: flex-start;
 }
+#vl-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
 .location-image {
     margin: 50px;
 }
 .location-body {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-content: center;
+    align-content: center; */
 }

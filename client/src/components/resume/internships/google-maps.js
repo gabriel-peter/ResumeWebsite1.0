@@ -1,8 +1,10 @@
-import {Map, InfoWindow, Marker, Polyline, GoogleApiWrapper} from 'google-maps-react';
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import React, {Component} from 'react';
 // https://www.npmjs.com/package/google-maps-react#sample-usage-with-lazy-loading-google-api
 const style = {
-    width: '600px',
+    display: 'flex',
+    flexDirection: 'row',
+    width: '45%',
     height: '400px',
 }
 
@@ -16,7 +18,6 @@ const hwBody=
             <li>Jazz Band</li>
         </ul>
         </div>
-        <img className='locaton-image' src={'/images/'} height={100} width={100} />
     </div>;
 
 const vlBody=
@@ -119,6 +120,7 @@ export class MapContainer extends Component {
             title={'Computer Engineering Major. Class of 2022'}
             name={'Northeastern University'}
             body={neuBody}
+            images={'/images/hw.png'}
             location={'Boston, MA'}
             position={{lat: 42.3398, lng: -71.0892}} 
             icon={{
