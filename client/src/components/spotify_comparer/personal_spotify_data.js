@@ -12,7 +12,6 @@ class Personal_Spotify_Data extends Component {
             access_token: access_token,
             refresh_token: refresh_token,
             loggedIn: access_token ? true : false,
-            timeFrame: props.timeFrame,
             spotify_data: {
                 top_artists: [{'x': 0, 'y': 0}],
                 genre_weights: [{'x': 0, 'y': 'Undef'}],

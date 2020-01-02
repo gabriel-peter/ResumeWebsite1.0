@@ -7,14 +7,8 @@ import ChartConstructor from './chart_constructor';
 class Spotify_Previewer extends Component {
     constructor(props){
         super(props);
-        if (window.performance) {
-            if (performance.navigation.type === 1) {
-                window.location.replace('http://localhost:5000/login');
-            }
-          }
         this.state = {
             access_token: this.props.getHashParams().access_token,
-            timeFrame: props.timeFrame,
             spotify_data: {
                 top_artists: [{'x': 0, 'y': 0}],
                 genre_weights: [{'x': 0, 'y': 'Undef'}],
@@ -28,7 +22,6 @@ class Spotify_Previewer extends Component {
                 radialRankings: [{'angle': 360}],  
             }
         }
-        console.log(this.state.timeFrame)
     }
     componentDidMount() {
         this.getTopArtists(this.state.access_token);

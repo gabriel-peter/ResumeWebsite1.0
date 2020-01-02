@@ -7,6 +7,11 @@ import Comparison from './comparison';
 class Spotify extends Component {
     constructor() {
         super();
+        // if (window.performance) {
+        //     if (performance.navigation.type === 1) {
+        //         window.location.replace('http://localhost:5000/login');
+        //     }
+        //   }
         const params = this.getHashParams()
         this.state = {
             access_token: this.getHashParams().access_token,
@@ -115,8 +120,8 @@ class Spotify extends Component {
         return spotify_data;
     }
     handleTimeFrameChange(event) {
-        this.setState({timeFrame: event.target.value});
-        this.forceUpdate()
+        const savedSlide = this.state.currentSlide
+        this.setState({timeFrame: event.target.value, currentSlide: 'Both'}, () => this.setState({currentSlide: savedSlide}))
       }
     render() {
         return(
@@ -145,7 +150,7 @@ class Spotify extends Component {
                         className='slide-button'>Match?</button> */}
                         <div>
                         <label>
-                        Pick your time-frame:
+                        Pick your time-frame: 
                         <select value={this.state.timeFrame} onChange={this.handleTimeFrameChange}>
                             <option value="long_term">Long Term</option>
                             <option value="medium_term">Medium Term</option>
