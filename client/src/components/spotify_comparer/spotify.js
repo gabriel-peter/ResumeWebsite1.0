@@ -151,10 +151,10 @@ class Spotify extends Component {
                         <div>
                         <label>
                         Pick your time-frame: 
-                        <select value={this.state.timeFrame} onChange={this.handleTimeFrameChange}>
-                            <option value="long_term">Long Term</option>
-                            <option value="medium_term">Medium Term</option>
-                            <option value="short_term">Short Term</option>
+                        <select id='time-menu' value={this.state.timeFrame} onChange={this.handleTimeFrameChange}>
+                            <option value="long_term">Long Term (All Data)</option>
+                            <option value="medium_term">Medium Term (Past 6 Months)</option>
+                            <option value="short_term">Short Term (Past 4 Weeks)</option>
                         </select>
                         </label>
                         </div>

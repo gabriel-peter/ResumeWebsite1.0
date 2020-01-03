@@ -14,9 +14,9 @@ class Chart_Constructor extends Component {
         owner: props.owner,
       }
     }
-  componentDidMount() {
-    this.setState({artistsWithFocus: this.props.top_5_artists_images.map((d, i) => ({...d, highlight: 0}))})
-  }
+  // componentDidMount() {
+  //   this.setState({artistsWithFocus: this.props.top_5_artists_images.map((d, i) => ({...d, highlight: 0}))})
+  // }
   render() {
       const data1 = this.props.data1
       const data2 = this.props.data2
@@ -46,22 +46,22 @@ class Chart_Constructor extends Component {
           width={chart_dimension}
           height={chart_dimension}
           // https://codesandbox.io/s/bar-series-that-change-colors-on-mouseover-d9zh8
-          onMouseLeave={() => this.setState({ index: null, artistsWithFocus: this.props.top_5_artists_images })}
+          onMouseLeave={() => this.setState({ index: null })}
         >
           <VerticalBarSeries
             data={dataWithColor}    
             animation={{damping: 9, stiffness: 300}}    
-            onNearestX={(d, { index }) => this.setState({ index, artistsWithFocus })}
+            onNearestX={(d, { index }) => this.setState({ index })}
           />
           <LabelSeries 
               data={labelData}
               allowOffsetToBeReversed
               getLabel={d => d.y}/>
         </XYPlot>
-        <div>Hover over the graph to show {this.state.owner === 'you' ? ('your'):('my')} top 5 artists!</div>
+        <div>Hover over the graph to show {this.state.owner === 'you' ? ('your'):('my')} top 5 artists' popularity!</div>
         </div>
         <div className='my-top-artists'>
-          {this.state.artistsWithFocus.map((artist) =>
+          {artistsWithFocus.map((artist) =>
             <div key={artist.name}>
               {!artist.highlight===true ? (
                 <div className={'an-artist'}>

@@ -28,6 +28,8 @@
 
 .highlighted-title {
     width: 200px;
+    margin-left: 15px;
+    margin-right: 15px;
     font-weight: bold;
     font-family: sans-serif;
     text-align: center;
@@ -65,11 +67,9 @@
 .artist-image {
     border-radius: 50%;
     opacity: 1;
-    border: 5px solid white;
 }
 .artist-image:hover {
     opacity: 0.5;
-    border: 5px solid black;
 }
 .secondary-analysis {
     display: flex;
@@ -113,6 +113,15 @@
   font-size: 16px;
   margin: 10px;
   border-style: double;
+}
+#time-menu {
+    position: relative;
+    font-family: Arial;
+    background-color: #84a7ee;
+    height: 30px;
+    font-size: 18px;
+    margin-left: 15px;
+    color: white;
 }
 .big-number {
     font-size: 48px;
