@@ -42,7 +42,7 @@ class WorkExperience extends Component {
                     <div className='map-container'>
                         <div className='map-info'>
                             {this.state.name === '' ? (
-                            <div className='big-number map-hint'>Click a location to learn more about it</div>
+                            <div className='map-hint'>Click a location to learn more about it</div>
                             ):(
                             <div>
                             <div className='big-name'>{this.state.name}</div>

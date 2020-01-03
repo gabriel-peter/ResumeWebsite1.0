@@ -14,9 +14,10 @@ const hwBody=
         <div>
         <p>Main Activities</p>
         <ul>
-            <li>Jazz Band</li>
+            <li>Internationally-Touring Jazz Band</li>
             <li>Lacrosse</li>
-            <li>Jazz Band</li>
+            <li>Student Ambassador Co-Chair</li>
+            <li>Science Bowl and Robotics Team Members</li>
         </ul>
         </div>
     </div>;
@@ -27,8 +28,20 @@ const vlBody=
     <p>Main Activities</p>
     <ul>
         <li>Vanilla Front-End, Flask (Python) Backend</li>
-        <li>Android Development</li>
-        <li>Arduino Developement - Both Hardware/Software</li>
+        <li>Android Development (Java)</li>
+        <li>Arduino Developement - Both Hardware/Software (C++)</li>
+    </ul>
+    </div>
+</div>;
+
+const uscBody=
+<div id='usc-body'>
+    <div>
+    <p>Main Activities</p>
+    <ul>
+        <li>MATLAB Data Processing</li>
+        <li>Bio-mechanics study on Salmon Tissue (Wild vs. Farmed)</li>
+        <li>Laser Laboratory Assistant</li>
     </ul>
     </div>
 </div>;
@@ -38,10 +51,11 @@ const neuBody=
     <div>
     <p>Main Activities</p>
     <ul>
-        <li>Front-End Engineer for Non-Profit 'Code 4 Community'</li>
+        <li><a href='https://www.khoury.northeastern.edu/current-students/undergraduate/student-groups-and-organizations/code-4-community/'>
+            Front-End Engineer for Non-Profit 'Code 4 Community'</a></li>
         <li><a href='http://www.ieee.neu.edu/'>
             E-Board IEEE Member</a></li>
-        <li>Cloud Computing Research</li>
+        <li><a href='https://www.northeastern.edu/rise/awards/'>Cloud Computing Research</a></li>
         <li>ITS CTx Employee</li>
     </ul>
     </div>
@@ -108,6 +122,7 @@ export class MapContainer extends Component {
             title={"3-month BioMedical Internship at "}
             name={'University of Southern California'}
             location={"Viterbi's Armani Labs, Los Angeles, CA"}
+            body={uscBody}
             images={'/images/salmon.JPG'}
             position={{lat: 34.0224, lng: -118.2851}} 
             icon={{

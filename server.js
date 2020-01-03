@@ -153,7 +153,7 @@ if (state === null || state !== storedState) {
             refresh_token: refresh_token
           }));
       } else {
-        res.redirect('/#' +
+        res.redirect('http://localhost:3000/spotify/#' +
           querystring.stringify({
             error: 'invalid_token'
           }));

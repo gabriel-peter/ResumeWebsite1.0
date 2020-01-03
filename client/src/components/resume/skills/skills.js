@@ -8,10 +8,8 @@ class Skills extends Component {
             internships: [],
             visibility: true,
         }
-        this.toggleVisibility = this.toggleVisibility.bind(this);
-        
+        this.toggleVisibility = this.toggleVisibility.bind(this);   
     }
-    
     toggleVisibility() {
         this.setState(state => ({
         visibility: !state.visibility,
