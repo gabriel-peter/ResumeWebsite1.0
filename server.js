@@ -3,6 +3,10 @@ const app = express();
 const port = 5000;
 const cors = require('cors');
 app.use(cors());
+
+const access_token ='BQD7brPt2c3ENXb-WkF0X1a0IlM7HeFUrIRiay7TPRAd-2ekyVjltCLNLJTiS_eU6RBYFhCxZWq7qRwVMPWWLwYu-fEbE1A9HQeqzzqwQUHbFGG_OU3iF2Gkrt8B6jLb-mYIxtCKlKjXLD5DlRnQyVDSvIZ9L83VMm30TuZcDeU'
+const refresh_token = 'AQAoiRmHjuYjbQz51gEUXjL98e_PlSwPcGonvYfxS6oOs7tHhakvYvWhohZNwrNMx1k4OnIdyeKBg77UL9w9xpmQC0MpAZ92uHpzobO0pFNaADhU9eKHzeg8OtmNatvoY84';
+        
 // const mysql = require('mysql');
 // const SELECT_ALL = "SELECT * FROM customer";
 // const connection = mysql.createConnection({
@@ -48,6 +52,14 @@ app.get('/api/contact', (req, res) => {
         {id: 4, name: 'Github', img_src: '/images/github.png', link: 'https://github.com/gabriel-peter', content: '/gabriel-peter' },
     ];
     res.json(contacts);
+});
+
+app.get('/api/personal-token', (req, res) => {
+    res.json({'access_token': access_token, 'refresh_token': refresh_token})
+});
+
+app.get('/api/map-key', (req, res) => {
+  res.json({'key': 'AIzaSyB4ZrcYecpeQwsvLaRxrnM4IFbI09P4jPA'});
 });
 
 // SPOTIFY COMPONENT

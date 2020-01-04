@@ -10,14 +10,6 @@ class Resume extends Component {
             
         }
     }
-
-componentDidMount(){
-    // fetch('/api/customer')
-    // .then(res => res.json())
-    // .then(customers => this.setState({customers},
-    //     () => console.log('Customers fetched...', customers)))
-}
-
     render() {
         return (
             <div>

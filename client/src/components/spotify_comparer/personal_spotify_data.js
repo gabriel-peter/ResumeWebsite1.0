@@ -5,13 +5,10 @@ import ChartConstructor from './chart_constructor';
 class Personal_Spotify_Data extends Component {
     constructor(props) {
         super(props);
-        const access_token ='BQD7brPt2c3ENXb-WkF0X1a0IlM7HeFUrIRiay7TPRAd-2ekyVjltCLNLJTiS_eU6RBYFhCxZWq7qRwVMPWWLwYu-fEbE1A9HQeqzzqwQUHbFGG_OU3iF2Gkrt8B6jLb-mYIxtCKlKjXLD5DlRnQyVDSvIZ9L83VMm30TuZcDeU'
-        const refresh_token = 'AQAoiRmHjuYjbQz51gEUXjL98e_PlSwPcGonvYfxS6oOs7tHhakvYvWhohZNwrNMx1k4OnIdyeKBg77UL9w9xpmQC0MpAZ92uHpzobO0pFNaADhU9eKHzeg8OtmNatvoY84';
         // https://developer.spotify.com/documentation/general/guides/authorization-guide/
         this.state = {
-            access_token: access_token,
-            refresh_token: refresh_token,
-            loggedIn: access_token ? true : false,
+            access_token: '',
+            refresh_token: '',
             spotify_data: {
                 top_artists: [{'x': 0, 'y': 0}],
                 genre_weights: [{'x': 0, 'y': 'Undef'}],
@@ -27,7 +24,10 @@ class Personal_Spotify_Data extends Component {
         }
     }
     componentDidMount() {
-        this.refreshToken();
+        fetch('/api/personal-token')
+            .then(res => res.json())
+            .then(res => this.setState({access_token: res.access_token, refresh_token: res.refresh_token},
+            () => this.refreshToken()))
     }
     refreshToken() {
         $.ajax({

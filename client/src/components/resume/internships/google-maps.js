@@ -65,6 +65,7 @@ export class MapContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            apiKey: '',
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
@@ -89,8 +90,11 @@ export class MapContainer extends Component {
         })
         }
     };
-
-
+    // componentDidMount() {
+    //     fetch('/api/map-key')
+    //         .then(res => res.json())
+    //         .then(res => this.setState({apiKey: res.key}))
+    // }
   render() {
     const google=this.props.google
     return (
