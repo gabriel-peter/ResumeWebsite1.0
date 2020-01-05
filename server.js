@@ -164,13 +164,13 @@ if (state === null || state !== storedState) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('https://resume-website-gabriel-peter.herokuapp.com/spotify/#' +
+        res.redirect('https://http://www.gabrielpeter.net//spotify/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
           }));
       } else {
-        res.redirect('https://resume-website-gabriel-peter.herokuapp.com/spotify/#' +
+        res.redirect('https://http://www.gabrielpeter.net//spotify/#' +
           querystring.stringify({
             error: 'invalid_token'
           }));
