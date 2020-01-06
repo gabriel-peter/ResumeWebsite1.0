@@ -77,7 +77,8 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
 var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
-var redirect_uri = (process.env.NODE_ENV ? "https://resume-website-gabriel-peter.herokuapp.com/callback" : `http://localhost:${port}/callback`); // Or Your redirect uri
+var redirect_uri = "https://resume-website-gabriel-peter.herokuapp.com/callback";
+// `http://localhost:${port}/callback` // Or Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
