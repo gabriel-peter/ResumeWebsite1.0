@@ -76,7 +76,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
 var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
-var redirect_uri = `http://localhost:${port}/callback`; // Or Your redirect uri
+var redirect_uri = `http://www.gabrielpeter.net/callback`; // Or Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -126,7 +126,6 @@ app.get('/callback', function(req, res) {
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
 if (state === null || state !== storedState) {
-// if (state === null) {
     res.redirect('/#' +
       querystring.stringify({
         error: 'state_mismatch'
@@ -164,7 +163,7 @@ if (state === null || state !== storedState) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('http://www.gabrielpeter.net/spotify/#' +
+        res.redirect('/spotify/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
