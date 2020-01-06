@@ -14,7 +14,7 @@ function App() {
         <div className='site-body'>
         <Switch>
           <Route path='/' exact component={Resume}/>
-          <Route path='/spotify/' component={Spotify_Previewer}/>
+          <Route path='/spotify' component={Spotify_Previewer}/>
         </Switch>
         <Footer/>
         </div>
