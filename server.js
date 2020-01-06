@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const cors = require('cors');
+const path = require('path');
 app.use(cors());
 
 const access_token ='BQD7brPt2c3ENXb-WkF0X1a0IlM7HeFUrIRiay7TPRAd-2ekyVjltCLNLJTiS_eU6RBYFhCxZWq7qRwVMPWWLwYu-fEbE1A9HQeqzzqwQUHbFGG_OU3iF2Gkrt8B6jLb-mYIxtCKlKjXLD5DlRnQyVDSvIZ9L83VMm30TuZcDeU'
@@ -76,7 +77,8 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
 var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
-var redirect_uri = `http://www.gabrielpeter.net/callback`; // Or Your redirect uri
+var redirect_uri = `http://localhost:5000/callback`; 
+// var redirect_uri = `http://www.gabrielpeter.net/callback`; // Or Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -163,7 +165,7 @@ if (state === null || state !== storedState) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/spotify/#' +
+        res.redirect('http://localhost:3000/spotify/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
