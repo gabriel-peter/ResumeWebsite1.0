@@ -25,6 +25,92 @@ const refresh_token = 'AQAoiRmHjuYjbQz51gEUXjL98e_PlSwPcGonvYfxS6oOs7tHhakvYvWho
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
+  app.get('/callback', function(req, res) {
+
+    // your application requests refresh and access tokens
+    // after checking the state parameter
+    
+    var code = req.query.code || null;
+    console.log(code);
+    var state = req.query.state || null;
+    var storedState = req.cookies ? req.cookies[stateKey] : null;
+  
+  if (state === null || state !== storedState) {
+      res.redirect('/#' +
+        querystring.stringify({
+          error: 'state_mismatch'
+        }));
+    } else {
+      res.clearCookie(stateKey);
+      var authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        form: {
+          code: code,
+          redirect_uri: redirect_uri,
+          grant_type: 'authorization_code',
+        },
+        headers: {
+          'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+        },
+        json: true
+      };
+  
+      request.post(authOptions, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+  
+          var access_token = body.access_token,
+              refresh_token = body.refresh_token;
+  
+          var options = {
+            url: 'https://api.spotify.com/v1/me',
+            headers: { 'Authorization': 'Bearer ' + access_token },
+            json: true
+          };
+  
+          // use the access token to access the Spotify Web API
+          request.get(options, function(error, response, body) {
+            console.log(body);
+          });
+  
+          // we can also pass the token to the browser to make requests from there
+          res.redirect('http://www.gabrielpeter.net/spotify/#' +
+            querystring.stringify({
+              access_token: access_token,
+              refresh_token: refresh_token
+            }));
+        } else {
+          res.redirect('http://www.gabrielpeter.net/spotify/#' +
+            querystring.stringify({
+              error: 'invalid_token'
+            }));
+        }
+      });
+    }
+  });
+  
+  app.get('/refresh_token', function(req, res) {
+  
+    // requesting access token from refresh token
+    var refresh_token = req.query.refresh_token;
+    var authOptions = {
+      url: 'https://accounts.spotify.com/api/token',
+      headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+      form: {
+        grant_type: 'refresh_token',
+        refresh_token: refresh_token
+      },
+      json: true
+    };
+  
+    request.post(authOptions, function(error, response, body) {
+      if (!error && response.statusCode === 200) {
+        var access_token = body.access_token;
+        res.send({
+          'access_token': access_token
+        });
+      }
+    });
+  });
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   });
@@ -68,6 +154,10 @@ app.get('/api/map-key', (req, res) => {
   res.json({'key': 'AIzaSyB4ZrcYecpeQwsvLaRxrnM4IFbI09P4jPA'});
 });
 
+app.get('/loginTest', (req, res) => {
+  console.log('HITTTT')
+})
+
 // SPOTIFY COMPONENT
 // https://developer.spotify.com/dashboard/applications/1bb626d08698445daef7e4dee1970679
 
@@ -77,7 +167,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
 var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
-var redirect_uri = "https://resume-website-gabriel-peter.herokuapp.com/callback";
+var redirect_uri = process.env.PORT ? "https://resume-website-gabriel-peter.herokuapp.com/callback": 'http://localhost:5000/callback';
 // `http://localhost:${port}/callback` // Or Your redirect uri
 
 /**
@@ -122,8 +212,9 @@ app.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
-
+  
   var code = req.query.code || null;
+  console.log(code, "HITTTT");
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
@@ -165,13 +256,13 @@ if (state === null || state !== storedState) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('http://www.gabrielpeter.net/spotify/#' +
+        res.redirect('http://localhost:3000/spotify/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
           }));
       } else {
-        res.redirect('http://www.gabrielpeter.net/spotify/#' +
+        res.redirect('http://localhost:3000/spotify/#' +
           querystring.stringify({
             error: 'invalid_token'
           }));
@@ -179,6 +270,7 @@ if (state === null || state !== storedState) {
     });
   }
 });
+
 
 app.get('/refresh_token', function(req, res) {
 
@@ -203,5 +295,4 @@ app.get('/refresh_token', function(req, res) {
     }
   });
 });
-
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
