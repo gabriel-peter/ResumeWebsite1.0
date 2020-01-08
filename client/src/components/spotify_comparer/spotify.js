@@ -55,7 +55,8 @@ class Spotify extends Component {
         }
         return hashParams;
     }
-    genreWeighting (genres) {
+    genreWeighting (genre_list) {
+        const genres = Array.from(new Set(genre_list)); //reduces reduncy for more visually appealing data - slightly less accurate.
         var categories = ['Pop', 'Jazz', 'Dance', 'Classical', 'Indie', 'Folk', 'Rap', 'Country', 'Rock', 'Metal', 'Alternative', 'R&b', 'House'];
         const weights = [];
         categories.forEach(e => {
