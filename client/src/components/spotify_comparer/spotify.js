@@ -117,8 +117,8 @@ class Spotify extends Component {
     }
     handleSpotifyLogin() {
         fetch('/spotifyRedirectUri')
-        .then(e => e.json())
-        .then(e => console.log(e.authUri))
+        // .then(e => e.json())
+        .then(e => console.log(e))
         // .then(data => {
         //     window.location = data.authUri;
         // })
