@@ -43,8 +43,6 @@ const personal_refresh_token = process.env.personal_refresh_token;
 var spotifyApi = new SpotifyWebApi({
   clientId: client_id,
   clientSecret: client_secret,
-  // clientId : process.env.CLIENT_ID,
-  // clientSecret : process.env.CLIENT_SECRET,
 });
 
 
@@ -68,7 +66,7 @@ authenticate();
 
 app.get("/spotifyRedirectUri", function (request, response) {
   console.log('Server hitß')
-  response.json(authUri)
+  response.json({"authUri" : authUri})
 });
 
 const reAuthenticateOnFailure = (action) => {
