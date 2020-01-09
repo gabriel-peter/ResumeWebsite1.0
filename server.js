@@ -3,119 +3,91 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const cors = require('cors');
 const path = require('path');
+var request = require('request'); // "Request" library
+var querystring = require('querystring');
+var cookieParser = require('cookie-parser');
+const SpotifyWebApi = require('spotify-web-api-node');
 app.use(cors());
 
+// CONSTS
+var scope = 'user-top-read user-read-private user-read-email user-read-playback-state';
+var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
+var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
+const redirect_uri = 'http://localhost:3000/spotify/';
+// var redirect_uri = process.env.PORT ? "https://resume-website-gabriel-peter.herokuapp.com/callback": 'http://localhost:5000/callback';
+const redirectUriParameters = {
+  client_id: client_id,
+  response_type: 'token',
+  scope: scope,
+  redirect_uri: redirect_uri,
+  show_dialog: true,
+}
+const authUri = 'https://accounts.spotify.com/authorize?' + querystring.stringify(redirectUriParameters);
 const access_token ='BQD7brPt2c3ENXb-WkF0X1a0IlM7HeFUrIRiay7TPRAd-2ekyVjltCLNLJTiS_eU6RBYFhCxZWq7qRwVMPWWLwYu-fEbE1A9HQeqzzqwQUHbFGG_OU3iF2Gkrt8B6jLb-mYIxtCKlKjXLD5DlRnQyVDSvIZ9L83VMm30TuZcDeU'
 const refresh_token = 'AQAoiRmHjuYjbQz51gEUXjL98e_PlSwPcGonvYfxS6oOs7tHhakvYvWhohZNwrNMx1k4OnIdyeKBg77UL9w9xpmQC0MpAZ92uHpzobO0pFNaADhU9eKHzeg8OtmNatvoY84';
-        
-// const mysql = require('mysql');
-// const SELECT_ALL = "SELECT * FROM customer";
-// const connection = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: ' ',
-//     database: 'mydb',
-// })
-// connection.connect(err => {
-//     if(err) {
-//         return err;
-//     }
-// })
-// console.log(connection);
+ 
+// NEW SPOTIFY CODE from Inspiration: https://glitch.com/edit/#!/spotify-audio-analysis?path=server.js:12:0
+// https://developer.spotify.com/dashboard/applications/1bb626d08698445daef7e4dee1970679
 
+var spotifyApi = new SpotifyWebApi({
+  clientId: client_id,
+  clientSecret: client_secret,
+  // clientId : process.env.CLIENT_ID,
+  // clientSecret : process.env.CLIENT_SECRET,
+});
+
+
+
+function authenticate(callback) {
+  spotifyApi.clientCredentialsGrant()
+    .then(function(data) {
+      console.log('The access token expires in ' + data.body['expires_in']);
+      console.log('The access token is ' + data.body['access_token']);
+    
+      callback instanceof Function && callback();
+
+      // Save the access token so that it's used in future calls
+      spotifyApi.setAccessToken(data.body['access_token']);
+    }, function(err) {
+      console.log('Something went wrong when retrieving an access token', err.message);
+    });
+}
+authenticate();
+
+
+app.get("/spotifyRedirectUri", function (request, response) {
+  console.log('Server hitß')
+  response.send(JSON.stringify({
+    authUri
+  }, null, 2))
+});
+
+const reAuthenticateOnFailure = (action) => {
+  action(() => {
+    authenticate(action);
+  })
+}
+
+app.get("/search", function (request, response) {
+  reAuthenticateOnFailure((failure) => {
+    spotifyApi.searchTracks(request.query.query, { limit: 2 })
+    .then(function(data) {
+      response.send(data.body);
+    }, failure);
+  })
+});
+
+
+// PRODUCTION
+       
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
-  app.get('/callback', function(req, res) {
-
-    // your application requests refresh and access tokens
-    // after checking the state parameter
-    
-    var code = req.query.code || null;
-    console.log(code);
-    var state = req.query.state || null;
-    var storedState = req.cookies ? req.cookies[stateKey] : null;
-  
-  if (state === null || state !== storedState) {
-      res.redirect('/#' +
-        querystring.stringify({
-          error: 'state_mismatch'
-        }));
-    } else {
-      res.clearCookie(stateKey);
-      var authOptions = {
-        url: 'https://accounts.spotify.com/api/token',
-        form: {
-          code: code,
-          redirect_uri: redirect_uri,
-          grant_type: 'authorization_code',
-        },
-        headers: {
-          'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-        },
-        json: true
-      };
-  
-      request.post(authOptions, function(error, response, body) {
-        if (!error && response.statusCode === 200) {
-  
-          var access_token = body.access_token,
-              refresh_token = body.refresh_token;
-  
-          var options = {
-            url: 'https://api.spotify.com/v1/me',
-            headers: { 'Authorization': 'Bearer ' + access_token },
-            json: true
-          };
-  
-          // use the access token to access the Spotify Web API
-          request.get(options, function(error, response, body) {
-            console.log(body);
-          });
-  
-          // we can also pass the token to the browser to make requests from there
-          res.redirect('http://www.gabrielpeter.net/spotify/#' +
-            querystring.stringify({
-              access_token: access_token,
-              refresh_token: refresh_token
-            }));
-        } else {
-          res.redirect('http://www.gabrielpeter.net/spotify/#' +
-            querystring.stringify({
-              error: 'invalid_token'
-            }));
-        }
-      });
-    }
-  });
-  
-  app.get('/refresh_token', function(req, res) {
-  
-    // requesting access token from refresh token
-    var refresh_token = req.query.refresh_token;
-    var authOptions = {
-      url: 'https://accounts.spotify.com/api/token',
-      headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
-      form: {
-        grant_type: 'refresh_token',
-        refresh_token: refresh_token
-      },
-      json: true
-    };
-  
-    request.post(authOptions, function(error, response, body) {
-      if (!error && response.statusCode === 200) {
-        var access_token = body.access_token;
-        res.send({
-          'access_token': access_token
-        });
-      }
-    });
-  });
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   });
 }
 
+// ABOUT ME PAGE ENDPOINTS
 
 app.get('/api/customer', (req, res) => {
     const customers = [
@@ -153,22 +125,6 @@ app.get('/api/personal-token', (req, res) => {
 app.get('/api/map-key', (req, res) => {
   res.json({'key': 'AIzaSyB4ZrcYecpeQwsvLaRxrnM4IFbI09P4jPA'});
 });
-
-app.get('/loginTest', (req, res) => {
-  console.log('HITTTT')
-})
-
-// SPOTIFY COMPONENT
-// https://developer.spotify.com/dashboard/applications/1bb626d08698445daef7e4dee1970679
-
-var request = require('request'); // "Request" library
-var querystring = require('querystring');
-var cookieParser = require('cookie-parser');
-
-var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
-var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
-var redirect_uri = process.env.PORT ? "https://resume-website-gabriel-peter.herokuapp.com/callback": 'http://localhost:5000/callback';
-// `http://localhost:${port}/callback` // Or Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters

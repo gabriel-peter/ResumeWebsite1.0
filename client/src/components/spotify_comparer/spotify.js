@@ -120,6 +120,16 @@ class Spotify extends Component {
         }
         return spotify_data;
     }
+    handleSpotifyLogin() {
+        console.log('Redirecting')
+        fetch('/spotifyRedirectUri')
+      .then(e => e.json())
+      .then(data => {
+          console.log(data)
+        window.location = data.authUri;
+      })
+      .catch(error => { alert("Failed to prepare for Spotify Authentication", error)}); 
+    }
     handleTimeFrameChange(event) {
         const savedSlide = this.state.currentSlide
         this.setState({timeFrame: event.target.value, currentSlide: 'Both'}, () => this.setState({currentSlide: savedSlide}))
@@ -134,10 +144,10 @@ class Spotify extends Component {
                     <h3>Click the button in order to fetch your long-term listening data for analysis!</h3>
                     <h5>(This service follows Spotify's <a href='https://developer.spotify.com/documentation/general/guides/authorization-guide/'>Auth-Flow Guidelines</a>)</h5>
                     <div className='spotify-button-div'>
-                        <a className='spotify-button-aref' href='http://localhost:5000/login'>
+                        <div className='spotify-button-aref' onClick={this.handleSpotifyLogin}>
                             <img src='/images/spotify_button_image.png' alt={''} height={50} width={167}/>
                             <p className='spotify-button-text'>{'Connect & Compare'}</p>
-                        </a>
+                        </div>
                     </div>
                     </div>
                 ) : (
