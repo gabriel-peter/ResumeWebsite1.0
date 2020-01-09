@@ -66,7 +66,7 @@ authenticate();
 
 app.get("/spotifyRedirectUri", function (request, response) {
   console.log('Server hitß')
-  response.json({"authUri" : authUri})
+  response.json(authUri)
 });
 
 const reAuthenticateOnFailure = (action) => {
@@ -96,7 +96,7 @@ app.get('/api/education', (req, res) => {
 
 app.get('/api/personal-token', (req, res) => {
     const tokens = {'access_token': personal_access_token, 'refresh_token': personal_refresh_token};
-    res.send(tokens)
+    res.json(tokens)
 });
 
 app.get('/api/map-key', (req, res) => {
