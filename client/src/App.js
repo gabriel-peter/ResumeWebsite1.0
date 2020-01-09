@@ -7,7 +7,6 @@ import Resume from './components/resume/resume'
 import Spotify_Previewer from './components/spotify_comparer/spotify';
 // https://medium.com/@the.benhawy/3-ways-to-create-react-components-8b3620e4ea0
 function App() {
-  fetch('/api/education').then(res => console.log(res));
   return (
     <div className="App">
       <Router>
