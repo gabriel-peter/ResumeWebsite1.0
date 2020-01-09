@@ -12,7 +12,7 @@ dotenv.config();
 app.use(cors());
 
 // PRODUCTION
-       
+ 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {
@@ -45,7 +45,7 @@ var spotifyApi = new SpotifyWebApi({
   clientSecret: client_secret,
 });
 
-
+console.log(typeof (personal_access_token), personal_refresh_token, client_id, client_secret) 
 
 function authenticate(callback) {
   spotifyApi.clientCredentialsGrant()
