@@ -8,6 +8,7 @@ var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const SpotifyWebApi = require('spotify-web-api-node');
 const dotenv = require('dotenv');
+dotenv.config();
 app.use(cors());
 
 // PRODUCTION
@@ -17,8 +18,6 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   });
-} else {
-  dotenv.config();
 }
 
 // CONSTS
@@ -111,19 +110,8 @@ app.get('/api/education', (req, res) => {
     res.json(schools);
 });
 
-app.get('/api/contact', (req, res) => {
-    const contacts = [
-        {id: 0, name: 'LinkedIn', img_src: '/images/linkedin.png', link: 'https://www.linkedin.com/in/gabriel-peter/', content: '/in/gabriel-peter/'},
-        {id: 1, name: 'Email', img_src: '/images/email.jpg', link: 'mailto:peter.g@husky.neu.edu', content: 'peter.g@husky.neu.edu'},
-        {id: 2, name: 'Address', img_src: '/images/house.jpg', link: 'https://www.google.com/search?q=hollywood+google+maps&oq=hollywood+googl&aqs=chrome.0.0j69i57j0l6.5496j0j7&sourceid=chrome&ie=UTF-8#', content: '225 North Gramercy Place Los Angeles, CA 90004'},
-        {id: 3, name: 'Phone', img_src: '/images/phone.png', link: '', content: '(323)-533-1894' },
-        {id: 4, name: 'Github', img_src: '/images/github.png', link: 'https://github.com/gabriel-peter', content: '/gabriel-peter' },
-    ];
-    res.json(contacts);
-});
-
 app.get('/api/personal-token', (req, res) => {
-    res.send({'access_token': personal_access_token, 'refresh_token': personal_refresh_token})
+    res.json([{'access_token': personal_access_token, 'refresh_token': personal_refresh_token}])
 });
 
 app.get('/api/map-key', (req, res) => {
