@@ -25,10 +25,9 @@ class Personal_Spotify_Data extends Component {
     }
     componentDidMount() {
        fetch('/api/personal-token')
-            // .then(res => res.json())
-            .then(res => console.log(res))
-            // .then(res => this.setState({access_token: res.access_token, refresh_token: res.refresh_token},
-            // () => this.refreshToken())).then(() => console.log(this.state.access_token, this.state.refresh_token))
+            .then(res => res.json())
+            .then(res => this.setState({access_token: res['access_token'], refresh_token: res['refresh_token']},
+            () => this.refreshToken())).then(() => console.log(this.state.access_token, this.state.refresh_token))
     }
     refreshToken() {
         $.ajax({
@@ -42,7 +41,11 @@ class Personal_Spotify_Data extends Component {
                 }, () => {
                     this.getTopArtists();
                 });
-            }
+            },
+            error: (XMLHttpRequest, textStatus, errorThrown) => { 
+                console.log("Status: " + textStatus); 
+                console.log("Error: " + errorThrown); 
+            },
         });
     }
     getTopArtists() {

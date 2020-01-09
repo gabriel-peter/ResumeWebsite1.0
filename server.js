@@ -70,9 +70,7 @@ authenticate();
 
 app.get("/spotifyRedirectUri", function (request, response) {
   console.log('Server hitß')
-  response.send(JSON.stringify({
-    authUri
-  }, null, 2))
+  response.json(authUri)
 });
 
 const reAuthenticateOnFailure = (action) => {
@@ -92,16 +90,6 @@ app.get("/search", function (request, response) {
 
 // ABOUT ME PAGE ENDPOINTS
 
-app.get('/api/customer', (req, res) => {
-    const customers = [
-        {id: 0, firstName: 'John', lastName: 'Doe'},
-        {id: 1, firstName: 'SD', lastName: 'SD'},
-        {id: 2, firstName: 'JoDGDGhn', lastName: 'DSDoe'},
-        {id: 3, firstName: 'JoDGDGDhn', lastName: 'DoDGDGe'},
-    ];
-    res.json(customers);
-});
-
 app.get('/api/education', (req, res) => {
     const schools = [
         {name: 'Northeastern University', location: 'Boston, MA' , gpa: '3.433', concetration: 'Computer Science, Class of 2022', activities: 'FFffff'},
@@ -111,7 +99,8 @@ app.get('/api/education', (req, res) => {
 });
 
 app.get('/api/personal-token', (req, res) => {
-    res.json([{'access_token': personal_access_token, 'refresh_token': personal_refresh_token}])
+    const tokens = {'access_token': personal_access_token, 'refresh_token': personal_refresh_token};
+    res.send(tokens)
 });
 
 app.get('/api/map-key', (req, res) => {
