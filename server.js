@@ -8,8 +8,18 @@ var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const SpotifyWebApi = require('spotify-web-api-node');
 const dotenv = require('dotenv');
-dotenv.config();
 app.use(cors());
+
+// PRODUCTION
+       
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  });
+} else {
+  dotenv.config();
+}
 
 // CONSTS
 var scope = 'user-top-read user-read-private user-read-email user-read-playback-state';
@@ -80,16 +90,6 @@ app.get("/search", function (request, response) {
     }, failure);
   })
 });
-
-
-// PRODUCTION
-       
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-  });
-}
 
 // ABOUT ME PAGE ENDPOINTS
 
