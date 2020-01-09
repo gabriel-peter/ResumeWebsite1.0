@@ -7,14 +7,17 @@ var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const SpotifyWebApi = require('spotify-web-api-node');
+const dotenv = require('dotenv');
+dotenv.config();
 app.use(cors());
 
 // CONSTS
 var scope = 'user-top-read user-read-private user-read-email user-read-playback-state';
-var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
-var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
+// var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
+// var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
+const client_id = process.env.client_id;
+const client_secret = process.env.client_secret;
 const redirect_uri = process.env.PORT? 'http://gabrielpeter.net/spotify/':'http://localhost:3000/spotify/';
-// var redirect_uri = process.env.PORT ? "https://resume-website-gabriel-peter.herokuapp.com/callback": 'http://localhost:5000/callback';
 const redirectUriParameters = {
   client_id: client_id,
   response_type: 'token',
@@ -23,9 +26,10 @@ const redirectUriParameters = {
   show_dialog: true,
 }
 const authUri = 'https://accounts.spotify.com/authorize?' + querystring.stringify(redirectUriParameters);
-const access_token ='BQD7brPt2c3ENXb-WkF0X1a0IlM7HeFUrIRiay7TPRAd-2ekyVjltCLNLJTiS_eU6RBYFhCxZWq7qRwVMPWWLwYu-fEbE1A9HQeqzzqwQUHbFGG_OU3iF2Gkrt8B6jLb-mYIxtCKlKjXLD5DlRnQyVDSvIZ9L83VMm30TuZcDeU'
-const refresh_token = 'AQAoiRmHjuYjbQz51gEUXjL98e_PlSwPcGonvYfxS6oOs7tHhakvYvWhohZNwrNMx1k4OnIdyeKBg77UL9w9xpmQC0MpAZ92uHpzobO0pFNaADhU9eKHzeg8OtmNatvoY84';
- 
+// const personal_access_token ='BQD7brPt2c3ENXb-WkF0X1a0IlM7HeFUrIRiay7TPRAd-2ekyVjltCLNLJTiS_eU6RBYFhCxZWq7qRwVMPWWLwYu-fEbE1A9HQeqzzqwQUHbFGG_OU3iF2Gkrt8B6jLb-mYIxtCKlKjXLD5DlRnQyVDSvIZ9L83VMm30TuZcDeU'
+// const personal_refresh_token = 'AQAoiRmHjuYjbQz51gEUXjL98e_PlSwPcGonvYfxS6oOs7tHhakvYvWhohZNwrNMx1k4OnIdyeKBg77UL9w9xpmQC0MpAZ92uHpzobO0pFNaADhU9eKHzeg8OtmNatvoY84';
+ const personal_access_token = process.env.personal_access_token;
+ const personal_refresh_token = process.env.personal_refresh_token;
 // NEW SPOTIFY CODE from Inspiration: https://glitch.com/edit/#!/spotify-audio-analysis?path=server.js:12:0
 // https://developer.spotify.com/dashboard/applications/1bb626d08698445daef7e4dee1970679
 
@@ -119,7 +123,7 @@ app.get('/api/contact', (req, res) => {
 });
 
 app.get('/api/personal-token', (req, res) => {
-    res.json({'access_token': access_token, 'refresh_token': refresh_token})
+    res.json({'access_token': personal_access_token, 'refresh_token': personal_refresh_token})
 });
 
 app.get('/api/map-key', (req, res) => {

@@ -7,11 +7,6 @@ import Comparison from './comparison';
 class Spotify extends Component {
     constructor() {
         super();
-        // if (window.performance) {
-        //     if (performance.navigation.type === 1) {
-        //         window.location.replace('http://localhost:5000/login');
-        //     }
-        //   }
         const params = this.getHashParams()
         this.state = {
             access_token: this.getHashParams().access_token,
@@ -121,14 +116,12 @@ class Spotify extends Component {
         return spotify_data;
     }
     handleSpotifyLogin() {
-        console.log('Redirecting')
         fetch('/spotifyRedirectUri')
-      .then(e => e.json())
-      .then(data => {
-          console.log(data)
-        window.location = data.authUri;
-      })
-      .catch(error => { alert("Failed to prepare for Spotify Authentication", error)}); 
+        .then(e => e.json())
+        .then(data => {
+            window.location = data.authUri;
+        })
+        .catch(error => { alert("Failed to prepare for Spotify Authentication", error)}); 
     }
     handleTimeFrameChange(event) {
         const savedSlide = this.state.currentSlide
