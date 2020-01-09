@@ -121,7 +121,7 @@ class Spotify extends Component {
         .then(data => {
             window.location = data.authUri;
         })
-        .catch(error => { alert("Failed to prepare for Spotify Authentication", error)}); 
+        .catch(error => { alert("Failed to prepare for Spotify Authentication"+  error)}); 
     }
     handleTimeFrameChange(event) {
         const savedSlide = this.state.currentSlide

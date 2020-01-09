@@ -37,8 +37,8 @@ const redirectUriParameters = {
 const authUri = 'https://accounts.spotify.com/authorize?' + querystring.stringify(redirectUriParameters);
 // const personal_access_token ='BQD7brPt2c3ENXb-WkF0X1a0IlM7HeFUrIRiay7TPRAd-2ekyVjltCLNLJTiS_eU6RBYFhCxZWq7qRwVMPWWLwYu-fEbE1A9HQeqzzqwQUHbFGG_OU3iF2Gkrt8B6jLb-mYIxtCKlKjXLD5DlRnQyVDSvIZ9L83VMm30TuZcDeU'
 // const personal_refresh_token = 'AQAoiRmHjuYjbQz51gEUXjL98e_PlSwPcGonvYfxS6oOs7tHhakvYvWhohZNwrNMx1k4OnIdyeKBg77UL9w9xpmQC0MpAZ92uHpzobO0pFNaADhU9eKHzeg8OtmNatvoY84';
- const personal_access_token = process.env.personal_access_token+'';
- const personal_refresh_token = process.env.personal_refresh_token+'';
+const personal_access_token = process.env.personal_access_token+'';
+const personal_refresh_token = process.env.personal_refresh_token+'';
 // NEW SPOTIFY CODE from Inspiration: https://glitch.com/edit/#!/spotify-audio-analysis?path=server.js:12:0
 // https://developer.spotify.com/dashboard/applications/1bb626d08698445daef7e4dee1970679
 
