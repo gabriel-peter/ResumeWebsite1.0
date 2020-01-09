@@ -27,7 +27,7 @@ class Personal_Spotify_Data extends Component {
         fetch('/api/personal-token')
             .then(res => res.json())
             .then(res => this.setState({access_token: res.access_token, refresh_token: res.refresh_token},
-            () => this.refreshToken()))
+            () => this.refreshToken())).then(() => console.log(this.state.access_token, this.state.refresh_token))
     }
     refreshToken() {
         $.ajax({
