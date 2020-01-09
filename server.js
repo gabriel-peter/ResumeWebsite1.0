@@ -13,7 +13,7 @@ app.use(cors());
 var scope = 'user-top-read user-read-private user-read-email user-read-playback-state';
 var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
 var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
-const redirect_uri = 'http://localhost:3000/spotify/';
+const redirect_uri = process.env.PORT? 'https://resume-website-gabriel-peter.herokuapp.com/spotify/':'http://localhost:3000/spotify/';
 // var redirect_uri = process.env.PORT ? "https://resume-website-gabriel-peter.herokuapp.com/callback": 'http://localhost:5000/callback';
 const redirectUriParameters = {
   client_id: client_id,
