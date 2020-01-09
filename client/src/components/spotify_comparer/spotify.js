@@ -119,7 +119,7 @@ class Spotify extends Component {
         fetch('/spotifyRedirectUri')
         .then(e => e.json())
         .then(data => {
-            window.location = data;
+            window.location = data.authUri;
         })
         .catch(error => { alert("Failed to prepare for Spotify Authentication"+  error) }); 
     }
