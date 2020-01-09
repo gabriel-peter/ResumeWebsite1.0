@@ -123,7 +123,7 @@ app.get('/api/contact', (req, res) => {
 });
 
 app.get('/api/personal-token', (req, res) => {
-    res.json({'access_token': personal_access_token, 'refresh_token': personal_refresh_token})
+    res.send({'access_token': personal_access_token, 'refresh_token': personal_refresh_token})
 });
 
 app.get('/api/map-key', (req, res) => {
