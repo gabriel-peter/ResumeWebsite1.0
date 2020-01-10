@@ -11,15 +11,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 app.use(cors());
 
-// PRODUCTION
- 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-  });
-}
-
 // CONSTS
 var scope = 'user-top-read user-read-private user-read-email user-read-playback-state';
 var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
@@ -64,7 +55,7 @@ function authenticate(callback) {
 authenticate();
 
 
-app.get("/spotifyRedirectUri", function (request, response) {
+app.get('/api/spotifyRedirectUri', (request, response) => {
   // response.send(JSON.stringify({
   //   authUri
   // }, null, 2))
@@ -230,4 +221,14 @@ app.get('/refresh_token', function(req, res) {
     }
   });
 });
+
+// PRODUCTION
+ 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  });
+}
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
