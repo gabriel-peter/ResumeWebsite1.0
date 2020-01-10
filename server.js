@@ -65,10 +65,10 @@ authenticate();
 
 
 app.get("/spotifyRedirectUri", function (request, response) {
-  response.send(JSON.stringify({
-    authUri
-  }, null, 2))
-  // response.send(authUri)
+  // response.send(JSON.stringify({
+  //   authUri
+  // }, null, 2))
+  response.json(authUri)
 });
 
 const reAuthenticateOnFailure = (action) => {
