@@ -117,12 +117,12 @@ class Spotify extends Component {
     }
     handleSpotifyLogin() {
         fetch('/spotifyRedirectUri')
-        // .then(e => e.json())
-        .then(e => console.log(e))
-        // .then(data => {
-        //     window.location = data.authUri;
-        // })
-        // .catch(error => { alert("Failed to prepare for Spotify Authentication"+  error) }); 
+        .then(e => e.json())
+        .then(data => {
+            console.log(data.authUri)
+            window.location = data.authUri;
+        })
+        .catch(error => { alert("Failed to prepare for Spotify Authentication"+  error) }); 
     }
     handleTimeFrameChange(event) {
         const savedSlide = this.state.currentSlide
