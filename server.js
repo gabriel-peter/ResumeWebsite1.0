@@ -13,10 +13,10 @@ app.use(cors());
 
 // CONSTS
 var scope = 'user-top-read user-read-private user-read-email user-read-playback-state';
-var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
-var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
-// const client_id = process.env.client_id;
-// const client_secret = process.env.client_secret;
+// var client_id = '1bb626d08698445daef7e4dee1970679'; // Your client id
+// var client_secret = '61b1bbfe4c094b6ba3fcb264b02c514c'; // Your secret
+const client_id = process.env.client_id;
+const client_secret = process.env.client_secret;
 const redirect_uri = process.env.PORT? 'http://gabrielpeter.net/spotify/':'http://localhost:3000/spotify/';
 const redirectUriParameters = {
   client_id: client_id,
@@ -223,7 +223,7 @@ app.get('/refresh_token', function(req, res) {
 });
 
 // PRODUCTION
- 
+// https://daveceddia.com/unexpected-token-in-json-at-position-0/ Lesson Learned lol
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {
