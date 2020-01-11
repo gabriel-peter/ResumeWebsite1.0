@@ -2,8 +2,6 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import React, {Component} from 'react';
 // https://www.npmjs.com/package/google-maps-react#sample-usage-with-lazy-loading-google-api
 const style = {
-    // display: 'flex',
-    // flexDirection: 'row',
     borderRadius: '3%',
     width: '45%',
     height: '400px',

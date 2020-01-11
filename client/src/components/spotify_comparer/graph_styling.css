@@ -27,9 +27,9 @@
 }
 
 .highlighted-title {
-    width: 200px;
-    margin-left: 15px;
-    margin-right: 15px;
+    width: 150px;
+    height: 150px;
+    margin: 15px;
     font-weight: bold;
     font-family: sans-serif;
     text-align: center;
@@ -37,13 +37,17 @@
 .graph-and-directions {
     display: flex;
     flex-direction: column;
+    text-align: center;
+    align-items: center;
 }
 .my-top-artists {
+    flex-basis: 40%;
     display: flex;
+    flex-wrap: wrap;
     text-align: center;
     align-items: center;
     align-content: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 .top-5-artists_w_graph {
     display: flex;
@@ -59,7 +63,8 @@
 .an-artist {
     margin: 15px;
     display: flex;
-    flex-direction: column;
+    text-align: center;
+    align-self: center;
     align-items: center;
     align-content: center;
     justify-content: center; 
@@ -68,14 +73,19 @@
     border-radius: 50%;
     opacity: 1;
 }
+.top-artist-title {
+    width: 200px;
+    height: 200px;
+}
 .artist-image:hover {
     opacity: 0.5;
 }
 .secondary-analysis {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-evenly;
-    margin-top: 100px;
+    margin-top: 60px;
 }
 .charts-footer {
     float: right;

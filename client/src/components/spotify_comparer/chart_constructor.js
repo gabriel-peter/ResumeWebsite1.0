@@ -30,7 +30,7 @@ class Chart_Constructor extends Component {
         }
       })
       const dataWithColor = data2.map((d, i) => ({...d, color: Number(i !== index)}));
-      const artistsWithFocus = this.props.top_5_artists_images.map((d, i) => ({...d, highlight: i === index}));
+      var artistsWithFocus = this.props.top_5_artists_images.map((d, i) => ({...d, highlight: i === index}));
       const labelData = data2.map((d, idx) => ({
         x: d.x,
         y: d.y
@@ -60,23 +60,30 @@ class Chart_Constructor extends Component {
         </XYPlot>
         <div>Hover over the graph to show {this.state.owner === 'you' ? ('your'):('my')} top 5 artists' popularity!</div>
         </div>
+        {!artistsWithFocus[0].highlight === true ? (
+        <a href={artistsWithFocus[0].uri}>
+          <img className='artist-image' src={artistsWithFocus[0].images[0].url} alt={''} height={200} width={200}/>
+        </a>
+        ) : (
+          <div id='top-artist-title' className='highlighted-title'>{artistsWithFocus[0].name}</div>)}
         <div className='my-top-artists'>
-          {artistsWithFocus.map((artist) =>
+          {artistsWithFocus.slice(1, 5).map((artist) =>
             <div key={artist.name}>
               {!artist.highlight===true ? (
                 <div className={'an-artist'}>
                   <a href={artist.uri}>
-                    <img className='artist-image' src={artist.images[0].url} alt={''} height={200} width={200}/>
+                    <img className='artist-image' src={artist.images[0].url} alt={''} height={150} width={150}/>
                   </a>
-                </div>) : (
-            <div className='highlighted-title'>{artist.name}</div>)}
+                </div>
+                ) : (
+                  <div className='highlighted-title'>{artist.name}</div>)}
           </div>
           )}
         </div>
         </div>
         <div className='secondary-analysis'>
-        <div className='popularity-analysis'>
-        <div className='big-number'>Popularity Analysis</div>
+          <div className='popularity-analysis'>
+          <div className='big-number'>Popularity Analysis</div>
         <RadialChart
             data={data1}
             width={chart_dimension}
