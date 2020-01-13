@@ -14,9 +14,6 @@ class Chart_Constructor extends Component {
         owner: props.owner,
       }
     }
-  // componentDidMount() {
-  //   this.setState({artistsWithFocus: this.props.top_5_artists_images.map((d, i) => ({...d, highlight: 0}))})
-  // }
   render() {
       const data1 = this.props.data1
       const data2 = this.props.data2
@@ -65,7 +62,7 @@ class Chart_Constructor extends Component {
           <img className='artist-image' src={artistsWithFocus[0].images[0].url} alt={''} height={200} width={200}/>
         </a>
         ) : (
-          <div id='top-artist-title' className='highlighted-title'>{artistsWithFocus[0].name}</div>)}
+          <div id='top-artist-title'>{artistsWithFocus[0].name}</div>)}
         <div className='my-top-artists'>
           {artistsWithFocus.slice(1, 5).map((artist) =>
             <div key={artist.name}>

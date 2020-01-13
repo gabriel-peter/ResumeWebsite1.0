@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 // https://www.npmjs.com/package/google-maps-react#sample-usage-with-lazy-loading-google-api
 const style = {
     borderRadius: '3%',
-    width: '45%',
+    width: '600px',
     height: '400px',
 }
 
@@ -54,7 +54,7 @@ const neuBody=
         <li><a href='http://www.ieee.neu.edu/'>
             E-Board IEEE Member</a></li>
         <li><a href='https://www.northeastern.edu/rise/awards/'>Cloud Computing Research</a></li>
-        <li>ITS CTx Employee</li>
+        <li>ITS CxT Employee</li>
     </ul>
     </div>
 </div>;
@@ -79,7 +79,6 @@ export class MapContainer extends Component {
             this.props.updateLocationPanel(prop, marker);
         }
     }   
-    
     onMapClicked = (props) => {
         if (this.state.showingInfoWindow) {
         this.setState({
@@ -88,11 +87,6 @@ export class MapContainer extends Component {
         })
         }
     };
-    // componentDidMount() {
-    //     fetch('/api/map-key')
-    //         .then(res => res.json())
-    //         .then(res => this.setState({apiKey: res.key}))
-    // }
   render() {
     const google=this.props.google
     return (
@@ -165,8 +159,7 @@ export class MapContainer extends Component {
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}>
             <div>
-                <h1>{this.state.selectedPlace.name}</h1>
-                <h4>{this.state.selectedPlace.location}</h4>
+                <img className='location-image' src={this.state.selectedPlace.images} alt={''} width={150} height={150}/>
             </div>
         </InfoWindow>
       </Map>

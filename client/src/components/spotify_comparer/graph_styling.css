@@ -27,6 +27,7 @@
 }
 
 .highlighted-title {
+    line-height: 150px;
     width: 150px;
     height: 150px;
     margin: 15px;
@@ -63,19 +64,19 @@
 .an-artist {
     margin: 15px;
     display: flex;
-    text-align: center;
-    align-self: center;
-    align-items: center;
-    align-content: center;
-    justify-content: center; 
 }
 .artist-image {
     border-radius: 50%;
     opacity: 1;
 }
 .top-artist-title {
+    line-height: 200px;
     width: 200px;
     height: 200px;
+    margin: 15px;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
 }
 .artist-image:hover {
     opacity: 0.5;
@@ -123,6 +124,9 @@
   font-size: 16px;
   margin: 10px;
   border-style: double;
+}
+#slide-button-highlight {
+    background-color: rgb(214, 139, 0);
 }
 #time-menu {
     position: relative;

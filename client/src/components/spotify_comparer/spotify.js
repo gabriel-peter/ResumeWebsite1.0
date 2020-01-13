@@ -119,7 +119,6 @@ class Spotify extends Component {
         fetch('/api/spotifyRedirectUri')
         .then(e => e.json())
         .then(data => {
-            // console.log(data.authUri)
             window.location = data;
         })
         .catch(error => { alert("Failed to prepare for Spotify Authentication"+  error) }); 
@@ -135,7 +134,7 @@ class Spotify extends Component {
                 {!this.state.loggedIn ? (
                     <div>
                     <h3>Find out if our libraries match!</h3>
-                    <h3>Click the button in order to fetch your long-term listening data for analysis!</h3>
+                    <h3>Click the button in order to fetch your time-variable listening data for analysis!</h3>
                     <h5>(This service follows Spotify's <a href='https://developer.spotify.com/documentation/general/guides/authorization-guide/'>Auth-Flow Guidelines</a>)</h5>
                     <div className='spotify-button-div'>
                         <div className='spotify-button-aref' onClick={this.handleSpotifyLogin}>
@@ -147,9 +146,11 @@ class Spotify extends Component {
                 ) : (
                 <div>
                     <div>
-                        <button onClick={() => this.setState({currentSlide: 'Client'})} 
+                        <button onClick={() => this.setState({currentSlide: 'Client'})}
+                        id={this.state.currentSlide === 'Client' && 'slide-button-highlight'}
                         className='slide-button'>{this.state.userData.display_name}</button>
                         <button onClick={() => this.setState({currentSlide: 'Me'})} 
+                        id={this.state.currentSlide === 'Me' && 'slide-button-highlight'}
                         className='slide-button'>Gabriel</button>
                         {/* <button onClick={() => this.setState({currentSlide: 'Both'})} 
                         className='slide-button'>Match?</button> */}

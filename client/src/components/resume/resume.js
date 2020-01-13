@@ -14,7 +14,6 @@ class Resume extends Component {
         return (
             <div>
                 <div className='resume-categories'>
-                    {/* <Education/> */}
                     <Interships/>
                     <Skills/>
                 </div>

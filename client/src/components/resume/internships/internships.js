@@ -52,14 +52,13 @@ class WorkExperience extends Component {
                                 <div>{this.state.title}</div>
                                 <div>{this.state.body}</div>
                                 </div>
-                                <img className='location-image' src={this.state.images} alt={''} width={200} height={200}/>
                             </div>
                             </div>
                             )}   
                         </div>
-                        <MapContainer
-                            updateLocationPanel={this.updateLocationPanel}
-                        />
+                        <div id='map'>
+                            <MapContainer updateLocationPanel={this.updateLocationPanel}/>
+                        </div>
                     </div> 
                 </div>
             );
