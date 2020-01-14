@@ -10,4 +10,12 @@ Branch called "" utilizes customized token retrieval process
 Production version aka master benifits from "spotify-api-js" node module for a more streamlined backend.
 
 #### Google Maps API
-....
+
+Handled with
+
+  npm install ____
+
+
+#### React-vis by Uber
+
+Visualization library with highly customizable components, animations, but limited error handling.
