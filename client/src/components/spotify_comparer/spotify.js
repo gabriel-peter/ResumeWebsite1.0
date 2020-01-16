@@ -138,13 +138,15 @@ class Spotify extends Component {
                     <h5>(This service follows Spotify's <a href='https://developer.spotify.com/documentation/general/guides/authorization-guide/'>Auth-Flow Guidelines</a>)</h5>
                     <div className='spotify-button-div'>
                         <div className='spotify-button-aref' onClick={this.handleSpotifyLogin}>
-                            <img src='/images/spotify_button_image.png' alt={''} height={50} width={167}/>
+                            <img src='/images/spotify_button_image.png' alt={''} height={50}/>
                             <p className='spotify-button-text'>{'Connect & Compare'}</p>
                         </div>
                     </div>
                     </div>
                 ) : (
                 <div>
+                <h1 className='mobile-warning-title-spotify'>Enter Fullscreen mode for content to appear! (Mobile Version Coming Soon)</h1>
+                <div className='loggedIn'>
                     <div>
                         <button onClick={() => this.setState({currentSlide: 'Client'})}
                         id={this.state.currentSlide === 'Client' && 'slide-button-highlight'}
@@ -188,8 +190,10 @@ class Spotify extends Component {
                         />
                     }
                 </div>
+                </div>
                 )}
             </div>
+            
         );
     }
 }

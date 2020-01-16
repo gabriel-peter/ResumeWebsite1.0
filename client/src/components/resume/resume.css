@@ -25,10 +25,20 @@
 .open-menu-arrow {
     transform: rotate(90deg);
 }
-.resume-categories {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
+@media screen and (min-width: 1000px) {
+    .mobile-warning-title {
+        display: none;
+    }
+    .resume-categories {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .resume-categories {
+        display: none;
+    }
 }
 .map-container {
     display: flex;
