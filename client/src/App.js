@@ -14,8 +14,8 @@ function App() {
         <Nav/>
         <div className='site-body'>
         <Switch>
-          <Route path='/' exact component={Resume}/>
-          <Route path='/more' exact component={Resume}/>
+          <Route path='/' exact component={AboutMe}/>
+          <Route path='/more' exact component={AboutMe}/>
           <Route path='/spotify' component={Spotify_Previewer}/>
         </Switch>
         <Footer/>
