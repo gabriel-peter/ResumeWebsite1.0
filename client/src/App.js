@@ -13,7 +13,7 @@ function App() {
         <Nav/>
         <div className='site-body'>
         <Switch>
-          <Route path='/' exact component={Resume}/>
+          <Route path='/' exact component={Spotify_Previewer}/>
           <Route path='/spotify' component={Spotify_Previewer}/>
         </Switch>
         <Footer/>
