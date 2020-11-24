@@ -10,8 +10,9 @@ function Nav() {
       <h1>Gabriel Peter</h1>
       </Link>
       <ul className='nav-links'>
-          <Link to='/more' className='Router-link'>
-            <li>About Me</li>
+          <Link to='/mix' className='Router-link'>
+            <img className='router-link-img' src={'/images/drink.png'} alt={''} height={26}/>
+            <li>Mix Assist 1.0</li>
           </Link>
           <Link to='/spotify' className='Router-link'>
             <img className='router-link-img' src={'/images/spotify.png'} alt={''} height={26}/>

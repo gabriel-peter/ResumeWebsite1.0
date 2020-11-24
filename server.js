@@ -10,6 +10,12 @@ const dotenv = require('dotenv'); // for acquiring env variables both dev and pr
 dotenv.config();
 app.use(cors());
 
+// MIX ASSIST
+
+var sqlite3 = require('sqlite3').verbose();
+var file = 'drinks.db';
+var db = new sqlite3.Database(file);
+
 // CONSTS
 var scope = 'user-top-read user-read-private user-read-email user-read-playback-state';
 const client_id = process.env.client_id;
@@ -48,6 +54,10 @@ function authenticate(callback) {
     });
 }
 authenticate();
+
+/**
+ * SPOTIFY ENDPOINTS
+ */
 
 app.get('/api/spotifyRedirectUri', (request, response) => {
   response.json(authUri)
@@ -88,6 +98,27 @@ app.get('/api/map-key', (req, res) => {
   res.json({'key': 'AIzaSyB4ZrcYecpeQwsvLaRxrnM4IFbI09P4jPA'});
 });
 
+/**
+ * DRINKS DB ENDPOINTS
+ */
+
+// app.get('/api/mix/search', (req, res) => {
+//   res.json(null);
+// });
+
+
+app.get('/api/mix/search', (req, res) => {
+  // console.log('HITTTTTT')
+  db.all('SELECT * FROM drinks LIMIT 20', (err, rows)=> {
+    // console.log(rows);
+    res.json(rows);
+  });
+});
+
+app.post('/api/mix/make', (req, res) => {
+  // TODO
+});
+
 // PRODUCTION
 // https://daveceddia.com/unexpected-token-in-json-at-position-0/ Lesson Learned lol
 if (process.env.NODE_ENV === 'production') {
@@ -100,3 +131,6 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(PORT, 
   // () => console.log(`Server started on port ${PORT}`)
   );
+
+console.log('CLOSING DB CONNECTION');
+// db.close();
