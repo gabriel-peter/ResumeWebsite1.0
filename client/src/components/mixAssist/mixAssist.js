@@ -14,19 +14,17 @@ class MixAssist extends Component {
                 <h1>Introducing MixAssist</h1>
                 <div>BETA</div>
                 <br />
-            
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-lg-6">
-                        <MakeDrink/>
-                    </div>
-                    <div className="col-lg-6">
-                        <SearchDrink/>
+                
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <MakeDrink/>
+                        </div>
+                        <div className="col-lg-6">
+                            <SearchDrink/>
+                        </div>
                     </div>
                 </div>
-                </div>
-                <div>
-                </div> 
             </div>
         )
     }

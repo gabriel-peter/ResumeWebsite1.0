@@ -5,21 +5,41 @@ import DrinkList from './drinkList/drinkList'
 class SearchDrink extends Component {
     constructor() {
         super();
+        this.searchInputRef = React.createRef();
         this.state = {
+            drinks: []
         }
     }
     handleKeyPress = (event) => {
-        if(event.key === 'Enter'){
-            console.log('enter press here! ')
-            // make query to DB
-        }
+        // if(event.key === 'Enter'){
+            const queryName = this.searchInputRef.current.value
+            if (queryName === '') {
+                fetch('/api/all-drinks' + queryName)
+                .then(res => res.json())
+                .then(res => this.setState({drinks: res})); 
+            } else {
+                console.log('enter press here! '+ queryName)
+                // make query to DB
+                fetch('/api/search/' + queryName)
+                .then(res => res.json())
+                .then(res => this.setState({drinks: res}));
+            }
+        // }
+    }
+    componentDidMount() {
+        fetch('/api/all-drinks')
+        .then(res => res.json())
+        .then(res => this.setState({drinks: res}));
+    }
+    updateList(data) {
+        this.setState({drinks: data})
     }
     render() {
         return(
         <div>
-            <SearchBar handleKeyPress={this.handleKeyPress}/>
+            <SearchBar searchInputRef={this.searchInputRef} handleKeyPress={this.handleKeyPress}/>
             <br/>
-            <DrinkList/>
+            <DrinkList drinks={this.state.drinks}/>
         </div>);
     }
 }

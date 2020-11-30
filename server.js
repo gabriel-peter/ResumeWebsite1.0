@@ -87,35 +87,48 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-// ABOUT ME PAGE ENDPOINTS
-
 app.get('/api/personal-token', (req, res) => {
     const tokens = {'access_token': personal_access_token, 'refresh_token': personal_refresh_token};
     res.json(tokens)
-});
-
-app.get('/api/map-key', (req, res) => {
-  res.json({'key': 'AIzaSyB4ZrcYecpeQwsvLaRxrnM4IFbI09P4jPA'});
 });
 
 /**
  * DRINKS DB ENDPOINTS
  */
 
-// app.get('/api/mix/search', (req, res) => {
-//   res.json(null);
-// });
-
-
-app.get('/api/mix/search', (req, res) => {
+app.get('/api/all-drinks', (req, res) => {
   // console.log('HITTTTTT')
   db.all('SELECT * FROM drinks LIMIT 20', (err, rows)=> {
-    // console.log(rows);
+    if (err) {
+      console.log(err);
+    }
     res.json(rows);
   });
 });
 
-app.post('/api/mix/make', (req, res) => {
+app.post('/api/make', (req, res) => {
+  // TODO
+});
+
+app.get('/api/search/:name', (req, res) => {
+  db.all('SELECT * FROM drinks WHERE d_name LIKE \'' + req.params.name + '%\' LIMIT 20', (err, rows) => {
+    if (err) {
+      console.log(err);
+    }
+    res.json(rows);
+  })
+});
+
+app.get('/api/search/:filter/:value', (req, res) => {
+  db.all('SELECT * FROM drinks WHERE '+ req.params.filter +' LIKE \'' + req.params.value + '%\' LIMIT 20', (err, rows) => {
+    if (err) {
+      console.log(err);
+    }
+    res.json(rows);
+  })
+});
+
+app.delete('/api/delete/:name', (req, res) => {
   // TODO
 });
 

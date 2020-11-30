@@ -11,8 +11,9 @@ class SearchBar extends Component {
     }
     render() {
         return (
-            <InputGroup onKeyPress={this.props.handleKeyPress}>
+            <InputGroup onChange={this.props.handleKeyPress}>
                 <FormControl
+                ref = {this.props.searchInputRef}
                 placeholder="Search for a drink!"
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
