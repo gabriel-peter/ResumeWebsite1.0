@@ -76,7 +76,12 @@ class FocusDrink extends Component {
                                     title={this.state.unit}
                                 >
                                     {this.units.map((unit, index) => {
-                                        return(<Dropdown.Item eventKey={unit}>{unit}</Dropdown.Item>);
+                                        return(<Dropdown.Item 
+                                                    key={index} 
+                                                    eventKey={unit}
+                                                >
+                                                    {unit}
+                                                </Dropdown.Item>);
                                     })}
                                     
                                 </DropdownButton>

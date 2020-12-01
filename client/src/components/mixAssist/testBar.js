@@ -41,7 +41,7 @@ class TestBar extends Component {
             ingredients['unit'+i] = ingredients['unit'+i] || 'ml';
             this.state.ingredients = ingredients;
             ingredientList.push(
-                <div className="container-fluid">
+                <div key={i} className="container-fluid">
                     <InputGroup onChange={(event) => this.updateIngredientList(event)} key={i} className="mb-3">
                         <InputGroup.Prepend>
                         <InputGroup.Text id="basic-addon1">{i}</InputGroup.Text>
@@ -69,9 +69,9 @@ class TestBar extends Component {
                                 return (<Dropdown.Item 
                                             eventKey={item}
                                             id={'unit'+i+'-'+item}
-                                            // unitKey={i}
+                                            key={'unit'+i+'-'+item}
                                         >
-                                                {item}
+                                            {item}
                                         </Dropdown.Item>);
                             })} 
                         </DropdownButton>     
