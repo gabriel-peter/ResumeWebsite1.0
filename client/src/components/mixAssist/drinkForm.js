@@ -68,7 +68,7 @@ class DrinkForm extends Component {
     }
     render(){
         return (<div>
-            <Button variant="outline-warning" onClick={this.props.toggleForm}>Cancel</Button>
+            {/* <Button variant="outline-warning" onClick={this.props.toggleForm}>Cancel</Button> */}
             <Formik
             validationSchema={schema}
             onSubmit={console.log}
