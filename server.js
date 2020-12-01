@@ -118,12 +118,25 @@ app.get('/api/search/:name', (req, res) => {
     res.json(rows);
   })
 });
+// app.get('/api/search/contains/:value', (req, res) => {
+//   // let sqlQuery = 'SELECT * FROM drinks WHERE instr(d_ingredients, \''+ req.params.value + '%\') > 0 LIMIT 20';
+//   let sqlQuery = 'SELECT * FROM drinks WHERE d_ingredients LIKE\''+ req.params.value + '%\') > 0 LIMIT 20';
+//   db.all(sqlQuery, (err, rows) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log(sqlQuery, rows.length);
+//     res.json(rows);
+//   })
+// });
 
 app.get('/api/search/:filter/:value', (req, res) => {
-  db.all('SELECT * FROM drinks WHERE '+ req.params.filter +' LIKE \'' + req.params.value + '%\' LIMIT 20', (err, rows) => {
+  let sqlQuery = 'SELECT * FROM drinks WHERE '+ req.params.filter +' LIKE \'' + req.params.value + '%\' LIMIT 20'
+  db.all(sqlQuery, (err, rows) => {
     if (err) {
       console.log(err);
     }
+    console.log(sqlQuery, rows.length);
     res.json(rows);
   })
 });

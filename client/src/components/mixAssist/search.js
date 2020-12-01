@@ -11,14 +11,15 @@ class SearchBar extends Component {
             'Is Alcoholic',
             'Category',
             'Creator',
-            'Contains']
+            'Contains',
+            'Popularity']
         this.state = {
             filter: this.filters[0]
         }
     }
     render() {
         return (
-            <InputGroup onChange={this.props.handleKeyPress}>
+            <InputGroup onChange={(event) => this.props.handleKeyPress(event, this.state.filter)}>
                 <FormControl
                 ref = {this.props.searchInputRef}
                 placeholder="Search for a drink!"

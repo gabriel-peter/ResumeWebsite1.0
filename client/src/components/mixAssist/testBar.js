@@ -85,12 +85,24 @@ class TestBar extends Component {
             <h3>Name</h3>
             <h3>Ingredients</h3>
             {ingredientList}
+            <Button 
+                variant='outline-primary' 
+                onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount + 1}))}
+            >
+                (+)
+            </Button>
+            <Button 
+                variant='outline-warning' 
+                onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount - 1}))}
+            >
+                (-)
+            </Button>
+            <br/>
             <label htmlFor="drink-instructions">Specialty Instructions</label>
             <InputGroup>
                 <FormControl as="textarea" aria-label="Instructions" />
             </InputGroup>
-            <Button variant='outline-primary' onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount + 1}))}>(+) Add new item</Button>
-            <Button variant='outline-warning' onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount - 1}))}>(-) Remove last item</Button>
+            
             <DrinkCalculator ingredients={this.state.ingredients}/>
             <div>
             </div>

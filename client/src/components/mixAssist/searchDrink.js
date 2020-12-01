@@ -3,33 +3,40 @@ import SearchBar from './search'
 import DrinkList from './drinkList/drinkList'
 
 class SearchDrink extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.attributeConv = {
+            'Name': 'd_name',
+            'Is Alcoholic': 'd_alcohol',
+            'Category': 'd_cat',
+            'Creator': 'd_glass',
+            'Contains': 'd_ingredients',
+        }
         this.searchInputRef = React.createRef();
         this.state = {
-            drinks: []
+            drinks: [],
+            resultLimit: 0,
         }
     }
-    handleKeyPress = (event) => {
+    handleKeyPress = (event, filter) => {
         // if(event.key === 'Enter'){
             const queryName = this.searchInputRef.current.value
             if (queryName === '') {
                 fetch('/api/all-drinks' + queryName)
                 .then(res => res.json())
-                .then(res => this.setState({drinks: res})); 
+                .then(res => this.setState({drinks: res, resultLimit: res.length})); 
             } else {
-                console.log('enter press here! '+ queryName)
-                // make query to DB
-                fetch('/api/search/' + queryName)
+                fetch('/api/search/'+this.attributeConv[filter]+'/'+ queryName)
                 .then(res => res.json())
-                .then(res => this.setState({drinks: res}));
+                .then(res => this.setState({drinks: res, resultLimit: res.length}));
             }
         // }
     }
     componentDidMount() {
-        fetch('/api/all-drinks')
-        .then(res => res.json())
-        .then(res => this.setState({drinks: res}));
+        this.handleKeyPress();
+        // fetch('/api/all-drinks')
+        // .then(res => res.json())
+        // .then(res => this.setState({drinks: res}));
     }
     updateList(data) {
         this.setState({drinks: data})
@@ -38,7 +45,7 @@ class SearchDrink extends Component {
         return(
         <div>
             <SearchBar searchInputRef={this.searchInputRef} handleKeyPress={this.handleKeyPress}/>
-            <br/>
+            <p>{this.state.resultLimit} of {761}</p>
             <DrinkList drinks={this.state.drinks}/>
         </div>);
     }

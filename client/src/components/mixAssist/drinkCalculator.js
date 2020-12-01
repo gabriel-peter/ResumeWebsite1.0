@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Card from 'react-bootstrap/Card';
 import oz2ml from './unitConverter';
 
 class DrinkCalculator extends Component {
@@ -14,8 +16,15 @@ class DrinkCalculator extends Component {
                 let v = this.props.ingredients[key];
                 let unit = this.props.ingredients['unit'+key.slice(-1)];
                 switch (unit) {
-                    case 'oz': v = oz2ml(v);
-                    case 'ml': v = v;
+                    case 'oz': 
+                        v = oz2ml(v);
+                        break;
+                    case 'ml':
+                        v = v;
+                        break;
+                    default: 
+                        v = 0;
+                        break;
                 }
                 volume += Number(v);
             }
@@ -58,14 +67,19 @@ class DrinkCalculator extends Component {
         let recommendedGlass = this.getGlass(totalVolume);
         let totalCalories = this.getTotalCalories();
         return(
-        <div>
-            <p>Alcohol Content: {alcoholContent}% | {alcoholContent*2} Proof</p>
-            <p>Calories: {totalCalories} kCal</p>
-            <p>Total Volume: {totalVolume} ml</p>
-            <p>Recommeded Glassware: <strong>{recommendedGlass}</strong></p>
-            {/* TODO Put scale slider here! */}
-            <p>Acidity Rating: {'Medium'}</p>
-        </div>);
+            <div>
+                <Card>
+                    <Card.Header>Drink Calculator</Card.Header>
+                    <ListGroup variant='flush'>
+                        <ListGroup.Item>Alcohol Content: {alcoholContent}% | {alcoholContent*2} Proof</ListGroup.Item>
+                        <ListGroup.Item>Calories: {totalCalories} kCal</ListGroup.Item>
+                        <ListGroup.Item>Total Volume: {totalVolume} ml</ListGroup.Item>
+                        <ListGroup.Item>Recommeded Glassware: <strong>{recommendedGlass}</strong></ListGroup.Item>
+                        {/* TODO Put scale slider here! */}
+                        <ListGroup.Item>Acidity Rating: {'Medium'}</ListGroup.Item>
+                    </ListGroup>
+                </Card>
+            </div>);
     }
 }
 
