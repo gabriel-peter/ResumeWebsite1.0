@@ -6,7 +6,14 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
+        this.filters = [
+            'Name', 
+            'Is Alcoholic',
+            'Category',
+            'Creator',
+            'Contains']
         this.state = {
+            filter: this.filters[0]
         }
     }
     render() {
@@ -22,14 +29,13 @@ class SearchBar extends Component {
                 <DropdownButton
                 as={InputGroup.Append}
                 variant="outline-secondary"
-                title="Filter"
+                title={'Filter: '+ this.state.filter}
                 id="input-group-dropdown-2"
+                onSelect={(filter) => this.setState({filter: filter})}
                 >
-                <Dropdown.Item href="#">Action</Dropdown.Item>
-                <Dropdown.Item href="#">Another action</Dropdown.Item>
-                <Dropdown.Item href="#">Something else here</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item href="#">Separated link</Dropdown.Item>
+                {this.filters.map((filter, index) => {
+                    return (<Dropdown.Item key={index} eventKey={filter}>{filter}</Dropdown.Item>)
+                })}
                 </DropdownButton>
             </InputGroup>);
     }

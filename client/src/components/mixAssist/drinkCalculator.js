@@ -1,10 +1,6 @@
-
-
-
-
-
-
 import React, { Component } from 'react';
+import oz2ml from './unitConverter';
+
 class DrinkCalculator extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +12,11 @@ class DrinkCalculator extends Component {
         for (let key in this.props.ingredients) {
             if (key.includes('measurement')) {
                 let v = this.props.ingredients[key];
+                let unit = this.props.ingredients['unit'+key.slice(-1)];
+                switch (unit) {
+                    case 'oz': v = oz2ml(v);
+                    case 'ml': v = v;
+                }
                 volume += Number(v);
             }
         }
@@ -60,10 +61,10 @@ class DrinkCalculator extends Component {
         <div>
             <p>Alcohol Content: {alcoholContent}% | {alcoholContent*2} Proof</p>
             <p>Calories: {totalCalories} kCal</p>
-            <p>Total Volume: {totalVolume}</p>
+            <p>Total Volume: {totalVolume} ml</p>
             <p>Recommeded Glassware: <strong>{recommendedGlass}</strong></p>
             {/* TODO Put scale slider here! */}
-            <p>Acidity Rating</p>
+            <p>Acidity Rating: {'Medium'}</p>
         </div>);
     }
 }

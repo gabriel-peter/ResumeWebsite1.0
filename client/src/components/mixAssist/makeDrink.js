@@ -17,7 +17,7 @@ class MakeDrink extends Component {
             'My Drinks': <MyDrinks/>,
         }
         this.state = {
-            menuOption: null,
+            menuOption: 'Test Bar',
         }
         this.toggleForm = this.toggleForm.bind(this);
     }
