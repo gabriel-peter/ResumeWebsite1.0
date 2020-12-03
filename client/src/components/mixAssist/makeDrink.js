@@ -35,11 +35,11 @@ class MakeDrink extends Component {
         let menuOption = this.getPage()
         return(
             <div>
-            <DropdownButton id="dropdown-basic-button" title="MENU">
-            {Object.keys(this.pages).map((page, index) => {
-                return <Dropdown.Item key={index} onClick={() => this.setState({menuOption: page})} as="button"> {page} </Dropdown.Item>
-            })
-            }
+            <DropdownButton size='lg' id="dropdown-basic-button" title="MENU">
+                {Object.keys(this.pages).map((page, index) => {
+                    return <Dropdown.Item key={index} onClick={() => this.setState({menuOption: page})} as="button"> {page} </Dropdown.Item>
+                })
+                }
             </DropdownButton>
             {menuOption}
             </div>

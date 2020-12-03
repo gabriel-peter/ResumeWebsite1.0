@@ -5,7 +5,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Highlight } from 'react-vis';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/esm/Card';
+import Card from 'react-bootstrap/Card';
 
 class DrinkList extends Component {
     constructor(props) {

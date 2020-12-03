@@ -5,6 +5,9 @@ import FormControl from 'react-bootstrap/FormControl';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import DrinkCalculator from './drinkCalculator';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/esm/Col';
+import Row from 'react-bootstrap/Row';
 
 class TestBar extends Component {
     constructor(props) {
@@ -41,8 +44,13 @@ class TestBar extends Component {
             ingredients['unit'+i] = ingredients['unit'+i] || 'ml';
             this.state.ingredients = ingredients;
             ingredientList.push(
-                <div key={i} className="container-fluid">
-                    <InputGroup onChange={(event) => this.updateIngredientList(event)} key={i} className="mb-3">
+                <div key={i}>
+                    <br/>
+                    <InputGroup 
+                        onChange={(event) => this.updateIngredientList(event)} 
+                        key={i}
+                        // variant='flush'
+                    >
                         <InputGroup.Prepend>
                         <InputGroup.Text id="basic-addon1">{i}</InputGroup.Text>
                         </InputGroup.Prepend>
@@ -51,12 +59,14 @@ class TestBar extends Component {
                             placeholder="Untitled Item"
                             aria-label=""
                             aria-describedby="basic-addon1"
+                            // variant='flush'
                         />
                         <FormControl
                             id={'measurement'+i}
                             placeholder="Measurement"
                             aria-label=""
                             aria-describedby="basic-addon1"
+                            // variant='flush'
                         />
                         <DropdownButton 
                             as={InputGroup.Append}
@@ -81,33 +91,42 @@ class TestBar extends Component {
         }
         return (
         <div>
-            <h1>TEST BAR</h1>
-            <h3>Name</h3>
-            <h3>Ingredients</h3>
-            {ingredientList}
-            <Button 
-                variant='outline-primary' 
-                onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount + 1}))}
-            >
-                (+)
-            </Button>
-            <Button 
-                variant='outline-warning' 
-                onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount - 1}))}
-            >
-                (-)
-            </Button>
-            <br/>
-            <label htmlFor="drink-instructions">Specialty Instructions</label>
-            <InputGroup>
-                <FormControl as="textarea" aria-label="Instructions" />
-            </InputGroup>
-            
-            <DrinkCalculator ingredients={this.state.ingredients}/>
-            <div>
-            </div>
-            <br/>
-            <Button variant='secondary'>Continue</Button>
+            <Card>
+                <Card.Title as='h1'>TEST BAR</Card.Title>
+                <Card.Header as='h5'>
+                    <Row>
+                        <Col>
+                            Ingredients ({this.state.ingredientCount})
+                        </Col>
+                        <Col md={3}>
+                        <Button 
+                            variant='outline-primary' 
+                            onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount + 1}))}
+                        >
+                            (+)
+                        </Button>
+                        <Button 
+                            variant='outline-warning' 
+                            onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount - 1}))}
+                        >
+                            (-)
+                        </Button>
+                        </Col>
+                    </Row>                
+                </Card.Header>
+                {ingredientList}
+                
+                <Card.Header><strong>Specialty Instructions:</strong></Card.Header>
+                <InputGroup>
+                    <FormControl as="textarea" aria-label="Instructions" />
+                </InputGroup>
+                <Card.Body>
+                    <DrinkCalculator ingredients={this.state.ingredients}/>
+                </Card.Body>
+                <div>
+                </div>
+                <Button variant='secondary'>Continue</Button>
+            </Card>
         </div>);
     }
 }

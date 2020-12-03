@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Figure from 'react-bootstrap/Figure';
+import Image from 'react-bootstrap/Image';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
@@ -10,6 +11,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import DrinkCalculator from '../drinkCalculator';
+import Accordion from 'react-bootstrap/Accordion';
 
 class FocusDrink extends Component {
     constructor(props) {
@@ -36,9 +39,26 @@ class FocusDrink extends Component {
         let ingredients = this.parseIngredients(this.props.drink.d_ingredients);
         return (
             <div> 
+                <Accordion>
                 <Card border='primary'>
                     {/* TODO 'You can use a custom element type for this component.' ... as={Figure} */}
-                    <Card.Img variant='bottom' src={this.props.drink.d_img_url} />
+                    <Card.Header>
+                        <Row>
+                            <Col>
+                                <Button 
+                                    variant='outline-primary' 
+                                    onClick={() => this.props.focusDrink(null)}>
+                                        Back
+                                </Button>
+                            </Col>
+                            <Col lg={4}>
+                                <Accordion.Toggle as={Button} eventKey="0">Show Image</Accordion.Toggle>
+                            </Col>
+                        </Row>
+                    </Card.Header>
+                    <Accordion.Collapse eventKey="0">
+                    <Card.Img variant='bottom' src={this.props.drink.d_img_url} roundedCircle/>
+                    </Accordion.Collapse>
                     <Card.Body>
                         <Card.Title as='h1'>
                             <Row>
@@ -90,10 +110,6 @@ class FocusDrink extends Component {
                     </Card.Header>
                     <ListGroup className="list-group-flush">
                         {ingredients.map((ingredient, index) =>
-                            // <ListGroup horizontal>
-                            //     <ListGroupItem key={index}>{ingredient[0]}</ListGroupItem>
-                            //     <ListGroupItem key={index+'.1'}>{ingredient[1]}</ListGroupItem>
-                            // </ListGroup>
                             <ListGroupItem key={index}>
                                 <Row>
                                     <Col>{ingredient[0]}</Col> 
@@ -103,10 +119,10 @@ class FocusDrink extends Component {
                         )}
                     </ListGroup>
                     <Card.Body>
-                        <p>Recommended Serving Glass: <strong>{this.props.drink.d_glass}</strong></p>
-                        <Button variant='outline-primary' onClick={this.props.focusDrink}>Back</Button>
+                        <DrinkCalculator drinks={[]}/>
                     </Card.Body>
                 </Card>
+                </Accordion>
             </div>);
     }
 }

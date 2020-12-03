@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
+import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
 import oz2ml from './unitConverter';
 
 class DrinkCalculator extends Component {
@@ -68,17 +70,23 @@ class DrinkCalculator extends Component {
         let totalCalories = this.getTotalCalories();
         return(
             <div>
-                <Card>
-                    <Card.Header>Drink Calculator</Card.Header>
-                    <ListGroup variant='flush'>
-                        <ListGroup.Item>Alcohol Content: {alcoholContent}% | {alcoholContent*2} Proof</ListGroup.Item>
-                        <ListGroup.Item>Calories: {totalCalories} kCal</ListGroup.Item>
-                        <ListGroup.Item>Total Volume: {totalVolume} ml</ListGroup.Item>
-                        <ListGroup.Item>Recommeded Glassware: <strong>{recommendedGlass}</strong></ListGroup.Item>
-                        {/* TODO Put scale slider here! */}
-                        <ListGroup.Item>Acidity Rating: {'Medium'}</ListGroup.Item>
-                    </ListGroup>
-                </Card>
+                <Accordion>
+                    <Card>
+                    <Accordion.Toggle as={Button} eventKey="0">
+                        <strong>Drink Calculator:</strong>
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="0">
+                        <ListGroup variant='flush'>
+                            <ListGroup.Item>Alcohol Content: {alcoholContent}% | {alcoholContent*2} Proof</ListGroup.Item>
+                            <ListGroup.Item>Calories: {totalCalories} kCal</ListGroup.Item>
+                            <ListGroup.Item>Total Volume: {totalVolume} ml</ListGroup.Item>
+                            <ListGroup.Item>Recommeded Glassware: <strong>{recommendedGlass}</strong></ListGroup.Item>
+                            {/* TODO Put scale slider here! */}
+                            <ListGroup.Item>Acidity Rating: {'Medium'}</ListGroup.Item>
+                        </ListGroup>
+                    </Accordion.Collapse>
+                    </Card>
+                </Accordion>
             </div>);
     }
 }
