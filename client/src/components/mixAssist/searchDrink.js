@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import SearchBar from './search'
-import DrinkList from './drinkList/drinkList'
+import SearchBar from './search';
+import DrinkList from './drinkList/drinkList';
+import MenuPages from './menuPages';
 
 class SearchDrink extends Component {
     constructor(props) {
@@ -42,11 +43,26 @@ class SearchDrink extends Component {
         this.setState({drinks: data})
     }
     render() {
+        let isSearching = false;
+        if (this.searchInputRef.current != null) {
+            if (this.searchInputRef.current.value != '') {
+                isSearching = true;
+            }
+        }
         return(
         <div>
             <SearchBar searchInputRef={this.searchInputRef} handleKeyPress={this.handleKeyPress}/>
-            <p>{this.state.resultLimit} of {761}</p>
-            <DrinkList drinks={this.state.drinks}/>
+            {console.log('REF', this.searchInputRef.current)}
+            {isSearching ? 
+                <div>
+                    <p>{this.state.resultLimit} of {761}</p>
+                    <DrinkList drinks={this.state.drinks}/>
+                </div>
+                :
+                <div>
+                    <MenuPages/>
+                </div>
+            }
         </div>);
     }
 }

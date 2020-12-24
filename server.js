@@ -10,6 +10,28 @@ const dotenv = require('dotenv'); // for acquiring env variables both dev and pr
 dotenv.config();
 app.use(cors());
 
+// Cookie Handling
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+app.get('/setuser', (req, res)=>{ 
+  // TODO Append data to this.
+  res.cookie("userData", 'req.data'); 
+  res.send('user data added to cookie'); 
+}); 
+
+app.get('/getuser', (req, res)=>{ 
+  //shows all the cookies 
+  res.send(req.cookies); 
+}); 
+
+app.get('/logout', (req, res)=>{ 
+  //it will clear the userData cookie 
+  res.clearCookie('userData'); 
+  res.send('user logout successfully'); 
+});
+
+
 // MIX ASSIST
 
 var sqlite3 = require('sqlite3').verbose();

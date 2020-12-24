@@ -121,7 +121,10 @@ class TestBar extends Component {
                     <FormControl as="textarea" aria-label="Instructions" />
                 </InputGroup>
                 <Card.Body>
-                    <DrinkCalculator ingredients={this.state.ingredients}/>
+                    <DrinkCalculator 
+                    // ingredients={this.state.ingredients}
+                    ingredients={[]}
+                    />
                 </Card.Body>
                 <div>
                 </div>

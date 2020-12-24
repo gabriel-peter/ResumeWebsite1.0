@@ -38,7 +38,9 @@ class FocusDrink extends Component {
     render() {
         let ingredients = this.parseIngredients(this.props.drink.d_ingredients);
         return (
-            <div> 
+            <div>
+                <Row>
+                    <Col>
                 <Accordion>
                 <Card border='primary'>
                     {/* TODO 'You can use a custom element type for this component.' ... as={Figure} */}
@@ -51,14 +53,14 @@ class FocusDrink extends Component {
                                         Back
                                 </Button>
                             </Col>
-                            <Col lg={4}>
+                            {/* <Col lg={4}>
                                 <Accordion.Toggle as={Button} eventKey="0">Show Image</Accordion.Toggle>
-                            </Col>
+                            </Col> */}
                         </Row>
                     </Card.Header>
-                    <Accordion.Collapse eventKey="0">
+                    {/* <Accordion.Collapse eventKey="0">
                     <Card.Img variant='bottom' src={this.props.drink.d_img_url} roundedCircle/>
-                    </Accordion.Collapse>
+                    </Accordion.Collapse> */}
                     <Card.Body>
                         <Card.Title as='h1'>
                             <Row>
@@ -119,10 +121,20 @@ class FocusDrink extends Component {
                         )}
                     </ListGroup>
                     <Card.Body>
-                        <DrinkCalculator drinks={[]}/>
+                        <DrinkCalculator ingredients={ingredients}/>
                     </Card.Body>
                 </Card>
                 </Accordion>
+                    </Col>
+                    <Col>
+                        <Card border='primary'>
+                            <Card.Img variant='bottom' src={this.props.drink.d_img_url} roundedCircle/>
+                        </Card>
+                        <Card.Body>
+                            Recommended Purchases: API here...
+                        </Card.Body>
+                    </Col>
+                </Row>
             </div>);
     }
 }
