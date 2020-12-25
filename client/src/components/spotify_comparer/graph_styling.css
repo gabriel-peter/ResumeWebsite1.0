@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
 }
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
     .spotify-button-aref {
         display: flex;
         flex-direction: row;
@@ -22,9 +22,9 @@
         background-color: #1DB954;
         border-radius: 25px;
     }
-  }
+  } */
 
-  @media screen and (min-width: 600px) {
+  /* @media screen and (min-width: 600px) {
   .spotify-button-aref {
     display: flex;
     flex-direction: row;
@@ -37,7 +37,7 @@
     background-color: #1DB954;
     border-radius: 25px;
 }
-  }
+  } */
 
 .spotify-button-text {
     color: white;
@@ -48,7 +48,7 @@
         display: none;
     }
 }
-@media screen and (min-width: 1150px) {
+/* @media screen and (min-width: 1150px) {
     .mobile-warning-title-spotify {
         display: none;
     }
@@ -167,4 +167,4 @@
         font-size: 48px;
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     }
-}
+} */

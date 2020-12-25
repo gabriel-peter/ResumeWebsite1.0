@@ -13,6 +13,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DrinkCalculator from '../drinkCalculator';
 import Accordion from 'react-bootstrap/Accordion';
+import Container from 'react-bootstrap/Container';
 
 class FocusDrink extends Component {
     constructor(props) {
@@ -39,8 +40,9 @@ class FocusDrink extends Component {
         let ingredients = this.parseIngredients(this.props.drink.d_ingredients);
         return (
             <div>
+                <Container fluid>
                 <Row>
-                    <Col>
+                <Col xs={12} md={6}>
                 <Accordion>
                 <Card border='primary'>
                     {/* TODO 'You can use a custom element type for this component.' ... as={Figure} */}
@@ -126,7 +128,7 @@ class FocusDrink extends Component {
                 </Card>
                 </Accordion>
                     </Col>
-                    <Col>
+                    <Col xs={12} md={6}>
                         <Card border='primary'>
                             <Card.Img variant='bottom' src={this.props.drink.d_img_url} roundedCircle/>
                         </Card>
@@ -135,6 +137,7 @@ class FocusDrink extends Component {
                         </Card.Body>
                     </Col>
                 </Row>
+                </Container>
             </div>);
     }
 }

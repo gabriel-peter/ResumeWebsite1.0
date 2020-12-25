@@ -4,6 +4,13 @@ import React, { Component } from 'react';
 import ClientSpotifyData from './client_spotify_data';
 import PersonalSpotifyData from './personal_spotify_data';
 import Comparison from './comparison';
+import { Button } from 'react-bootstrap';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
 class Spotify extends Component {
     constructor() {
         super();
@@ -123,49 +130,51 @@ class Spotify extends Component {
         })
         .catch(error => { alert("Failed to prepare for Spotify Authentication"+  error) }); 
     }
-    handleTimeFrameChange(event) {
-        const savedSlide = this.state.currentSlide
-        this.setState({timeFrame: event.target.value, currentSlide: 'Both'}, () => this.setState({currentSlide: savedSlide}))
+    handleTimeFrameChange(value) {
+        console.log(value);
+        const savedSlide = this.state.currentSlide;
+        this.setState({timeFrame: value, currentSlide: 'Both'}, () => this.setState({currentSlide: savedSlide}))
       }
     render() {
         return(
             <div>
-                <h1>How Similar Are Our Music Tastes?</h1>
                 {!this.state.loggedIn ? (
                     <div>
-                    <h3>Find out if our libraries match!</h3>
-                    <h3>Click the button in order to fetch your time-variable listening data for analysis!</h3>
-                    <h5>(This service follows Spotify's <a href='https://developer.spotify.com/documentation/general/guides/authorization-guide/'>Auth-Flow Guidelines</a>)</h5>
-                    <div className='spotify-button-div'>
-                        <div className='spotify-button-aref' onClick={this.handleSpotifyLogin}>
-                            <img src='/images/spotify_button_image.png' alt={''} height={50}/>
-                            <p className='spotify-button-text'>{'Connect & Compare'}</p>
-                        </div>
-                    </div>
+                    <Card>
+                    <Card.Header as="h5">How Similar Are Our Music Tastes?</Card.Header>
+                    <Card.Body>
+                        <Card.Title>Find out if our libraries match!</Card.Title>
+                        <Card.Text>
+                        <p>Click the button in order to fetch your time-variable listening data for analysis!</p>
+                        (This service follows Spotify's <a href='https://developer.spotify.com/documentation/general/guides/authorization-guide/'>Auth-Flow Guidelines</a>)
+                        </Card.Text>
+                        <Button size="lg" block pill onClick={this.handleSpotifyLogin}>
+                            <Row>
+                                <Col>{'Connect & Compare with  '}
+                                <img src='/images/spotify_button_image.png' alt={''} height={35}/></Col>
+                            </Row>
+                        </Button>
+                    </Card.Body>
+                    </Card>
                     </div>
                 ) : (
                 <div>
-                <h1 className='mobile-warning-title-spotify'>Enter Fullscreen mode for content to appear! (Mobile Version Coming Soon)</h1>
-                <div className='loggedIn'>
+                {/* <h1 className='mobile-warning-title-spotify'>Enter Fullscreen mode for content to appear! (Mobile Version Coming Soon)</h1> */}
+                {/* <div className='loggedIn'> */}
                     <div>
-                        <button onClick={() => this.setState({currentSlide: 'Client'})}
-                        id={this.state.currentSlide === 'Client' && 'slide-button-highlight'}
-                        className='slide-button'>{this.state.userData.display_name}</button>
-                        <button onClick={() => this.setState({currentSlide: 'Me'})} 
-                        id={this.state.currentSlide === 'Me' && 'slide-button-highlight'}
-                        className='slide-button'>Gabriel</button>
-                        {/* <button onClick={() => this.setState({currentSlide: 'Both'})} 
-                        className='slide-button'>Match?</button> */}
-                        <div>
-                        <label>
-                        Pick your time-frame: 
-                        <select id='time-menu' value={this.state.timeFrame} onChange={this.handleTimeFrameChange}>
-                            <option value="long_term">Long Term (All Data)</option>
-                            <option value="medium_term">Medium Term (Past 6 Months)</option>
-                            <option value="short_term">Short Term (Past 4 Weeks)</option>
-                        </select>
-                        </label>
-                        </div>
+                    <Nav variant="tabs">
+                        <Nav.Item onClick={() => this.setState({currentSlide: 'Client'})}>
+                            <Nav.Link>{this.state.userData.display_name}</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item onClick={() => this.setState({currentSlide: 'Me'})}>
+                            <Nav.Link>Gabriel</Nav.Link>
+                        </Nav.Item>
+                        <NavDropdown title={this.state.timeFrame.replace('_', ' ').toUpperCase() + ' DATA'} id="nav-dropdown">
+                            <NavDropdown.Item onSelect={(value) => this.handleTimeFrameChange(value)} eventKey="long_term">Long Term (All Data)</NavDropdown.Item>
+                            <NavDropdown.Item onSelect={(value) => this.handleTimeFrameChange(value)} eventKey="medium_term">Medium Term (Past 6 Months)</NavDropdown.Item>
+                            <NavDropdown.Item onSelect={(value) => this.handleTimeFrameChange(value)} eventKey="short_term">Short Term (Past 4 Weeks)</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
                     </div>
                     {this.state.currentSlide === 'Client' &&
                         <ClientSpotifyData
@@ -190,7 +199,7 @@ class Spotify extends Component {
                         />
                     }
                 </div>
-                </div>
+                // </div>
                 )}
             </div>
             

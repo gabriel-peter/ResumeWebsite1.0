@@ -92,7 +92,7 @@ class TestBar extends Component {
         return (
         <div>
             <Card>
-                <Card.Title as='h1'>TEST BAR</Card.Title>
+                {/* <Card.Title as='h1'>TEST BAR</Card.Title> */}
                 <Card.Header as='h5'>
                     <Row>
                         <Col>

@@ -6,6 +6,7 @@ import { Highlight } from 'react-vis';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import Table from 'react-bootstrap/Table';
 
 class DrinkList extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class DrinkList extends Component {
         this.focusDrink = this.focusDrink.bind(this)
     }
     focusDrink(index) {
+        console.log(index);
         this.setState({focusedDrink: this.props.drinks[index]});
     }
     render() {
@@ -31,28 +33,33 @@ class DrinkList extends Component {
                 :
                 <div>
                 {this.props.drinks.length > 0 ?
-                    <Card>
-                        <Card.Header>
-                            <Row>
-                                <Col><strong>Name</strong></Col>
-                                <Col sm={3}><strong>Popularity</strong></Col>
-                            </Row>
-                        </Card.Header>
-                        <ListGroup variant='flush'>
-                            {this.props.drinks.map((drink, index) => 
-                                <ListGroup.Item 
-                                    onClick={() => this.focusDrink(index)} 
-                                    key={index}
-                                >   
-                                    <Row>
-                                        <Col>{drink.d_name}</Col>
-                                        <Col sm={2}>{Math.floor((Math.random() * 10) + 1)}</Col>
-                                    </Row>
-                                    
-                                </ListGroup.Item>
-                            )}
-                        </ListGroup>
-                    </Card>
+                    <div>
+                    <p>Results: {this.state.drinks.length} of {761}</p>
+                        <Table striped bordered hover size="sm">
+                        <thead>
+                            <tr>
+                            {/* <th>#</th> */}
+                            <th>Drink Name</th>
+                            <th>Category</th>
+                            <th>Alcoholic</th>
+                            <th>Popularity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.drinks.map((drink, index) => {
+                                return(
+                                <tr onClick={() => this.focusDrink(index)}>
+                                {/* <td>{index+1}</td> */}
+                                <td>{drink.d_name}</td>
+                                <td>{drink.d_cat}</td>
+                                <td>{drink.d_alcohol}</td>
+                                <td>{Math.floor((Math.random() * 10) + 1)}</td>
+                                </tr>
+                                );
+                            })}
+                        </tbody>
+                        </Table>
+                        </div>
                     :
                     <Jumbotron>
                         <Row>

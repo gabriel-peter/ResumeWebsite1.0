@@ -10,14 +10,14 @@ import Col from 'react-bootstrap/Col';
 function NavbarHeader() {
   return (
     <div>
-      <Navbar bg="light" expand="lg">
+      <Navbar defaultExpanded={false} collapseOnSelect variant="light" expand="lg">
         <LinkContainer to="/">
           <Navbar.Brand>
             <img
               src="/images/websiteIcon.png"
-              width="26"
-              height="26"
-              className="d-inline-block align-top"
+              width="40"
+              height="40"
+              // className="d-inline-block align-top"
               alt="React Bootstrap logo"
             />{' '}
             Gabriel Peter
@@ -30,14 +30,17 @@ function NavbarHeader() {
             <LinkContainer to="/mix">
             <Nav.Link>
               <Row>
+                <Col>
                 <img
                   src="/images/drink.png"
                   width="26"
                   height="26"
-                  className="d-inline-block align-top"
+                  // className="d-inline-block align-top"
                   alt="React Bootstrap logo"
                 />{' '}
-                <p>Mix Assist 1.0<Badge>New</Badge></p>
+                Mix Assist 1.0
+                {/* <Badge variant="primary">New</Badge> */}
+                </Col>
               </Row>
             </Nav.Link>
             </LinkContainer>
@@ -45,36 +48,43 @@ function NavbarHeader() {
             <LinkContainer to="/spotify">
             <Nav.Link>
               <Row>
+                <Col>
                 <img
                   src="/images/spotify.png"
                   width="26"
                   height="26"
-                  className="d-inline-block align-top"
+                  // className="d-inline-block align-top"
                   alt="React Bootstrap logo"
                 />{' '}
-                <p>Spotify Compatibility<Badge>Updated</Badge></p>
+                Spotify Compatibility
+                {/* <Badge pill variant="secondary">Updated</Badge> */}
+                </Col>
               </Row>
+              
             </Nav.Link>
             </LinkContainer>
+
           </Nav>
           <Nav>
             <Nav.Link href='https://github.com/gabriel-peter'>
               <img
-                src='/images/drink.png'
+                src='/images/github.png'
                 width="26"
                 height="26"
                 className="d-inline-block align-top"
                 alt="React Bootstrap logo"
               />{' '}
+              My GitHub
             </Nav.Link>
             <Nav.Link href='https://www.linkedin.com/in/gabriel-peter/'>
               <img
                 src='/images/LI-In-Bug.png'
                 width="26"
-                height="26"
+                height="22"
                 className="d-inline-block align-top"
                 alt="React Bootstrap logo"
               />{' '}
+              LinkedIn Profile
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
