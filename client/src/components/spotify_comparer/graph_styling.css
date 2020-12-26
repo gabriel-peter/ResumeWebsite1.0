@@ -168,3 +168,12 @@
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     }
 } */
+
+.translucent-caption {
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-img {
+    margin: auto;
+}

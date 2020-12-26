@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
+import CardDeck from 'react-bootstrap/CardDeck';
 import ArtistCarousel from './artistCarousel';
 import {XYPlot, VerticalGridLines, XAxis, VerticalBarSeries, LabelSeries, RadialChart, HorizontalBarSeries, HorizontalGridLines, YAxis} from 'react-vis';
 import './graph_styling.css';
@@ -21,6 +22,7 @@ class Chart_Constructor extends Component {
       const data2 = this.props.data2
       const genres = this.props.genres
       const chart_dimension = 300;
+      const card_dimension = '375px';
       const { index } = this.state;
       var genre_max = {'x': 0, 'y': 'Undef'};
       genres.forEach(element => {
@@ -37,10 +39,13 @@ class Chart_Constructor extends Component {
       const { index2 } = this.state;
       const dataWithColor2 = genres.map((d, i) => ({...d, color: (Number(i !== index2)+1)}));
     return (
-      <div className='my-graphs'>
-        <div className='top-5-artists_w_graph'>
-          <div className='graph-and-directions'>
+          <CardDeck>
+
           <Card>
+          <ArtistCarousel artists={artistsWithFocus}/>
+          </Card>
+
+          {/* <Card style={{width: {card_dimension}}}>
             <Card.Body>
               <Card.Title>Card Title</Card.Title>
               <XYPlot
@@ -64,23 +69,9 @@ class Chart_Constructor extends Component {
                 Hover over the graph to show {this.state.owner === 'you' ? ('your'):('my')} top 5 artists' popularity!
               </Card.Text>
             </Card.Body>
-          </Card>
-        
+          </Card> */}
 
-        </div>
-        <ArtistCarousel artists={artistsWithFocus}/>
-        {/* <div className='my-top-artists'>
-          {artistsWithFocus.map((artist) =>
-            <div key={artist.name}>
-              <a href={artist.uri}>
-                <img className='artist-image' src={artist.images[0].url} alt={''} height={150} width={150}/>
-              </a>
-          </div>
-          )}
-        </div> */}
-        </div>
-
-          <Card>
+          <Card style={{width: {card_dimension}}}>
             <Card.Body>
               <Card.Title>Popularity Analysis</Card.Title>
                 <RadialChart
@@ -92,13 +83,13 @@ class Chart_Constructor extends Component {
                 /> 
               <Card.Text>
                 <div>{this.state.owner === 'you' ? ('Your'):('My')} favorite artists averaged around:</div>
-                <div className='big-number'>{this.props.average_artist_rank}/100</div>
+                <h4>{this.props.average_artist_rank}/100</h4>
                 <div>in their overall popularity score!</div>
               </Card.Text>
             </Card.Body>
           </Card>
 
-          <Card>
+          <Card style={{ width: {card_dimension}}}>
             <Card.Body>
               <Card.Title>Genre Analysis</Card.Title>
               <XYPlot
@@ -121,15 +112,12 @@ class Chart_Constructor extends Component {
                 <HorizontalGridLines />
               </XYPlot>
               <Card.Text>
-                <div>{this.state.owner === 'you' ? ('Your'):('My')} music primarly consists of:
-                <div className='big-number'>{genre_max['y']}</div>
-                </div>
+                <div>{this.state.owner === 'you' ? ('Your'):('My')} {'music primarly consists of: '} 
+                <h5>{genre_max['y']}</h5></div>
               </Card.Text>
             </Card.Body>
           </Card>
-
-      </div>
-    );
+          </CardDeck>);
   }
 }
 

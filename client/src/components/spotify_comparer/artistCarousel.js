@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import './graph_styling.css';
 
 class ArtistCarousel extends Component {
     constructor(props) {
@@ -15,18 +20,25 @@ class ArtistCarousel extends Component {
                 if(artist.name !== '') {
                     console.log(artist);
                     console.log(artist.followers);
-                    return(<Carousel.Item key={artist.id} interval={1000}>
-                        <img
-                        className="center h-100"
-                        src={artist.images[0].url}
-                        alt="First slide"
-                        />
-                        <Carousel.Caption>
+                    return(
+                        <Carousel.Item key={artist.id} interval={1000}>
+                            <img
+                                // style={{
+                                // // 'height':"45rem",
+                                // // 'width':"640px",
+                                // 'background-position': 'center center',
+                                // 'background-repeat': 'no-repeat'}}
+                                className="d-block w-100"
+                                // bsPrefix='carousel-img'
+                                src={artist.images[0].url}
+                                alt="First slide"
+                                // fluid
+                            />
+                        <Carousel.Caption bsPrefix='translucent-caption carousel-caption'>
                         <h3>{index+1}. {artist.name}</h3>
-                        <ul>
-                            <li><strong>Followers: {artist.followers.total}</strong></li>
-                            <li><strong>Popularity: {artist.popularity}</strong></li>
-                        </ul>
+                        <div>Followers: {artist.followers.total}</div>
+                        <div>Popularity: {artist.popularity}</div>
+                        <br/>
                         <Button variant='outline-light' href={artist.uri}>Listen</Button>
                         </Carousel.Caption>
                     </Carousel.Item>);

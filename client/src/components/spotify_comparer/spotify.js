@@ -169,7 +169,7 @@ class Spotify extends Component {
                         <Nav.Item onClick={() => this.setState({currentSlide: 'Me'})}>
                             <Nav.Link>Gabriel</Nav.Link>
                         </Nav.Item>
-                        <NavDropdown title={this.state.timeFrame.replace('_', ' ').toUpperCase() + ' DATA'} id="nav-dropdown">
+                        <NavDropdown title={this.state.timeFrame.replace('_', ' ') + ' data'} id="nav-dropdown">
                             <NavDropdown.Item onSelect={(value) => this.handleTimeFrameChange(value)} eventKey="long_term">Long Term (All Data)</NavDropdown.Item>
                             <NavDropdown.Item onSelect={(value) => this.handleTimeFrameChange(value)} eventKey="medium_term">Medium Term (Past 6 Months)</NavDropdown.Item>
                             <NavDropdown.Item onSelect={(value) => this.handleTimeFrameChange(value)} eventKey="short_term">Short Term (Past 4 Weeks)</NavDropdown.Item>

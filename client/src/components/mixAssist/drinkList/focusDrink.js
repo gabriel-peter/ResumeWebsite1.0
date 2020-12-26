@@ -14,6 +14,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DrinkCalculator from '../drinkCalculator';
 import Accordion from 'react-bootstrap/Accordion';
 import Container from 'react-bootstrap/Container';
+import Table from 'react-bootstrap/Table';
 
 class FocusDrink extends Component {
     constructor(props) {
@@ -112,7 +113,7 @@ class FocusDrink extends Component {
                             </Col>
                         </Row>
                     </Card.Header>
-                    <ListGroup className="list-group-flush">
+                    {/* <ListGroup className="list-group-flush">
                         {ingredients.map((ingredient, index) =>
                             <ListGroupItem key={index}>
                                 <Row>
@@ -121,7 +122,26 @@ class FocusDrink extends Component {
                                 </Row>       
                             </ListGroupItem>
                         )}
-                    </ListGroup>
+                    </ListGroup> */}
+                    <Table striped bordered hover>
+                        {/* <thead>
+                            <tr>
+                            <th></th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            </tr>
+                        </thead> */}
+                        <tbody>
+                        {ingredients.map((ingredient, index) => {
+                            return(<tr>
+                            <td>{index+1}</td>
+                            <td>{ingredient[0]}</td>
+                            <td>{ingredient[1]}</td>
+                            </tr>);
+                        })}  
+                        </tbody>
+                        </Table>
                     <Card.Body>
                         <DrinkCalculator ingredients={ingredients}/>
                     </Card.Body>

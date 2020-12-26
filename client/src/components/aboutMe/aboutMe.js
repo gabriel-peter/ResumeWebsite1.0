@@ -19,9 +19,9 @@ class AboutMe extends Component {
             {/* <h1>Updated Home Page Coming soon ... In the mean time, checkout our: </h1>
             <h1><a href='/spotify'>Spotify Compatibility</a></h1> */}
             
-            <h1>Introducing MixAssist</h1>
-            <div>BETA</div>
-            <Accordion defaultActiveKey="0">
+            <h1>About Me</h1>
+            <div>TODO....</div>
+            {/* <Accordion defaultActiveKey="0">
                 <Card>
                     <Card.Header>
                     <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -51,7 +51,7 @@ class AboutMe extends Component {
             </Accordion>
             <h3>Progress until Release:</h3>
             <ProgressBar animated now={40} />
-            <Button size='lg' variant='outline-primary' href='https://paypal.me/gabepeter?locale.x=en_US'>Support!</Button>
+            <Button size='lg' variant='outline-primary' href='https://paypal.me/gabepeter?locale.x=en_US'>Support!</Button> */}
         </div>);
     }
 }
