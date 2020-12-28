@@ -9,7 +9,7 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/Row';
 
-class TestBar extends Component {
+class IngredientList extends Component {
     constructor(props) {
         super(props);
         // this.ingredients = {}
@@ -45,7 +45,7 @@ class TestBar extends Component {
             this.state.ingredients = ingredients;
             ingredientList.push(
                 <div key={i}>
-                    <br/>
+                    
                     <InputGroup 
                         onChange={(event) => this.updateIngredientList(event)} 
                         key={i}
@@ -86,19 +86,20 @@ class TestBar extends Component {
                             })} 
                         </DropdownButton>     
                     </InputGroup>
+                    <br/>
                 </div>
             )
         }
         return (
         <div>
-            <Card>
+            {/* <Card> */}
                 {/* <Card.Title as='h1'>TEST BAR</Card.Title> */}
-                <Card.Header as='h5'>
-                    <Row>
+                {/* <Card.Header as='h5'> */}
+                    {/* <Row>
                         <Col>
                             Ingredients ({this.state.ingredientCount})
-                        </Col>
-                        <Col md={3}>
+                        </Col> */}
+                        {/* <Col md={3}>
                         <Button 
                             variant='outline-primary' 
                             onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount + 1}))}
@@ -112,26 +113,26 @@ class TestBar extends Component {
                             (-)
                         </Button>
                         </Col>
-                    </Row>                
-                </Card.Header>
+                    </Row>                 */}
+                {/* </Card.Header> */}
                 {ingredientList}
                 
-                <Card.Header><strong>Specialty Instructions:</strong></Card.Header>
+                {/* <Card.Header><strong>Specialty Instructions:</strong></Card.Header>
                 <InputGroup>
                     <FormControl as="textarea" aria-label="Instructions" />
-                </InputGroup>
-                <Card.Body>
+                </InputGroup> */}
+                {/* <Card.Body>
                     <DrinkCalculator 
                     // ingredients={this.state.ingredients}
                     ingredients={[]}
                     />
-                </Card.Body>
-                <div>
-                </div>
-                <Button variant='secondary'>Continue</Button>
-            </Card>
+                </Card.Body> */}
+                {/* <div> */}
+                {/* </div> */}
+                {/* <Button variant='secondary'>Continue</Button> */}
+            {/* </Card> */}
         </div>);
     }
 }
 
-export default TestBar;
+export default IngredientList;

@@ -36,41 +36,41 @@ class DrinkCalculator extends Component {
         // }
         // return volume;
 
-        console.log(this.props.ingredients);
-        for (let idx in this.props.ingredients) {
-            // console.log(ingredient)
-            let type = this.props.ingredients[idx][0];
-            let measurement = this.props.ingredients[idx][1].split(' ');
-            // console.log(type, measurement);
-            let unit = measurement.pop();
-            let v = measurement[0];
-            // BROKEN BECAUSE 1/2 = NaN
-            console.log(type, v, unit);
-            if (v.includes('/')) {
-                if (v.split(' ').length > 1) {
-                    let mixedNum = v.split(' ');
-                    v = mixedNum[0];
-                    let fracs = mixedNum.slice(1, mixedNum.length - 1).split('/');
-                    v += fracs[0]/fracs[1];
-                } else {
-                    let fracs = v.split('/');
-                    v = fracs[0]/fracs[1];
-                }  
-            }
-            switch (unit) {
-                case 'oz': 
-                    v = oz2ml(v);
-                    break;
-                case 'ml':
-                    v = v;
-                    break;
-                default: 
-                    v = 0;
-                    break;
-            }
-            volume_in_ml += Number(v);
-            console.log(volume_in_ml);
-        }
+        // console.log(this.props.ingredients);
+        // for (let idx in this.props.ingredients) {
+        //     // console.log(ingredient)
+        //     let type = this.props.ingredients[idx][0];
+        //     let measurement = this.props.ingredients[idx][1].split(' ');
+        //     // console.log(type, measurement);
+        //     let unit = measurement.pop();
+        //     let v = measurement[0];
+        //     // BROKEN BECAUSE 1/2 = NaN
+        //     console.log(type, v, unit);
+        //     if (v.includes('/')) {
+        //         if (v.split(' ').length > 1) {
+        //             let mixedNum = v.split(' ');
+        //             v = mixedNum[0];
+        //             let fracs = mixedNum.slice(1, mixedNum.length - 1).split('/');
+        //             v += fracs[0]/fracs[1];
+        //         } else {
+        //             let fracs = v.split('/');
+        //             v = fracs[0]/fracs[1];
+        //         }  
+        //     }
+        //     switch (unit) {
+        //         case 'oz': 
+        //             v = oz2ml(v);
+        //             break;
+        //         case 'ml':
+        //             v = v;
+        //             break;
+        //         default: 
+        //             v = 0;
+        //             break;
+        //     }
+        //     volume_in_ml += Number(v);
+        //     console.log(volume_in_ml);
+        // }
         return volume_in_ml;
     }
     getTotalCalories() {

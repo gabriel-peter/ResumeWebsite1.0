@@ -14,24 +14,6 @@ app.use(cors());
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-app.get('/setuser', (req, res)=>{ 
-  // TODO Append data to this.
-  res.cookie("userData", 'req.data'); 
-  res.send('user data added to cookie'); 
-}); 
-
-app.get('/getuser', (req, res)=>{ 
-  //shows all the cookies 
-  res.send(req.cookies); 
-}); 
-
-app.get('/logout', (req, res)=>{ 
-  //it will clear the userData cookie 
-  res.clearCookie('userData'); 
-  res.send('user logout successfully'); 
-});
-
-
 // MIX ASSIST
 
 var sqlite3 = require('sqlite3').verbose();
@@ -130,6 +112,64 @@ app.get('/api/all-drinks', (req, res) => {
 
 app.post('/api/make', (req, res) => {
   // TODO
+});
+
+app.get('/setuser', (req, res)=>{ 
+  // TODO Append data to this.
+  res.cookie('savedDrinks', []); 
+  res.send('user data added to cookie'); 
+}); 
+
+app.get('/addDrink/:id', (req, res)=>{ 
+  // TODO Append data to this.
+  let newSavedDrinks = req.cookies['savedDrinks'];
+  console.log('SAVED DRINKS', newSavedDrinks);
+  newSavedDrinks.push(req.params.id);
+  res.cookie('savedDrinks', newSavedDrinks); 
+  res.send(req.params.id + ' drink added to cookie'); 
+}); 
+
+app.get('/removeDrink/:id', (req, res)=>{ 
+  // TODO Append data to this.
+  let newSavedDrinks = req.cookies['savedDrinks'];
+  newSavedDrinks = newSavedDrinks.filter(item => item !== req.params.id);
+  console.log('SAVED DRINKS', newSavedDrinks);
+  res.cookie('savedDrinks', newSavedDrinks); 
+  res.send(req.params.id + ' drink removed from cookie'); 
+}); 
+
+app.get('/getuser', (req, res)=>{ 
+  //shows all the cookies 
+  console.log(req);
+  res.send(req.cookies); 
+}); 
+
+app.get('/clearCookie', (req, res)=>{ 
+  //it will clear the userData cookie 
+  res.clearCookie('savedDrinks'); 
+  res.send('user logout successfully'); 
+});
+
+app.get('/saved-drinks', (req, res) => {
+  let drinkNames = req.cookies.savedDrinks;
+  console.log(drinkNames);
+  var results = [];
+  var querystring = 'SELECT * FROM drinks WHERE ';
+  for(var i = 0; i < drinkNames.length; i++) {
+    
+    querystring += 'd_name=\'' + drinkNames[i] + '\'';
+    if(i !== drinkNames.length-1) {
+      querystring += ' OR ';
+    }
+    console.log(querystring);
+  }
+  db.all(querystring, (err, rows)=> {
+    if (err) {
+      console.log(err);
+    }
+    console.log(rows);
+    res.json(rows);
+    });
 });
 
 app.get('/api/search/:name', (req, res) => {

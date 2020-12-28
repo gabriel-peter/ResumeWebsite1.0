@@ -7,7 +7,7 @@ import DrinkForm from './drinkForm';
 import Nav from 'react-bootstrap/Nav';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import TestBar from './testBar';
+import DrinkFinder from './drinkFinder';
 import MyDrinks from './myDrinks';
 
 class MenuPages extends Component {
@@ -16,7 +16,7 @@ class MenuPages extends Component {
         this.pages = {
             'Make a Drink': <DrinkForm/>,
             // 'default': <ImageCarousel/>,
-            'Test Bar': <TestBar/>,
+            'Discover': <DrinkFinder/>,
             'My Drinks': <MyDrinks/>,
         }
         this.state = {

@@ -6,7 +6,7 @@ import {Navbar, Nav} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import '../../App.css'
 function NavbarHeader() {
   return (
     <div>

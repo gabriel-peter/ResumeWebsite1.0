@@ -22,8 +22,10 @@ class FocusDrink extends Component {
         this.units = ['ml', 'oz', 'grams', 'ct'];
         this.state = {
             unit: this.units[0],
+            // TODO make this update from cookie?
             liked: false,
         }
+        this.handleLike = this.handleLike.bind(this);
     }
     parseIngredients(s) {
         let ingredients = s.trim().split('|')
@@ -36,6 +38,16 @@ class FocusDrink extends Component {
             // arr.splice(1, 0, "~");
             return arr;
         });
+    }
+    handleLike() {
+        this.setState(prev => ({liked: !prev.liked}));
+        if (!this.state.liked) {
+            // addDrink
+            fetch('/addDrink/'+this.props.drink.d_name);
+        } else {
+            // removeDrink
+            fetch('/removeDrink/'+this.props.drink.d_name);
+        }
     }
     render() {
         let ingredients = this.parseIngredients(this.props.drink.d_ingredients);
@@ -77,7 +89,7 @@ class FocusDrink extends Component {
                                             variant="outline-primary"
                                             checked={this.state.liked}
                                             value="1"
-                                            onChange={() => this.setState(prev => ({liked: !prev.liked}))}
+                                            onChange={this.handleLike}
                                         >
                                             {/* TODO MAKE THIS A HEART.PNG */}
                                             {this.state.liked ? 'Unlike':'Like'}

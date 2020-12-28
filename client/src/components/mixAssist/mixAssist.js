@@ -21,12 +21,16 @@ class MixAssist extends Component {
     }
     handleKeyPress = (event, filter) => {
         // if(event.key === 'Enter'){
-            const queryName = this.searchInputRef.current.value
+            let queryName = this.searchInputRef.current.value
             if (queryName === '') {
                 fetch('/api/all-drinks' + queryName)
                 .then(res => res.json())
                 .then(res => this.setState({drinks: res, resultLimit: res.length})); 
             } else {
+                if (filter==='Contains') {
+                    // TODO
+                    queryName = queryName.replace(' ', '').split(',');
+                }
                 fetch('/api/search/'+this.attributeConv[filter]+'/'+ queryName)
                 .then(res => res.json())
                 .then(res => this.setState({drinks: res, resultLimit: res.length}));

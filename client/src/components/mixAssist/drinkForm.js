@@ -5,6 +5,8 @@ import Col from 'react-bootstrap/Col'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+import IngredientList from './ingredientList';
+
 /**
     d_name text,
     d_cat text,
@@ -29,11 +31,14 @@ class DrinkForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            drinks: [],
-            categories: ['Ordinary Drink','Cocktail','Milk / Float / Shake', 'Other/Unknown',
+            ingredientCount: 3,
+            ingredients: {},
+        }
+        
+        this.categories = ['Ordinary Drink','Cocktail','Milk / Float / Shake', 'Other/Unknown',
                 'Cocoa','Shot','Coffee / Tea','Homemade Liqueur','Punch / Party Drink','Beer',
-                'Soft Drink / Soda'],
-            glasses: ['Highball glass',
+                'Soft Drink / Soda'];
+        this.glasses= ['Highball glass',
                 'Cocktail glass',
                 'Old-fashioned glass',
                 'Collins glass',
@@ -63,8 +68,7 @@ class DrinkForm extends Component {
                 'Margarita glass',
                 'Martini Glass',
                 'Balloon Glass',
-                'Coupe Glass',]
-        }
+                'Coupe Glass',];
     }
     render(){
         return (<div>
@@ -84,7 +88,7 @@ class DrinkForm extends Component {
         }) => (
             <Form noValidate onSubmit={handleSubmit}>
                 <Form.Row>
-                <Form.Group as={Col} md="6"
+                <Form.Group as={Col} sm="12" md="6"
                 // controlId="formBasicEmail"
                 >
                     <Form.Label>Name</Form.Label>
@@ -94,7 +98,7 @@ class DrinkForm extends Component {
                     </Form.Text>
                 </Form.Group>
 
-                <Form.Group as={Col} md="6"
+                <Form.Group as={Col} sm="12" md="6"
                 // controlId="formBasicPassword"
                 >
                     <Form.Label>Name of Creator</Form.Label>
@@ -102,32 +106,37 @@ class DrinkForm extends Component {
                 </Form.Group>
                 </Form.Row>
                 <Form.Row>
-                    <Form.Group as={Col} md="6">
+                    <Form.Group as={Col} sm="12" md="6">
                         <Form.Control
                             as="select"
                             className="mr-sm-2"
                             id="inlineFormCustomSelect"
                             custom
                         >
-                            {this.state.categories.map((item, index) =>
+                            {this.categories.map((item, index) =>
                                 <option value={index}>{item}</option>
                             )}
                         </Form.Control>
                     </Form.Group>
-                    <Form.Group as={Col} md="6">
-                    <Form.Control as={Col} md="6"
+                    <Form.Group as={Col} sm="12" md="6">
+                    <Form.Control as={Col} sm="12" md="6"
                         as="select"
                         className="mr-sm-2"
                         id="inlineFormCustomSelect"
                         custom
                     >
-                        {this.state.glasses.map((item, index) =>
+                        {this.glasses.map((item, index) =>
                             <option value={index}>{item}</option>
                         )}
                     </Form.Control>
                     </Form.Group>
                 </Form.Row>
-                <Form.Group
+                <Form.Row>
+                <Form.Group as={Col} sm="12" md="6">
+                    <Form.Label>Ingredients ({this.state.ingredients.length})</Form.Label>
+                    <IngredientList/>
+                </Form.Group>
+                <Form.Group as={Col} sm="12" md="6"
                 // controlId="formBasicEmail"
                 >
                     <Form.Label>Instructions</Form.Label>
@@ -136,6 +145,7 @@ class DrinkForm extends Component {
                     Enter the name of your custom drink!
                     </Form.Text> */}
                 </Form.Group>
+                </Form.Row>
                 <Form.Group controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Contains Alcohol" />
                 </Form.Group>
@@ -153,7 +163,7 @@ class DrinkForm extends Component {
                     feedbackTooltip
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" block type="submit">
                     Submit
                 </Button>
                 </Form>
