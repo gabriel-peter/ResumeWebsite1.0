@@ -11,22 +11,17 @@ class MyDrinks extends Component {
             drinks: [],
         }
     }
-    componentDidMount() {
-        fetch('/saved-drinks')
-        .then(res => res.json())
-        .then(res => this.setState({drinks: res, resultLimit: res.length}));
-    }
     handleKeyPress = (event, filter) => {
-        // TODO
-        console.log(this.searchInputRef.current.value);
+        // TODO sort
+        console.log(this.searchInputRef.current.value, filter);
+
     }
     render() {
         return (
         <div>
-            <h1>MY DRINKS</h1>
+            <h6>These are drinks you haved liked!</h6>
             <SearchBar searchInputRef={this.searchInputRef} handleKeyPress={this.handleKeyPress}/>
-            <br/>
-            <DrinkList drinks={this.state.drinks}/>
+            <DrinkList drinks={this.props.savedDrinks} savedDrinks={this.props.savedDrinks}/>
         </div>);
     }
 }

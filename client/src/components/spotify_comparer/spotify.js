@@ -163,13 +163,13 @@ class Spotify extends Component {
                 {/* <div className='loggedIn'> */}
                     <div>
                     <Nav variant="tabs">
-                        <Nav.Item onClick={() => this.setState({currentSlide: 'Client'})}>
+                        <Nav.Item type="checkbox" onClick={() => this.setState({currentSlide: 'Client'})}>
                             <Nav.Link>{this.state.userData.display_name}</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item onClick={() => this.setState({currentSlide: 'Me'})}>
+                        <Nav.Item type="checkbox" onClick={() => this.setState({currentSlide: 'Me'})}>
                             <Nav.Link>Gabriel</Nav.Link>
                         </Nav.Item>
-                        <NavDropdown title={this.state.timeFrame.replace('_', ' ') + ' data'} id="nav-dropdown">
+                        <NavDropdown title='Data Span' id="nav-dropdown">
                             <NavDropdown.Item onSelect={(value) => this.handleTimeFrameChange(value)} eventKey="long_term">Long Term (All Data)</NavDropdown.Item>
                             <NavDropdown.Item onSelect={(value) => this.handleTimeFrameChange(value)} eventKey="medium_term">Medium Term (Past 6 Months)</NavDropdown.Item>
                             <NavDropdown.Item onSelect={(value) => this.handleTimeFrameChange(value)} eventKey="short_term">Short Term (Past 4 Weeks)</NavDropdown.Item>

@@ -15,7 +15,6 @@ class IngredientList extends Component {
         // this.ingredients = {}
         this.units = ['ml', 'oz', 'grams', 'ct'];
         this.state = {
-            ingredientCount: 3,
             ingredients: {}
         }
     }
@@ -36,7 +35,7 @@ class IngredientList extends Component {
     }
     render() {
         let ingredientList = [];
-        for (var i = 1; i <= this.state.ingredientCount; i++) {
+        for (var i = 1; i <= this.props.ingredientCount; i++) {
             var ingredients = {...this.state.ingredients};
             //  Set default values to state attributes if they were not populated already.
             ingredients['ingredient'+i] = ingredients['ingredient'+i] || '';
@@ -92,45 +91,7 @@ class IngredientList extends Component {
         }
         return (
         <div>
-            {/* <Card> */}
-                {/* <Card.Title as='h1'>TEST BAR</Card.Title> */}
-                {/* <Card.Header as='h5'> */}
-                    {/* <Row>
-                        <Col>
-                            Ingredients ({this.state.ingredientCount})
-                        </Col> */}
-                        {/* <Col md={3}>
-                        <Button 
-                            variant='outline-primary' 
-                            onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount + 1}))}
-                        >
-                            (+)
-                        </Button>
-                        <Button 
-                            variant='outline-warning' 
-                            onClick={() => this.setState(prevState => ({ingredientCount: prevState.ingredientCount - 1}))}
-                        >
-                            (-)
-                        </Button>
-                        </Col>
-                    </Row>                 */}
-                {/* </Card.Header> */}
-                {ingredientList}
-                
-                {/* <Card.Header><strong>Specialty Instructions:</strong></Card.Header>
-                <InputGroup>
-                    <FormControl as="textarea" aria-label="Instructions" />
-                </InputGroup> */}
-                {/* <Card.Body>
-                    <DrinkCalculator 
-                    // ingredients={this.state.ingredients}
-                    ingredients={[]}
-                    />
-                </Card.Body> */}
-                {/* <div> */}
-                {/* </div> */}
-                {/* <Button variant='secondary'>Continue</Button> */}
-            {/* </Card> */}
+            {ingredientList}
         </div>);
     }
 }

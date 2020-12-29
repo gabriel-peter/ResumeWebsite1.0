@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -72,6 +74,7 @@ class DrinkForm extends Component {
     }
     render(){
         return (<div>
+            <Alert variant='danger'>This Feature is Currently Under Maintenance!</Alert>
             {/* <Button variant="outline-warning" onClick={this.props.toggleForm}>Cancel</Button> */}
             <Formik
             validationSchema={schema}
@@ -133,8 +136,29 @@ class DrinkForm extends Component {
                 </Form.Row>
                 <Form.Row>
                 <Form.Group as={Col} sm="12" md="6">
-                    <Form.Label>Ingredients ({this.state.ingredients.length})</Form.Label>
-                    <IngredientList/>
+                    <Form.Label>Ingredients ({this.state.ingredientCount})</Form.Label>
+                    <IngredientList 
+                        ingredients={this.state.ingredients}
+                        ingredientCount={this.state.ingredientCount}
+                    />
+                    <Row>
+                        <Col>
+                        <Button 
+                            variant='outline-warning'
+                            block
+                            onClick={() => this.setState(prev => ({ingredientCount: prev.ingredientCount-1}))}>
+                            Remove
+                        </Button>
+                        </Col>
+                        <Col>
+                        <Button 
+                            variant='outline-primary'
+                            block
+                            onClick={() => this.setState(prev => ({ingredientCount: prev.ingredientCount+1}))}>
+                            Add
+                        </Button>
+                        </Col>
+                    </Row>
                 </Form.Group>
                 <Form.Group as={Col} sm="12" md="6"
                 // controlId="formBasicEmail"
@@ -163,7 +187,10 @@ class DrinkForm extends Component {
                     feedbackTooltip
                     />
                 </Form.Group>
-                <Button variant="primary" block type="submit">
+                <Button variant="primary" block 
+                    type="submit"
+
+                >
                     Submit
                 </Button>
                 </Form>

@@ -13,26 +13,33 @@ import MyDrinks from './myDrinks';
 class MenuPages extends Component {
     constructor(props) {
         super(props);
-        this.pages = {
-            'Make a Drink': <DrinkForm/>,
-            // 'default': <ImageCarousel/>,
-            'Discover': <DrinkFinder/>,
-            'My Drinks': <MyDrinks/>,
-        }
         this.state = {
             menuOption: 'Test Bar',
             isSearching: false,
+            savedDrinks: [],
         }
-        this.toggleForm = this.toggleForm.bind(this);
     }
-    toggleForm() {
-        this.setState(state => ({isMaking: !state.isMaking}));
+    componentDidMount() {
+        fetch('/saved-drinks')
+        .then(res => res.json())
+        .then(res => this.setState({savedDrinks: res}));
     }
     render() {
+        console.log('Saved Drinks Loaded', this.state.savedDrinks);
+        var pages = {
+            'Make a Drink': <DrinkForm/>,
+            'Discover': <DrinkFinder savedDrinks={this.state.savedDrinks}/>,
+            'My Drinks': <MyDrinks savedDrinks={this.state.savedDrinks} />,
+        }
         return(
             <Tabs>
-                {Object.keys(this.pages).map((page, index) => {
-                    return (<Tab eventKey={index} title={page}>{this.pages[page]}</Tab>);
+                {Object.keys(pages).map((page, index) => {
+                    return (
+                    <Tab eventKey={index} title={page}>
+                        <br/>
+                        {pages[page]}
+                    </Tab>
+                    );
                 })}
             </Tabs>
         );

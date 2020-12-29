@@ -20,10 +20,16 @@ class FocusDrink extends Component {
     constructor(props) {
         super(props);
         this.units = ['ml', 'oz', 'grams', 'ct'];
+        var isLiked = false;
+        for (var i = 0; i < this.props.savedDrinks.length; i++) {
+            if (this.props.savedDrinks[i].d_name == this.props.drink.d_name) {
+                isLiked = true;
+                break;
+            }
+        }
         this.state = {
             unit: this.units[0],
-            // TODO make this update from cookie?
-            liked: false,
+            liked: isLiked,
         }
         this.handleLike = this.handleLike.bind(this);
     }
@@ -44,9 +50,13 @@ class FocusDrink extends Component {
         if (!this.state.liked) {
             // addDrink
             fetch('/addDrink/'+this.props.drink.d_name);
+            // Local which updates state rendering
+            this.props.savedDrinks.push(this.props.drink);
         } else {
             // removeDrink
             fetch('/removeDrink/'+this.props.drink.d_name);
+            // TODO
+            // this.props.savedDrinks.remove(this.props.drink);
         }
     }
     render() {
@@ -107,7 +117,7 @@ class FocusDrink extends Component {
                                 Ingredients ({ingredients.length})
                             </Col>
                             <Col sm={2}>
-                                <DropdownButton
+                                {/* <DropdownButton
                                     id={'dropdown-unit-changer'}
                                     variant='outline-secondary'
                                     title={this.state.unit}
@@ -120,8 +130,7 @@ class FocusDrink extends Component {
                                                     {unit}
                                                 </Dropdown.Item>);
                                     })}
-                                    
-                                </DropdownButton>
+                                </DropdownButton> */}
                             </Col>
                         </Row>
                     </Card.Header>

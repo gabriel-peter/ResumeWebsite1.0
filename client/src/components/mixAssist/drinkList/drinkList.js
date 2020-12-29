@@ -26,7 +26,8 @@ class DrinkList extends Component {
         return(
         <div>
             {this.state.focusedDrink ?
-                <FocusDrink 
+                <FocusDrink
+                    savedDrinks={this.props.savedDrinks}
                     drink={this.state.focusedDrink}
                     focusDrink={this.focusDrink}
                 />
@@ -34,7 +35,7 @@ class DrinkList extends Component {
                 <div>
                 {this.props.drinks.length > 0 ?
                     <div>
-                    <p>Results: {this.state.drinks.length} of {761}</p>
+                    <p>Results: {this.props.drinks.length} of {761}</p>
                         <Table striped bordered hover size="sm">
                         <thead>
                             <tr>
@@ -47,12 +48,16 @@ class DrinkList extends Component {
                         </thead>
                         <tbody>
                             {this.props.drinks.map((drink, index) => {
+                                var checked = "\u2715";
+                                if (drink.d_alcohol === 'Alcoholic') {
+                                    checked = "\u2713";
+                                }
                                 return(
                                 <tr onClick={() => this.focusDrink(index)}>
                                 {/* <td>{index+1}</td> */}
                                 <td>{drink.d_name}</td>
                                 <td>{drink.d_cat}</td>
-                                <td>{drink.d_alcohol}</td>
+                                <td>{checked}</td>
                                 <td>{Math.floor((Math.random() * 10) + 1)}</td>
                                 </tr>
                                 );

@@ -123,7 +123,7 @@ app.get('/setuser', (req, res)=>{
 app.get('/addDrink/:id', (req, res)=>{ 
   // TODO Append data to this.
   let newSavedDrinks = req.cookies['savedDrinks'];
-  console.log('SAVED DRINKS', newSavedDrinks);
+  console.log('New Drink Added', req.params.id);
   newSavedDrinks.push(req.params.id);
   res.cookie('savedDrinks', newSavedDrinks); 
   res.send(req.params.id + ' drink added to cookie'); 
