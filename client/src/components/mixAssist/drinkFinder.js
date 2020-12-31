@@ -54,7 +54,8 @@ class DrinkFinder extends Component {
         <div>
             <SearchBar searchInputRef={this.searchInputRef} handleKeyPress={this.handleKeyPress}/>
             {console.log('REF', this.searchInputRef.current)}
-            <DrinkList savedDrinks={this.props.savedDrinks} drinks={this.state.drinks}/>
+            <br/>
+            <DrinkList addShoppingItem={this.props.addShoppingItem} savedDrinks={this.props.savedDrinks} drinks={this.state.drinks}/>
         </div>);
     }
 }

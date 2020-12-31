@@ -36,8 +36,9 @@ class ArtistCarousel extends Component {
                             />
                         <Carousel.Caption bsPrefix='translucent-caption carousel-caption'>
                         <h3>{index+1}. {artist.name}</h3>
-                        <div>Followers: {artist.followers.total}</div>
-                        <div>Popularity: {artist.popularity}</div>
+                        <h6>{artist.genres[0] && artist.genres[0].toUpperCase()}</h6>
+                        <div>Followers: {artist.followers.total.toLocaleString()}</div>
+                        <div>Popularity: {artist.popularity}/100</div>
                         <br/>
                         <Button variant='outline-light' href={artist.uri}>Listen</Button>
                         </Carousel.Caption>

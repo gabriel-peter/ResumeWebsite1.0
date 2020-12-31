@@ -11,6 +11,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import DrinkCalculator from '../drinkCalculator';
 import Accordion from 'react-bootstrap/Accordion';
 import Container from 'react-bootstrap/Container';
@@ -30,6 +31,8 @@ class FocusDrink extends Component {
         this.state = {
             unit: this.units[0],
             liked: isLiked,
+            toBuyItems: this.parseIngredients(this.props.drink.d_ingredients).map(item => item[0]),
+            ingredients: this.parseIngredients(this.props.drink.d_ingredients),
         }
         this.handleLike = this.handleLike.bind(this);
     }
@@ -44,6 +47,13 @@ class FocusDrink extends Component {
             // arr.splice(1, 0, "~");
             return arr;
         });
+    }
+    addToShoppingList(value) {
+        var arr = this.state.toBuyItems;
+        arr = arr.filter(item => item !== value);
+        this.setState({toBuyItems: arr});
+        console.log('Added to list', this.state.toBuyItems, value)
+        this.props.addShoppingItem(value);
     }
     handleLike() {
         this.setState(prev => ({liked: !prev.liked}));
@@ -60,53 +70,46 @@ class FocusDrink extends Component {
         }
     }
     render() {
-        let ingredients = this.parseIngredients(this.props.drink.d_ingredients);
+        // var ingredients = 
+        // var toBuyItem = ingredients.slice();
         return (
             <div>
                 <Container fluid>
+                {/* <Accordion defaultActiveKey='1'> */}
                 <Row>
-                <Col xs={12} md={6}>
-                <Accordion>
+                <Col xs={12} md={4}>
+                
                 <Card border='primary'>
                     {/* TODO 'You can use a custom element type for this component.' ... as={Figure} */}
                     <Card.Header>
-                        <Row>
-                            <Col>
-                                <Button 
-                                    variant='outline-primary' 
-                                    onClick={() => this.props.focusDrink(null)}>
-                                        Back
-                                </Button>
-                            </Col>
-                            {/* <Col lg={4}>
-                                <Accordion.Toggle as={Button} eventKey="0">Show Image</Accordion.Toggle>
-                            </Col> */}
-                        </Row>
+                        <ButtonToolbar aria-label="Toolbar with button groups">
+                        <ButtonGroup className="mr-1">
+                            <Button 
+                                variant='outline-primary' 
+                                onClick={() => this.props.focusDrink(null)}>
+                                    Back
+                            </Button>
+                        </ButtonGroup>
+                        <ButtonGroup toggle className="mr-1">
+                            <ToggleButton
+                                type="checkbox"
+                                variant="outline-primary"
+                                checked={this.state.liked}
+                                value="1"
+                                onChange={this.handleLike}
+                            >
+                                {/* TODO MAKE THIS A HEART.PNG */}
+                                {this.state.liked ? 'Unlike':'Like'}
+                            </ToggleButton>
+                        </ButtonGroup>
+                        <ButtonGroup className="mr-1">
+                            <Accordion.Toggle as={Button} eventKey="0">Show Image</Accordion.Toggle>
+                        </ButtonGroup>
+                        </ButtonToolbar>         
                     </Card.Header>
-                    {/* <Accordion.Collapse eventKey="0">
-                    <Card.Img variant='bottom' src={this.props.drink.d_img_url} roundedCircle/>
-                    </Accordion.Collapse> */}
                     <Card.Body>
                         <Card.Title as='h1'>
-                            <Row>
-                                <Col>
-                                    {this.props.drink.d_name}
-                                </Col>
-                                <Col sm={2}>
-                                    <ButtonGroup toggle className="mb-2">
-                                        <ToggleButton
-                                            type="checkbox"
-                                            variant="outline-primary"
-                                            checked={this.state.liked}
-                                            value="1"
-                                            onChange={this.handleLike}
-                                        >
-                                            {/* TODO MAKE THIS A HEART.PNG */}
-                                            {this.state.liked ? 'Unlike':'Like'}
-                                        </ToggleButton>
-                                    </ButtonGroup>
-                                </Col>
-                            </Row>
+                            {this.props.drink.d_name}
                         </Card.Title>
                         <Card.Title>{this.props.drink.d_cat}</Card.Title>
                         <Card.Text>{this.props.drink.d_instructions}</Card.Text>   
@@ -114,7 +117,7 @@ class FocusDrink extends Component {
                     <Card.Header as='h5'>
                         <Row>
                             <Col>
-                                Ingredients ({ingredients.length})
+                                Ingredients ({this.state.ingredients.length})
                             </Col>
                             <Col sm={2}>
                                 {/* <DropdownButton
@@ -134,27 +137,16 @@ class FocusDrink extends Component {
                             </Col>
                         </Row>
                     </Card.Header>
-                    {/* <ListGroup className="list-group-flush">
-                        {ingredients.map((ingredient, index) =>
-                            <ListGroupItem key={index}>
-                                <Row>
-                                    <Col>{ingredient[0]}</Col> 
-                                    <Col>{ingredient[1]}</Col>
-                                </Row>       
-                            </ListGroupItem>
-                        )}
-                    </ListGroup> */}
                     <Table striped bordered hover>
-                        {/* <thead>
+                        <thead>
                             <tr>
-                            <th></th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Measurement</th>
                             </tr>
-                        </thead> */}
+                        </thead>
                         <tbody>
-                        {ingredients.map((ingredient, index) => {
+                        {this.state.ingredients.map((ingredient, index) => {
                             return(<tr>
                             <td>{index+1}</td>
                             <td>{ingredient[0]}</td>
@@ -162,22 +154,38 @@ class FocusDrink extends Component {
                             </tr>);
                         })}  
                         </tbody>
-                        </Table>
-                    <Card.Body>
-                        <DrinkCalculator ingredients={ingredients}/>
-                    </Card.Body>
+                    </Table>
                 </Card>
-                </Accordion>
-                    </Col>
-                    <Col xs={12} md={6}>
-                        <Card border='primary'>
-                            <Card.Img variant='bottom' src={this.props.drink.d_img_url} roundedCircle/>
-                        </Card>
+                
+                </Col>
+                <Col xs={12} md={4}>
+                    <Card border='primary'>
+                        <Card.Img variant='bottom' src={this.props.drink.d_img_url} roundedCircle/>
                         <Card.Body>
-                            Recommended Purchases: API here...
+                            <h5>Recommended Purchases:</h5>
+                            {this.state.toBuyItems.map((item, index) => {
+                                return(<div>
+                                    <Row>
+                                        <Col xs={5}>
+                                        {item}
+                                        </Col>
+                                        <Col xs={4}>
+                                        <Button variant="link" onClick={() => this.addToShoppingList(item)}> Remember</Button>
+                                        </Col>
+                                        <Col xs={3}>
+                                        <Button variant="link"> Buy</Button>
+                                        </Col>
+                                    </Row>
+                                </div>);
+                            })}
                         </Card.Body>
-                    </Col>
+                    </Card>
+                </Col>
+                <Col xs={12} md={4}>
+                    <DrinkCalculator ingredients={this.state.ingredients}/>
+                </Col>
                 </Row>
+                {/* </Accordion> */}
                 </Container>
             </div>);
     }

@@ -117,7 +117,7 @@ class DrinkForm extends Component {
                             custom
                         >
                             {this.categories.map((item, index) =>
-                                <option value={index}>{item}</option>
+                                <option key={index} value={index}>{item}</option>
                             )}
                         </Form.Control>
                     </Form.Group>
@@ -129,7 +129,7 @@ class DrinkForm extends Component {
                         custom
                     >
                         {this.glasses.map((item, index) =>
-                            <option value={index}>{item}</option>
+                            <option key={index} value={index}>{item}</option>
                         )}
                     </Form.Control>
                     </Form.Group>

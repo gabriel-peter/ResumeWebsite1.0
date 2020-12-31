@@ -30,6 +30,7 @@ class DrinkList extends Component {
                     savedDrinks={this.props.savedDrinks}
                     drink={this.state.focusedDrink}
                     focusDrink={this.focusDrink}
+                    addShoppingItem={this.props.addShoppingItem}
                 />
                 :
                 <div>
@@ -53,7 +54,7 @@ class DrinkList extends Component {
                                     checked = "\u2713";
                                 }
                                 return(
-                                <tr onClick={() => this.focusDrink(index)}>
+                                <tr key={index} onClick={() => this.focusDrink(index)}>
                                 {/* <td>{index+1}</td> */}
                                 <td>{drink.d_name}</td>
                                 <td>{drink.d_cat}</td>

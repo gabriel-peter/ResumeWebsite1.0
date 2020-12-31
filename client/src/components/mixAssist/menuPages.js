@@ -9,6 +9,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import DrinkFinder from './drinkFinder';
 import MyDrinks from './myDrinks';
+import ShoppingList from './shoppingList';
 
 class MenuPages extends Component {
     constructor(props) {
@@ -17,25 +18,40 @@ class MenuPages extends Component {
             menuOption: 'Test Bar',
             isSearching: false,
             savedDrinks: [],
+            shoppingItems: [],
         }
+        this.addShoppingItem = this.addShoppingItem.bind(this);
+        this.removeShoppingItem = this.removeShoppingItem.bind(this);
     }
     componentDidMount() {
         fetch('/saved-drinks')
         .then(res => res.json())
         .then(res => this.setState({savedDrinks: res}));
     }
+    addShoppingItem(item) {
+        let arr = this.state.shoppingItems.slice(); //creates the clone of the state
+        arr.push(item);
+        this.setState({shoppingItems: arr});
+        // this.setState(prev => ({shoppingItems: prev.shoppingItems.push(item)}));
+    }
+    removeShoppingItem(value) {
+        let arr = this.state.shoppingItems.slice(); //creates the clone of the state
+        arr = arr.filter(item => item !== value);
+        this.setState({shoppingItems: arr});  
+    }
     render() {
         console.log('Saved Drinks Loaded', this.state.savedDrinks);
         var pages = {
             'Make a Drink': <DrinkForm/>,
-            'Discover': <DrinkFinder savedDrinks={this.state.savedDrinks}/>,
-            'My Drinks': <MyDrinks savedDrinks={this.state.savedDrinks} />,
+            'Discover': <DrinkFinder addShoppingItem={this.addShoppingItem} savedDrinks={this.state.savedDrinks}/>,
+            'My Drinks': <MyDrinks addShoppingItem={this.addShoppingItem} savedDrinks={this.state.savedDrinks} />,
+            'Shopping List': <ShoppingList removeShoppingItem={this.removeShoppingItem} shoppingItems={this.state.shoppingItems}/>,
         }
         return(
             <Tabs>
                 {Object.keys(pages).map((page, index) => {
                     return (
-                    <Tab eventKey={index} title={page}>
+                    <Tab key={index} eventKey={index} title={page}>
                         <br/>
                         {pages[page]}
                     </Tab>

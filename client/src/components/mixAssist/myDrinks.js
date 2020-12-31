@@ -21,7 +21,8 @@ class MyDrinks extends Component {
         <div>
             <h6>These are drinks you haved liked!</h6>
             <SearchBar searchInputRef={this.searchInputRef} handleKeyPress={this.handleKeyPress}/>
-            <DrinkList drinks={this.props.savedDrinks} savedDrinks={this.props.savedDrinks}/>
+            <br/>
+            <DrinkList addShoppingItem={this.props.addShoppingItem} drinks={this.props.savedDrinks} savedDrinks={this.props.savedDrinks}/>
         </div>);
     }
 }
