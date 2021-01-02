@@ -16,6 +16,7 @@ import DrinkCalculator from '../drinkCalculator';
 import Accordion from 'react-bootstrap/Accordion';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
+import Pagination from 'react-bootstrap/Pagination';
 
 class FocusDrink extends Component {
     constructor(props) {
@@ -81,16 +82,48 @@ class FocusDrink extends Component {
                 
                 <Card border='primary'>
                     {/* TODO 'You can use a custom element type for this component.' ... as={Figure} */}
-                    <Card.Header>
-                        <ButtonToolbar aria-label="Toolbar with button groups">
-                        <ButtonGroup className="mr-1">
-                            <Button 
-                                variant='outline-primary' 
-                                onClick={() => this.props.focusDrink(null)}>
-                                    Back
-                            </Button>
+                    
+                        
+                    
+                    {/* <Card.Header> */}
+                        {/* <ButtonToolbar aria-label="Toolbar with button groups"> */}
+                        {/* <ButtonGroup className="mr-1"> */}
+                        {/* <Container fluid> */}
+                            {/* <Pagination size='lg'>
+                                <Pagination.Prev 
+                                    // variant='outline-primary' 
+                                    onClick={() => this.props.focusDrink(null)}/>
+                            </Pagination> */}
+                            {/* </Container> */}
+                        {/* </ButtonGroup> */}
+                        {/* <ButtonGroup toggle className="mr-1">
+                            <ToggleButton
+                                type="checkbox"
+                                variant="outline-primary"
+                                checked={this.state.liked}
+                                value="1"
+                                onChange={this.handleLike}
+                            > */}
+                                {/* TODO MAKE THIS A HEART.PNG */}
+                                {/* {this.state.liked ? 'Unlike':'Like'}
+                            </ToggleButton>
                         </ButtonGroup>
-                        <ButtonGroup toggle className="mr-1">
+                        <ButtonGroup className="mr-1">
+                            <Accordion.Toggle as={Button} eventKey="0">Show Image</Accordion.Toggle>
+                        </ButtonGroup>
+                        </ButtonToolbar> */}
+                    {/* </Card.Header> */}
+                    <Card.Body>
+                        <Row>
+                            <Col>
+                    <Pagination size='lg'>
+                                <Pagination.Prev 
+                                    // variant='outline-primary' 
+                                    onClick={() => this.props.focusDrink(null)}/>
+                            </Pagination>
+                            </Col>
+                            <Col>
+                            <ButtonGroup toggle className="mr-1">
                             <ToggleButton
                                 type="checkbox"
                                 variant="outline-primary"
@@ -99,15 +132,11 @@ class FocusDrink extends Component {
                                 onChange={this.handleLike}
                             >
                                 {/* TODO MAKE THIS A HEART.PNG */}
-                                {this.state.liked ? 'Unlike':'Like'}
+                             {this.state.liked ? 'Unlike':'Like'}
                             </ToggleButton>
                         </ButtonGroup>
-                        <ButtonGroup className="mr-1">
-                            <Accordion.Toggle as={Button} eventKey="0">Show Image</Accordion.Toggle>
-                        </ButtonGroup>
-                        </ButtonToolbar>         
-                    </Card.Header>
-                    <Card.Body>
+                            </Col>
+                            </Row>
                         <Card.Title as='h1'>
                             {this.props.drink.d_name}
                         </Card.Title>

@@ -18,7 +18,7 @@ class Spotify extends Component {
         this.state = {
             access_token: this.getHashParams().access_token,
             loggedIn: params.access_token ? true : false,
-            currentSlide: 'Client',
+            currentSlide: 'you',
             userData: {
                 display_name: ''
             },
@@ -163,10 +163,10 @@ class Spotify extends Component {
                 {/* <div className='loggedIn'> */}
                     <div>
                     <Nav variant="tabs">
-                        <Nav.Item type="checkbox" onClick={() => this.setState({currentSlide: 'Client'})}>
+                        <Nav.Item type="checkbox" onClick={() => this.setState({currentSlide: 'you'})}>
                             <Nav.Link>{this.state.userData.display_name}</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item type="checkbox" onClick={() => this.setState({currentSlide: 'Me'})}>
+                        <Nav.Item type="checkbox" onClick={() => this.setState({currentSlide: 'me'})}>
                             <Nav.Link>Gabriel</Nav.Link>
                         </Nav.Item>
                         <NavDropdown title='Data Span' id="nav-dropdown">
@@ -176,8 +176,16 @@ class Spotify extends Component {
                         </NavDropdown>
                     </Nav>
                     </div>
-                    {this.state.currentSlide === 'Client' &&
-                        <ClientSpotifyData
+                    {this.state.currentSlide === 'you' &&
+                        // <ClientSpotifyData
+                        //     timeFrame={this.state.timeFrame}
+                        //     analyseTermData={this.analyseTermData}
+                        //     piChartRankings={this.piChartRankings}
+                        //     genreWeighting={this.genreWeighting}
+                        //     getHashParams={this.getHashParams}
+                        // />
+                        <PersonalSpotifyData
+                            user={this.state.currentSlide}
                             timeFrame={this.state.timeFrame}
                             analyseTermData={this.analyseTermData}
                             piChartRankings={this.piChartRankings}
@@ -185,12 +193,14 @@ class Spotify extends Component {
                             getHashParams={this.getHashParams}
                         />
                     }
-                    {this.state.currentSlide === 'Me' &&
+                    {this.state.currentSlide === 'me' &&
                         <PersonalSpotifyData
+                            user={this.state.currentSlide}
                             timeFrame={this.state.timeFrame}
                             analyseTermData={this.analyseTermData}
                             piChartRankings={this.piChartRankings}
                             genreWeighting={this.genreWeighting}
+                            getHashParams={this.getHashParams}
                         />
                     }
                     {this.state.currentSlide === 'Both' &&

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
-import Image from 'react-bootstrap/Image';
+import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import './graph_styling.css';
+import '../graph_styling.css';
 
 class ArtistCarousel extends Component {
     constructor(props) {
@@ -14,15 +14,23 @@ class ArtistCarousel extends Component {
     }
     render() {
       return(
-        <Carousel>
+        <Card>
+        <Carousel 
+        // bsPrefix="m-auto align-self-center"
+        >
             {this.props.artists.map((artist, index) => {
                 
                 if(artist.name !== '') {
                     // console.log(artist);
                     // console.log(artist.followers);
                     return(
-                        <Carousel.Item key={artist.id} interval={1000}>
+                        <Carousel.Item 
+                            key={artist.id}
+                            interval={1000}
+                            // className={'m-auto align-self-center'}
+                            >
                             <img
+                                
                                 // style={{
                                 // // 'height':"45rem",
                                 // // 'width':"640px",
@@ -58,6 +66,7 @@ class ArtistCarousel extends Component {
                 }
             })} 
         </Carousel>
+        </Card>
       );
     }
 }

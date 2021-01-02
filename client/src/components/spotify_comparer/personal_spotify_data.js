@@ -20,11 +20,12 @@ class Personal_Spotify_Data extends Component {
                 genre_quantity: [{'x': 0, 'y': 0}], 
                 genre_intersection: [{'x': 0, 'y': 0}],
                 radialRankings: [{'angle': 360}], 
-            }
+            },
+            topTracks: {items: []}
         }
     }
-    componentDidMount() {
-        if(this.props.user === 'Personal') {
+    componentWillMount() {
+        if(this.props.user === 'me') {
             fetch('/api/personal-token')
             .then(res => res.json())
             .then(res => this.setState({access_token: res['access_token'], refresh_token: res['refresh_token']},
@@ -48,7 +49,8 @@ class Personal_Spotify_Data extends Component {
                 this.setState({
                     access_token: data.access_token
                 }, () => {
-                    
+                    this.getTopArtists();
+                    this.getTopTracks();
                 });
             },
             error: (XMLHttpRequest, textStatus, errorThrown) => { 
@@ -76,14 +78,14 @@ class Personal_Spotify_Data extends Component {
     }
     getTopTracks() {
         $.ajax({
-            url: 'https://api.spotify.com/v1/me/top/tracks',
+            url: `https://api.spotify.com/v1/me/top/tracks?time_range=${this.props.timeFrame}&limit=50&offset=0`,
             type: "GET",
             beforeSend: (xhr) => {
                 xhr.setRequestHeader("Authorization", "Bearer " + this.state.access_token);
             },
             success: (data) => {
                 this.setState({topTracks: data});
-                console.log(data);
+                // console.log(data);
             },
             error: (XMLHttpRequest, textStatus, errorThrown) => { 
                 console.log("Status: " + textStatus); 
@@ -92,16 +94,18 @@ class Personal_Spotify_Data extends Component {
         });
     }
     render() {
+        console.log(this.state.topTracks);
         return (
             <div className='spotify-components'>
-                <h2>I Like:</h2>
+                <h2>{this.props.user === 'me' ? 'I' : 'You'} Like:</h2>
                 <ChartConstructor
-                    owner='me'
+                    owner={this.props.user}
                     average_artist_rank={this.state.spotify_data.average_artist_rank}
                     top_5_artists_images={this.state.spotify_data.top_5_artists_images}
                     data1={this.state.spotify_data.radialRankings} 
                     data2={this.state.spotify_data.top_5_artists_graph}
                     genres={this.state.spotify_data.genre_weights}
+                    topTracks={this.state.topTracks}
                 />
             </div>
         ); 
