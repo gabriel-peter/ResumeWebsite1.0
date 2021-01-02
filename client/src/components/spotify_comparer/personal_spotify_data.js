@@ -24,10 +24,19 @@ class Personal_Spotify_Data extends Component {
         }
     }
     componentDidMount() {
-       fetch('/api/personal-token')
+        if(this.props.user === 'Personal') {
+            fetch('/api/personal-token')
             .then(res => res.json())
             .then(res => this.setState({access_token: res['access_token'], refresh_token: res['refresh_token']},
             () => this.refreshToken()))
+        } else {
+            this.setState({access_token: this.props.getHashParams().access_token}, 
+                () => {
+                    this.getTopArtists();
+                    this.getTopTracks();
+                });
+            
+        }
     }
     refreshToken() {
         $.ajax({
@@ -39,7 +48,7 @@ class Personal_Spotify_Data extends Component {
                 this.setState({
                     access_token: data.access_token
                 }, () => {
-                    this.getTopArtists();
+                    
                 });
             },
             error: (XMLHttpRequest, textStatus, errorThrown) => { 
@@ -58,6 +67,23 @@ class Personal_Spotify_Data extends Component {
             success: (data) => {
                 const spotify_data = this.props.analyseTermData(data);
                 this.setState({spotify_data});
+            },
+            error: (XMLHttpRequest, textStatus, errorThrown) => { 
+                console.log("Status: " + textStatus); 
+                console.log("Error: " + errorThrown); 
+            },
+        });
+    }
+    getTopTracks() {
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me/top/tracks',
+            type: "GET",
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader("Authorization", "Bearer " + this.state.access_token);
+            },
+            success: (data) => {
+                this.setState({topTracks: data});
+                console.log(data);
             },
             error: (XMLHttpRequest, textStatus, errorThrown) => { 
                 console.log("Status: " + textStatus); 

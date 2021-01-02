@@ -24,14 +24,32 @@ class Spotify_Previewer extends Component {
         }
     }
     componentDidMount() {
-        this.getTopArtists(this.state.access_token);
+        this.getTopArtists();
+        this.getTopTracks();
     }
-    getTopArtists(token) {
+    getTopTracks() {
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me/top/tracks',
+            type: "GET",
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader("Authorization", "Bearer " + this.state.access_token);
+            },
+            success: (data) => {
+                this.setState({topTracks: data});
+                console.log(data);
+            },
+            error: (XMLHttpRequest, textStatus, errorThrown) => { 
+                console.log("Status: " + textStatus); 
+                console.log("Error: " + errorThrown); 
+            },
+        });
+    }
+    getTopArtists() {
         $.ajax({
             url: `https://api.spotify.com/v1/me/top/artists?time_range=${this.props.timeFrame}&limit=50&offset=0`,
             type: "GET",
             beforeSend: (xhr) => {
-            xhr.setRequestHeader("Authorization", "Bearer " + token);
+            xhr.setRequestHeader("Authorization", "Bearer " + this.state.access_token);
             },
             success: (data) => {
                 const spotify_data = this.props.analyseTermData(data);
@@ -50,6 +68,7 @@ class Spotify_Previewer extends Component {
                     data1={this.state.spotify_data.radialRankings} 
                     data2={this.state.spotify_data.top_5_artists_graph}
                     genres={this.state.spotify_data.genre_weights}
+                    top_songs={this.state.topTracks}
                 />
             </div>
         );

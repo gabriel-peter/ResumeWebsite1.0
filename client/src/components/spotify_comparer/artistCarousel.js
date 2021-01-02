@@ -18,8 +18,8 @@ class ArtistCarousel extends Component {
             {this.props.artists.map((artist, index) => {
                 
                 if(artist.name !== '') {
-                    console.log(artist);
-                    console.log(artist.followers);
+                    // console.log(artist);
+                    // console.log(artist.followers);
                     return(
                         <Carousel.Item key={artist.id} interval={1000}>
                             <img
@@ -40,7 +40,19 @@ class ArtistCarousel extends Component {
                         <div>Followers: {artist.followers.total.toLocaleString()}</div>
                         <div>Popularity: {artist.popularity}/100</div>
                         <br/>
-                        <Button variant='outline-light' href={artist.uri}>Listen</Button>
+                        <Button variant='outline-light' href={artist.external_urls['spotify']}>Listen</Button>
+                        {/* <Row>
+                            <Col>
+                                <Button variant='outline-light' href={artist.uri}>Listen</Button>
+                            </Col>
+                            {Object.keys(artist.external_urls).map(linkKey => {
+                                return(
+                                <Col>
+                                    <Button variant='outline-light' href={artist.external_urls[linkKey]}>{linkKey}</Button>
+                                </Col>);
+                            })}
+                            
+                        </Row> */}
                         </Carousel.Caption>
                     </Carousel.Item>);
                 }

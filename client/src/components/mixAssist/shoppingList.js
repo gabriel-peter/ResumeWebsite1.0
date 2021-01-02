@@ -46,12 +46,12 @@ class ShoppingList extends Component {
             </Card>
             :
             <Jumbotron>
-                        <Row>
-                            <Col>
-                            <h6 className='center'>There is nothing in your shopping list.</h6>
-                            </Col>
-                        </Row>
-                    </Jumbotron>
+                <Row>
+                    <Col>
+                    <h6 className='center'>There is nothing in your shopping list.</h6>
+                    </Col>
+                </Row>
+            </Jumbotron>
             }
         </div>);
     }

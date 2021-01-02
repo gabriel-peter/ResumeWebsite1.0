@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import ArtistCarousel from './artistCarousel';
+import SongAnalysis from './songAnalysis';
 import {XYPlot, VerticalGridLines, XAxis, VerticalBarSeries, LabelSeries, RadialChart, HorizontalBarSeries, HorizontalGridLines, YAxis} from 'react-vis';
 import './graph_styling.css';
 // http://uber.github.io/react-vis/documentation
@@ -117,6 +118,8 @@ class Chart_Constructor extends Component {
               </Card.Text>
             </Card.Body>
           </Card>
+
+          <SongAnalysis/>
           </CardDeck>);
   }
 }
