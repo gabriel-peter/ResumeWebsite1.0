@@ -5,8 +5,10 @@ import ClockGraph from './clockGraph';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import Popover from 'react-bootstrap/Popover';
 import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/esm/Button';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { DiscreteColorLegend } from 'react-vis';
 import * as $ from "jquery";
 
@@ -20,11 +22,34 @@ const ITEMS = [
     'Other'
   ];
 
+function popover(key, value) {
+    return(<Popover id="popover-basic">
+      <Popover.Title as="h3">What is {key}?</Popover.Title>
+      <Popover.Content>
+        {value}
+      </Popover.Content>
+    </Popover>
+  )};
+
+const legendDescriptions = {
+    'valence': 'A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).',
+    'danceability': 'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.',
+    'energy': 'Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.',
+    'liveness': 'Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.',
+    'loudness': 'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.',
+}
+
 class SoundEvaluation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            songData: {danceability: 0, energy: 0, liveness: 0, tempo: 120, time_signature: 4},
+            songData: {
+                danceability: 0, 
+                energy: 0, 
+                liveness: 0, 
+                tempo: 120, 
+                time_signature: 4,
+                valence: 0},
         }
     }
     componentDidMount() {
@@ -65,15 +90,21 @@ class SoundEvaluation extends Component {
                 }
             })}</h6>
             <Card.Text>
-                <div>{duration_m} minutes, {duration_s} seconds</div>
-                <div>{this.state.songData.tempo} bpm</div>
-                <div>{this.state.songData.time_signature}/{this.state.songData.time_signature} signature</div>
+                <div><i>{duration_m} minutes, {duration_s} seconds</i></div>
+                <div><strong>{this.state.songData.tempo} bpm</strong></div>
+                <div>{this.state.songData.time_signature}/{this.state.songData.time_signature} time signature</div>
             </Card.Text>
             <ClockGraph stats={this.state.songData}/>
             <Card.Text>
-                <div>Danceability {this.state.songData.danceability}</div>
-                <div>Energy {this.state.songData.energy}</div>
-                <div>Liveness {this.state.songData.liveness}</div>
+                {Object.keys(legendDescriptions).map((key, index) => {
+                    return(
+                    <div>
+                        <OverlayTrigger trigger='focus' placement="top" overlay={popover(key, legendDescriptions[key])}>
+                            <Button variant="link">{key.toUpperCase()}</Button>
+                        </OverlayTrigger>
+                        <b> {this.state.songData[key]}</b>
+                    </div>);
+                })}
             </Card.Text>
             
         </div>);

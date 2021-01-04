@@ -17,6 +17,9 @@ class SongAnalysis extends Component {
       this.focusSong = this.focusSong.bind(this);
     }
     focusSong(index) {
+        if (index !== null) {
+            index = index + (this.state.pageFocus - 1) * itemsPerPage;
+        }
         console.log(index);
         this.setState({songFocus: this.props.topTracks.items[index]});
     }
@@ -87,7 +90,7 @@ class SongAnalysis extends Component {
                         </ListGroup.Item>);
                 })}
                 </ListGroup>
-                <i>{lowerLimit+1} - {upperLimit+1}</i>
+                <i>{lowerLimit+1} - {upperLimit+1} of {this.props.topTracks.items.length} songs</i>
                 <Pagination size='lg'>{pageTabs}</Pagination>
             </div>
             }

@@ -43,16 +43,17 @@ export default class ClockExample extends React.Component {
     const danceability = Number(this.props.stats.danceability);
     const energy = Number(this.props.stats.energy);
     const liveness = Number(this.props.stats.liveness);
+    const valence = Number(this.props.stats.valence);
     const data = [
         // {y: 0, x: 0, time: time, label: `${Math.round(time/(PI/2))}/${this.time_signature}`, radius0: 0.1, radius: 0.9, color: 3},
-        {y: 1, x: 1, time: danceability * 2 * PI, label: 'Dance', rotation: 15, radius0: 1, radius: 1.5, color: 0},
+        {y: 0.5, x: 0.8, time: valence * 2 * PI, label: 'Valence', rotation: 15, radius0: 0.4, radius: 0.9, color: 3},
+        {y: 1.1, x: 1.1, time: danceability * 2 * PI, label: 'Dance', rotation: 15, radius0: 1, radius: 1.5, color: 0},
         {y: 1.6, x: 1.6, time: energy * 2 * PI, label: 'Energy', rotation: 15, radius0: 1.6, radius: 2.1, color: 1},
         {y: 2.2, x: 2.2, time: liveness * 2 * PI, label: 'Liveness', rotation: 15, radius0: 2.2, radius: 2.7, color: 2},
+        
       ]
     console.log(danceability * 2 * PI, energy * 2 * PI);
     return (
-    <Row>
-    <Col>
       <XYPlot
         xDomain={[-3, 3]}
         yDomain={[-3, 3]}
@@ -74,11 +75,6 @@ export default class ClockExample extends React.Component {
         //   colorRange={EXTENDED_DISCRETE_COLOR_RANGE}
         />
         <LabelSeries animation allowOffsetToBeReversed data={data} />
-      </XYPlot>
-      </Col>
-      <Col>
-      {/* <DiscreteColorLegend height={200} width={300} items={ITEMS} /> */}
-      </Col>
-    </Row>);
+      </XYPlot>);
   }
 }
