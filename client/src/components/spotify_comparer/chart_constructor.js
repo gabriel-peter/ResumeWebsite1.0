@@ -23,7 +23,7 @@ class Chart_Constructor extends Component {
       const data2 = this.props.data2
       const genres = this.props.genres
       const chart_dimension = 300;
-      const card_dimension = '375px';
+      const card_dimension = '350px';
       const { index } = this.state;
       var genre_max = {'x': 0, 'y': 'Undef'};
       genres.forEach(element => {
@@ -40,7 +40,7 @@ class Chart_Constructor extends Component {
       const { index2 } = this.state;
       const dataWithColor2 = genres.map((d, i) => ({...d, color: (Number(i !== index2)+1)}));
 
-      const genreAnalysis = (<Card style={{ width: {card_dimension}}}>
+      const genreAnalysis = (<Card style={{ width: card_dimension}}>
         <Card.Body>
           <Card.Title>Genre Analysis</Card.Title>
           <XYPlot
@@ -68,8 +68,8 @@ class Chart_Constructor extends Component {
           </Card.Text>
         </Card.Body>
       </Card>);
-
-    const popularityAnalysis = (<Card style={{width: {card_dimension}}}>
+    console.log(data1);
+    const popularityAnalysis = (<Card style={{width: card_dimension}}>
       <Card.Body>
         <Card.Title>Popularity Analysis</Card.Title>
           <RadialChart
@@ -95,7 +95,7 @@ class Chart_Constructor extends Component {
             {genreAnalysis}
           </CardDeck>
           <br />
-          <SongAnalysis topTracks={this.props.topTracks}/>
+          <SongAnalysis topTracks={this.props.topTracks} access_token={this.props.access_token}/>
       </div>);
   }
 }

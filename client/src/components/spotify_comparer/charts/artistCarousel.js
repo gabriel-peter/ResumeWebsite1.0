@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -14,7 +15,10 @@ class ArtistCarousel extends Component {
     }
     render() {
       return(
-        <Card>
+        <Card style={{width: '350px', height: '450px'}}>
+            {/* <Card.Body>
+            <Card.Title>Top Artists</Card.Title>
+            </Card.Body> */}
         <Carousel 
         // bsPrefix="m-auto align-self-center"
         >
@@ -29,18 +33,20 @@ class ArtistCarousel extends Component {
                             interval={1000}
                             // className={'m-auto align-self-center'}
                             >
-                            <img
+                            <Image
                                 
-                                // style={{
-                                // // 'height':"45rem",
-                                // // 'width':"640px",
+                                style={{
+                                'height':"450px",
+                                // 'width':"640px",
                                 // 'background-position': 'center center',
-                                // 'background-repeat': 'no-repeat'}}
+                                // 'background-repeat': 'no-repeat'
+                                'overflow': 'hidden'
+                                }}
                                 className="d-block w-100"
                                 // bsPrefix='carousel-img'
                                 src={artist.images[0].url}
                                 alt="First slide"
-                                // fluid
+                                fluid
                             />
                         <Carousel.Caption bsPrefix='translucent-caption carousel-caption'>
                         <h3>{index+1}. {artist.name}</h3>
@@ -66,6 +72,7 @@ class ArtistCarousel extends Component {
                 }
             })} 
         </Carousel>
+        
         </Card>
       );
     }

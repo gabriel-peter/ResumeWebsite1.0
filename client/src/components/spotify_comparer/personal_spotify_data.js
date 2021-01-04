@@ -2,6 +2,7 @@ import './graph_styling.css';
 import React, { Component } from 'react';
 import * as $ from "jquery";
 import ChartConstructor from './chart_constructor';
+import Card from 'react-bootstrap/esm/Card';
 class Personal_Spotify_Data extends Component {
     constructor(props) {
         super(props);
@@ -97,7 +98,7 @@ class Personal_Spotify_Data extends Component {
         console.log(this.state.topTracks);
         return (
             <div className='spotify-components'>
-                <h2>{this.props.user === 'me' ? 'I' : 'You'} Like:</h2>
+                <br/>
                 <ChartConstructor
                     owner={this.props.user}
                     average_artist_rank={this.state.spotify_data.average_artist_rank}
@@ -106,6 +107,7 @@ class Personal_Spotify_Data extends Component {
                     data2={this.state.spotify_data.top_5_artists_graph}
                     genres={this.state.spotify_data.genre_weights}
                     topTracks={this.state.topTracks}
+                    access_token={this.state.access_token}
                 />
             </div>
         ); 
