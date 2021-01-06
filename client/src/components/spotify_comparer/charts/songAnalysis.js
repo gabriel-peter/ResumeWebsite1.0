@@ -73,6 +73,7 @@ class SongAnalysis extends Component {
             :
             <div>
                 <Card.Title>Top Songs</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">(Click to see more info!)</Card.Subtitle>
                 <ListGroup variant='flush'>
                 {tracks.map((item, index) => {
                     return(

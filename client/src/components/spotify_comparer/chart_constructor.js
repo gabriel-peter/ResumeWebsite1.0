@@ -10,6 +10,7 @@ import SongAnalysis from './charts/songAnalysis';
 import {XYPlot, VerticalGridLines, XAxis, VerticalBarSeries, LabelSeries, RadialChart, HorizontalBarSeries, HorizontalGridLines, YAxis} from 'react-vis';
 import './graph_styling.css';
 import Container from 'react-bootstrap/esm/Container';
+import PlaylistGenerator from './playlist_generator';
 // http://uber.github.io/react-vis/documentation
 
 class Chart_Constructor extends Component {
@@ -94,28 +95,13 @@ class Chart_Constructor extends Component {
 
     return (
       <div>
-          {/* <CardDeck> */}
           <CardColumns className='card-columns'>
-          {/* <CardGroup> */}
-          {/* <Container> */}
-            {/* <Row> */}
-            {/* <Col xs ='12' sm='6' md='6' lg='4' xl='4'> */}
               <ArtistCarousel artists={artistsWithFocus}/>
-              {/* </Col> */}
-            {/* <Col xs ='12' sm='6' md='6' lg='4' xl='4'> */}
+              <PlaylistGenerator access_token={this.props.access_token}/>
               {popularityAnalysis}
-              {/* </Col> */}
-            {/* <Col xs ='12' sm='6' md='6' lg='4' xl='4'> */}
               {genreAnalysis}
-              {/* </Col> */}
-            {/* </Row> */}
             <SongAnalysis topTracks={this.props.topTracks} access_token={this.props.access_token}/>
-            {/* </CardGroup> */}
-          {/* </Container> */}
           </CardColumns>
-          {/* </CardDeck> */}
-          <br />
-          
       </div>);
   }
 }

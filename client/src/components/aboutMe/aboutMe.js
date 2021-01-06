@@ -28,12 +28,15 @@ class AboutMe extends Component {
                 This is a brief website showcasing side-projects that I toy with during breaks from school or work!
                 </Card.Text>
                 <Card.Text>
-                I am currently a Junior with interests in Web-developemnt, Python scripting, and even Systems-oriented code.
+                I am currently a Junior with interests in Web-development, Python scripting, and even Systems-oriented code.
                 </Card.Text>
                 <Card.Text>
                 Here is my latest BETA project (currently working on caching personal drinks), Check out what progress I've made so far.
                 </Card.Text>
                 <Button href='/mix' variant="primary">Try out MixAssist</Button>
+                <footer className="blockquote-footer">
+                    (This is also now Mobile Friendly)
+                </footer>
             </Card.Body>
             <Card.Footer className="text-muted">Updated 12.26.20</Card.Footer>
             </Card>

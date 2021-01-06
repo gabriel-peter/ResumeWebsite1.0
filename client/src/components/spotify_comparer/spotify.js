@@ -1,7 +1,6 @@
 import './graph_styling.css';
 import * as $ from 'jquery';
 import React, { Component } from 'react';
-import ClientSpotifyData from './client_spotify_data';
 import PersonalSpotifyData from './personal_spotify_data';
 import Comparison from './comparison';
 import { Button } from 'react-bootstrap';
@@ -16,8 +15,9 @@ class Spotify extends Component {
         super();
         const params = this.getHashParams()
         this.state = {
-            access_token: this.getHashParams().access_token,
+            access_token: params.access_token,
             loggedIn: params.access_token ? true : false,
+            expires_in: params.expires_in,
             currentSlide: 'you',
             userData: {
                 display_name: ''
@@ -25,6 +25,7 @@ class Spotify extends Component {
             timeFrame: 'long_term',
         }
         this.handleTimeFrameChange = this.handleTimeFrameChange.bind(this);
+        console.log('EXPIRATION:', this.state.expires_in);
     }
     componentDidMount() {
         if(this.state.loggedIn) {
