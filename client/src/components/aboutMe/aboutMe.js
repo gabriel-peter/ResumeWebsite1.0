@@ -1,25 +1,51 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
-import Accordion from 'react-bootstrap/Accordion'
-import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup';
+import Card from 'react-bootstrap/Card';
 import ImageCarousel from '../mixAssist/imageCarousel';
 
-import '../../App.css'
+import '../../App.css';
+// https://medium.com/@augustinekwong/google-sign-in-for-reactjs-tutorial-1eb5d78ea2e6
 class AboutMe extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
         }
+    }
+    onSuccess(data) {
+        console.log(data);
+    }
+    componentDidMount() {
+        // const script = document.createElement("script");
+        // script.src = 'https://apis.google.com/js/platform.js?onload=init';
+        // script.async = true;
+        // document.body.appendChild(script);
+        window.gapi.load('auth2', () => {
+            window.gapi.auth2.init({
+            client_id: '132477595847-r1sr878h3i4k15ubthj42s3vrrrs2lk7.apps.googleusercontent.com'
+        }).then(() => {
+            window.gapi.signin2.render('my-signIn', {
+              'scope': 'profile email',
+              'width': 250,
+              'height': 50,
+              'longtitle': false,
+              'theme': 'dark',
+              'onsuccess': this.onSuccess,
+              'onfailure': (error) => console.log(error)
+            })
+          }) 
+        })    
+    //  render = () => ()
     }
     render() {
         return(
         <div>
             {/* <h1>Updated Home Page Coming soon ... In the mean time, checkout our: </h1>
             <h1><a href='/spotify'>Spotify Compatibility</a></h1> */}
-            
-            
+            <div id="my-signIn" />
+            {/* <div className="g-signin2" data-onsuccess={this.onSignIn}></div> */}
             <Card className="text-center">
             <Card.Header><h1>About Me</h1></Card.Header>
             <Card.Body>
@@ -31,46 +57,28 @@ class AboutMe extends Component {
                 I am currently a Junior with interests in Web-development, Python scripting, and even Systems-oriented code.
                 </Card.Text>
                 <Card.Text>
-                Here is my latest BETA project (currently working on caching personal drinks), Check out what progress I've made so far.
+                Here is my latest BETA project (currently working on evolving the authetication protocol), Check out what progress I've made so far.
                 </Card.Text>
                 <Button href='/mix' variant="primary">Try out MixAssist</Button>
                 <footer className="blockquote-footer">
                     (This is also now Mobile Friendly)
                 </footer>
-            </Card.Body>
+                </Card.Body>
+                
+            
             <Card.Footer className="text-muted">Updated 12.26.20</Card.Footer>
             </Card>
-            {/* <Accordion defaultActiveKey="0">
-                <Card>
-                    <Card.Header>
-                    <Accordion.Toggle as={Card.Header} eventKey="0">
-                        What?
-                    </Accordion.Toggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="0">
-                    <Card.Body>
-                        <h4>Mix Assist is an in-developement Drink and Cocktail database for taste enthusiast of the modern age.</h4>
-
-                    </Card.Body>
-                    </Accordion.Collapse>
-                </Card>
-                <Card>
-                    <Card.Header>
-                    <Accordion.Toggle as={Card.Header} eventKey="1">
-                        Classics, Retros, and Custom Cocktail Recipes at the Ready!
-                    </Accordion.Toggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="1">
-                    <Card.Body>
-                        <div><strong>600+ Cocktails Built-in:</strong></div>
-                        <ImageCarousel/>
-                    </Card.Body>
-                    </Accordion.Collapse>
-                </Card>
-            </Accordion>
-            <h3>Progress until Release:</h3>
-            <ProgressBar animated now={40} />
-            <Button size='lg' variant='outline-primary' href='https://paypal.me/gabepeter?locale.x=en_US'>Support!</Button> */}
+            <br />
+            <h3>Website Upgrades:</h3>
+                <ListGroup variant="flush">
+                    <ListGroup.Item variant="success" className='item-complete'>Refactor code inheritance for future scalability</ListGroup.Item>
+                    <ListGroup.Item variant="success" className='item-complete'>Incorporate DB and back-end from old project</ListGroup.Item>
+                    <ListGroup.Item variant="success" className='item-complete'>Make Spotify Component more mobile responsive.</ListGroup.Item>
+                    <ListGroup.Item variant="warning">Combine OAuth authentication for user personalization on Mix Assist</ListGroup.Item>
+                    <ListGroup.Item variant="warning">Implement Redux</ListGroup.Item>
+                    <ListGroup.Item variant="warning">Develop Spotify Playlist Generator Algorithm</ListGroup.Item>
+                    <ListGroup.Item variant="warning">Update DB for better schema</ListGroup.Item>
+                </ListGroup>
         </div>);
     }
 }

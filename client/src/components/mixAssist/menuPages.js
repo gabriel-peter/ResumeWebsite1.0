@@ -10,6 +10,7 @@ import Tab from 'react-bootstrap/Tab';
 import DrinkFinder from './drinkFinder';
 import MyDrinks from './myDrinks';
 import ShoppingList from './shoppingList';
+import LoginHeader from './LoginHeader';
 
 class MenuPages extends Component {
     constructor(props) {
@@ -48,6 +49,8 @@ class MenuPages extends Component {
             'Shopping List': <ShoppingList removeShoppingItem={this.removeShoppingItem} shoppingItems={this.state.shoppingItems}/>,
         }
         return(
+            <div>
+            <LoginHeader />
             <Tabs>
                 {Object.keys(pages).map((page, index) => {
                     return (
@@ -58,6 +61,7 @@ class MenuPages extends Component {
                     );
                 })}
             </Tabs>
+            </div>
         );
     }
 }

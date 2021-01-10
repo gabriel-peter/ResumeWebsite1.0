@@ -59,3 +59,7 @@
   padding-left: 1em;
   padding-right: 1em; */
 }
+
+.item-complete {
+ text-decoration: line-through;
+}

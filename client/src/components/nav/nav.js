@@ -86,6 +86,16 @@ function NavbarHeader() {
               />{' '}
               LinkedIn Profile
             </Nav.Link>
+            <Nav.Link href='https://paypal.me/gabepeter?locale.x=en_US'>
+              {/* <img
+                src='/images/LI-In-Bug.png'
+                width="26"
+                height="22"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+              />{' '} */}
+              Support my Development
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
