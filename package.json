@@ -12,7 +12,7 @@
     "server": "HTTPS=true&&nodemon server.js",
     "client": "HTTPS=true&&npm start --prefix client",
     "dev": "HTTPS=true&&concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "HTTPS=true &&n pm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "HTTPS=true && npm install --prefix client && npm run build --prefix client"
   },
   "author": "Gabriel Peter",
   "license": "ISC",
