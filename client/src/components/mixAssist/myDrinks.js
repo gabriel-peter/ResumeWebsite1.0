@@ -18,6 +18,10 @@ class MyDrinks extends Component {
             drinks: this.props.savedDrinks,
         }
     }
+    componentDidMount() {
+        // this.handleKeyPress(null, 'Name');
+        // this.setState({drinks: this.props.savedDrinks});
+    }
     handleKeyPress = (event, filter) => {
         filter = this.attributeConv[filter];
         var newArr = [];
@@ -29,7 +33,7 @@ class MyDrinks extends Component {
                 let drink = this.props.savedDrinks[i];
                 let drinkAttr = drink[filter];
                 let drinkFrag = drinkAttr.slice(0, queryName.length);
-                if (drinkFrag === queryName) {
+                if (drinkFrag.toLowerCase() === queryName.toLowerCase()) {
                     newArr.push(this.props.savedDrinks[i]);
                 }
             }
@@ -37,6 +41,7 @@ class MyDrinks extends Component {
         }
     }
     render() {
+        console.log(this.state.drinks);
         return (
         <div>
             <h6>These are drinks you haved liked!</h6>

@@ -14,37 +14,13 @@ class AboutMe extends Component {
         this.state = {
         }
     }
-    onSuccess(data) {
-        console.log(data);
-    }
-    componentDidMount() {
-        // const script = document.createElement("script");
-        // script.src = 'https://apis.google.com/js/platform.js?onload=init';
-        // script.async = true;
-        // document.body.appendChild(script);
-        window.gapi.load('auth2', () => {
-            window.gapi.auth2.init({
-            client_id: '132477595847-r1sr878h3i4k15ubthj42s3vrrrs2lk7.apps.googleusercontent.com'
-        }).then(() => {
-            window.gapi.signin2.render('my-signIn', {
-              'scope': 'profile email',
-              'width': 250,
-              'height': 50,
-              'longtitle': false,
-              'theme': 'dark',
-              'onsuccess': this.onSuccess,
-              'onfailure': (error) => console.log(error)
-            })
-          }) 
-        })    
-    //  render = () => ()
-    }
+    
     render() {
         return(
         <div>
             {/* <h1>Updated Home Page Coming soon ... In the mean time, checkout our: </h1>
             <h1><a href='/spotify'>Spotify Compatibility</a></h1> */}
-            <div id="my-signIn" />
+            
             {/* <div className="g-signin2" data-onsuccess={this.onSignIn}></div> */}
             <Card className="text-center">
             <Card.Header><h1>About Me</h1></Card.Header>
@@ -74,6 +50,7 @@ class AboutMe extends Component {
                     <ListGroup.Item variant="success" className='item-complete'>Refactor code inheritance for future scalability</ListGroup.Item>
                     <ListGroup.Item variant="success" className='item-complete'>Incorporate DB and back-end from old project</ListGroup.Item>
                     <ListGroup.Item variant="success" className='item-complete'>Make Spotify Component more mobile responsive.</ListGroup.Item>
+                    <ListGroup.Item variant="warning">Acquire SSL Certifs for HTTPS Support.</ListGroup.Item>
                     <ListGroup.Item variant="warning">Combine OAuth authentication for user personalization on Mix Assist</ListGroup.Item>
                     <ListGroup.Item variant="warning">Implement Redux</ListGroup.Item>
                     <ListGroup.Item variant="warning">Develop Spotify Playlist Generator Algorithm</ListGroup.Item>

@@ -24,7 +24,7 @@ class MenuPages extends Component {
         this.addShoppingItem = this.addShoppingItem.bind(this);
         this.removeShoppingItem = this.removeShoppingItem.bind(this);
     }
-    componentDidMount() {
+    componentWillMount() {
         fetch('/saved-drinks')
         .then(res => res.json())
         .then(res => this.setState({savedDrinks: res}));
@@ -42,10 +42,11 @@ class MenuPages extends Component {
     }
     render() {
         console.log('Saved Drinks Loaded', this.state.savedDrinks);
+        const myDrinksComponent = <MyDrinks addShoppingItem={this.addShoppingItem} savedDrinks={this.state.savedDrinks} />;
         var pages = {
             'Make a Drink': <DrinkForm/>,
             'Discover': <DrinkFinder addShoppingItem={this.addShoppingItem} savedDrinks={this.state.savedDrinks}/>,
-            'My Drinks': <MyDrinks addShoppingItem={this.addShoppingItem} savedDrinks={this.state.savedDrinks} />,
+            'My Drinks': myDrinksComponent,
             'Shopping List': <ShoppingList removeShoppingItem={this.removeShoppingItem} shoppingItems={this.state.shoppingItems}/>,
         }
         return(

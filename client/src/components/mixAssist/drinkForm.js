@@ -29,6 +29,9 @@ const schema = yup.object({
 //   file: yup.file().required(),
 });
 
+const maximumIngredients = 15;
+const minimumIngredients = 2;
+
 class DrinkForm extends Component {
     constructor(props) {
         super(props);
@@ -71,6 +74,19 @@ class DrinkForm extends Component {
                 'Martini Glass',
                 'Balloon Glass',
                 'Coupe Glass',];
+
+        this.handleAdd = this.handleAdd.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
+    }
+    handleAdd() {
+        if (this.state.ingredientCount !== maximumIngredients) {
+            this.setState(prev => ({ingredientCount: prev.ingredientCount+1}))
+        }
+    }
+    handleRemove() {
+        if (this.state.ingredientCount !== minimumIngredients) {
+            this.setState(prev => ({ingredientCount: prev.ingredientCount-1}))
+        }
     }
     render(){
         return (<div>
@@ -146,7 +162,8 @@ class DrinkForm extends Component {
                         <Button 
                             variant='outline-warning'
                             block
-                            onClick={() => this.setState(prev => ({ingredientCount: prev.ingredientCount-1}))}>
+                            disabled={this.state.ingredientCount == minimumIngredients}
+                            onClick={this.handleRemove}>
                             Remove
                         </Button>
                         </Col>
@@ -154,7 +171,8 @@ class DrinkForm extends Component {
                         <Button 
                             variant='outline-primary'
                             block
-                            onClick={() => this.setState(prev => ({ingredientCount: prev.ingredientCount+1}))}>
+                            disabled={this.state.ingredientCount == maximumIngredients}
+                            onClick={this.handleAdd}>
                             Add
                         </Button>
                         </Col>

@@ -100,6 +100,44 @@ app.get('/api/personal-token', (req, res) => {
  * DRINKS DB ENDPOINTS
  */
 
+app.post('/api/signup', (req, res) => {
+  // console.log('HITTTTTT')
+  // db.all('SELECT * FROM drinks LIMIT 20', (err, rows)=> {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   res.json(rows);
+  // });
+});
+
+app.get('/api/user/id/:id', (req, res) => {
+  db.all('SELECT * FROM users WHERE id==\''+ req.params.id + '\'', (err, rows) => {
+    if (err) {
+      console.log(err);
+    }
+    res.json(rows);
+  })
+});
+
+app.get('/api/user/google-id/:id', (req, res) => {
+  db.all('SELECT * FROM users WHERE google_id==\''+ req.params.id + '\'', (err, rows) => {
+    if (err) {
+      console.log(err);
+    }
+    res.json(rows);
+  })
+});
+
+app.get('/api/user/facebook-id/:id', (req, res) => {
+  db.all('SELECT * FROM users WHERE facebook_id==\''+ req.params.id + '\'', (err, rows) => {
+    if (err) {
+      console.log(err);
+    }
+    res.json(rows);
+  })
+});
+
+
 app.get('/api/all-drinks', (req, res) => {
   // console.log('HITTTTTT')
   db.all('SELECT * FROM drinks LIMIT 20', (err, rows)=> {
@@ -120,6 +158,7 @@ app.get('/setuser', (req, res)=>{
   res.send('user data added to cookie'); 
 }); 
 
+// Makes these post req and have body params of user-id, and drink-id
 app.get('/addDrink/:id', (req, res)=>{ 
   // TODO Append data to this.
   let newSavedDrinks = req.cookies['savedDrinks'];
@@ -150,7 +189,7 @@ app.get('/clearCookie', (req, res)=>{
   res.send('user logout successfully'); 
 });
 
-app.get('/saved-drinks', (req, res) => {
+app.get('/api/saved-drinks/:id', (req, res) => {
   let drinkNames = req.cookies.savedDrinks;
   console.log(drinkNames);
   var results = [];

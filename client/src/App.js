@@ -6,6 +6,8 @@ import Footer from './components/footer/footer';
 import Spotify_Previewer from './components/spotify_comparer/spotify';
 import AboutMe from './components/aboutMe/aboutMe';
 import MixAssist from './components/mixAssist/mixAssist';
+import LoginPage from './components/mixAssist/LoginPage';
+import SignUpPage from './components/mixAssist/SignUpPage';
 import MenuPages from './components/mixAssist/menuPages';
 
 // https://medium.com/@the.benhawy/3-ways-to-create-react-components-8b3620e4ea0
@@ -18,6 +20,8 @@ function App() {
         <Switch>
           <Route path='/' exact component={AboutMe}/>
           <Route path='/mix' exact component={MenuPages}/>
+          <Route path='/login' exact component={LoginPage}/>
+          <Route path='/signup' exact component={SignUpPage}/>
           <Route path='/spotify' component={Spotify_Previewer}/>
         </Switch>
         <Footer/>
