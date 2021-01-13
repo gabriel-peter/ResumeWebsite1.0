@@ -24,7 +24,7 @@ var db = new sqlite3.Database(file);
 var scope = 'user-top-read user-read-private user-read-email user-read-playback-state';
 const client_id = process.env.client_id;
 const client_secret = process.env.client_secret;
-const redirect_uri = process.env.PORT? 'http://gabrielpeter.net/spotify/':'http://localhost:3000/spotify/';
+const redirect_uri = process.env.PORT? 'https://gabrielpeter.net/spotify':'https://localhost:3000/spotify';
 const redirectUriParameters = {
   client_id: client_id,
   response_type: 'token',
