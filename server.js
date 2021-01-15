@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 5000;
 const cors = require('cors');
 const path = require('path');
 const request = require('request'); // "Request" library
+var forceSsl = require('express-force-ssl');
 const querystring = require('querystring');
 const SpotifyWebApi = require('spotify-web-api-node');
 const dotenv = require('dotenv'); // for acquiring env variables both dev and prod
@@ -13,6 +14,12 @@ app.use(cors());
 // Cookie Handling
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
+
+// Redirects non-SSL connections aka HTTP
+// Doesnt work :( TODO
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(forceSsl);
+// }
 
 // MIX ASSIST
 
@@ -246,6 +253,13 @@ app.delete('/api/delete/:name', (req, res) => {
   // TODO
 });
 
+// app.use((req,resp,next) => {
+//   if (!req.secure) {
+//       return res.redirect('https://' + req.headers.host + req.url);
+//   }
+//     next();
+// });
+
 // PRODUCTION
 // https://daveceddia.com/unexpected-token-in-json-at-position-0/ Lesson Learned lol
 if (process.env.NODE_ENV === 'production') {
@@ -256,7 +270,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(PORT, 
-  // () => console.log(`Server started on port ${PORT}`)
+  () => console.log(`Server started on port ${PORT}`)
   );
 
 console.log('CLOSING DB CONNECTION');

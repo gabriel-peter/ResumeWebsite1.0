@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Badge from 'react-bootstrap/Badge';
-// import Navbar from 'react-bootstrap/Navbar';
 import {Navbar, Nav} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import Row from 'react-bootstrap/Row';
@@ -38,7 +37,7 @@ function NavbarHeader() {
                   // className="d-inline-block align-top"
                   alt="React Bootstrap logo"
                 />{' '}
-                Mix Assist 1.0
+                Mix Assist (BETA)
                 {/* <Badge variant="primary">New</Badge> */}
                 </Col>
               </Row>

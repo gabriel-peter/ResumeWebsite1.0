@@ -8,6 +8,17 @@ import ImageCarousel from '../mixAssist/imageCarousel';
 
 import '../../App.css';
 // https://medium.com/@augustinekwong/google-sign-in-for-reactjs-tutorial-1eb5d78ea2e6
+import { useSelector, useDispatch, connect } from 'react-redux';
+import {incrementCount, decrementCount} from '../../actions/';
+const mapStateToProps = state => ({
+    counter: state.counterReducer
+});
+const mapDispatchToProps = () => {
+    return {
+        incrementCount,
+        decrementCount
+    }
+}
 class AboutMe extends Component {
     constructor(props){
         super(props);
@@ -20,7 +31,9 @@ class AboutMe extends Component {
         <div>
             {/* <h1>Updated Home Page Coming soon ... In the mean time, checkout our: </h1>
             <h1><a href='/spotify'>Spotify Compatibility</a></h1> */}
-            
+            <div>{this.props.counter}</div>
+            <button onClick={() => this.props.incrementCount()}> + </button>
+            <button onClick={() => this.props.decrementCount()}> - </button>
             {/* <div className="g-signin2" data-onsuccess={this.onSignIn}></div> */}
             <Card className="text-center">
             <Card.Header><h1>About Me</h1></Card.Header>
@@ -50,14 +63,14 @@ class AboutMe extends Component {
                     <ListGroup.Item variant="success" className='item-complete'>Refactor code inheritance for future scalability</ListGroup.Item>
                     <ListGroup.Item variant="success" className='item-complete'>Incorporate DB and back-end from old project</ListGroup.Item>
                     <ListGroup.Item variant="success" className='item-complete'>Make Spotify Component more mobile responsive.</ListGroup.Item>
-                    <ListGroup.Item variant="warning">Acquire SSL Certifs for HTTPS Support.</ListGroup.Item>
-                    <ListGroup.Item variant="warning">Combine OAuth authentication for user personalization on Mix Assist</ListGroup.Item>
+                    <ListGroup.Item variant="success" className='item-complete'>Acquire SSL Certifs for HTTPS Support.</ListGroup.Item>
+                    <ListGroup.Item variant="success" className='item-complete'>Combine OAuth authentication for user personalization on Mix Assist</ListGroup.Item>
                     <ListGroup.Item variant="warning">Implement Redux</ListGroup.Item>
                     <ListGroup.Item variant="warning">Develop Spotify Playlist Generator Algorithm</ListGroup.Item>
-                    <ListGroup.Item variant="warning">Update DB for better schema</ListGroup.Item>
+                    <ListGroup.Item variant="success" className='item-complete'>Update DB for better schema</ListGroup.Item>
                 </ListGroup>
         </div>);
     }
 }
 
-export default AboutMe;
+export default connect(mapStateToProps, mapDispatchToProps())(AboutMe);

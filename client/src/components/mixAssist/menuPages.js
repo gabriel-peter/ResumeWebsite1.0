@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-import ImageCarousel from './imageCarousel';
-import Button from 'react-bootstrap/Button';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import DrinkForm from './drinkForm';
-import Nav from 'react-bootstrap/Nav';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import DrinkFinder from './drinkFinder';
 import MyDrinks from './myDrinks';
 import ShoppingList from './shoppingList';
-import LoginHeader from './LoginHeader';
+import LoginHeader from './login/loginHeader';
+
+import { useSelector, useDispatch, connect } from 'react-redux';
+import {incrementCount, decrementCount} from '../../actions/';
+const mapStateToProps = state => ({
+    counter: state.counterReducer
+});
+const mapDispatchToProps = () => {
+    return {
+        incrementCount,
+        decrementCount
+    }
+}
 
 class MenuPages extends Component {
     constructor(props) {
@@ -29,6 +36,7 @@ class MenuPages extends Component {
         .then(res => res.json())
         .then(res => this.setState({savedDrinks: res}));
     }
+    
     addShoppingItem(item) {
         let arr = this.state.shoppingItems.slice(); //creates the clone of the state
         arr.push(item);
@@ -49,9 +57,13 @@ class MenuPages extends Component {
             'My Drinks': myDrinksComponent,
             'Shopping List': <ShoppingList removeShoppingItem={this.removeShoppingItem} shoppingItems={this.state.shoppingItems}/>,
         }
+        // TEST
         return(
             <div>
             <LoginHeader />
+            <div>{this.props.counter}</div>
+            <button onClick={() => this.props.incrementCount()}> + </button>
+            <button onClick={() => this.props.decrementCount()}> - </button>
             <Tabs>
                 {Object.keys(pages).map((page, index) => {
                     return (
@@ -66,5 +78,5 @@ class MenuPages extends Component {
         );
     }
 }
-
-export default MenuPages;
+// https://www.youtube.com/watch?v=9d020AQCtcU
+export default connect(mapStateToProps, mapDispatchToProps())(MenuPages);
