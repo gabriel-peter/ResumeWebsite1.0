@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'react-bootstrap';
-
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { loginUser, logoutUser } from '../../../actions/';
 const mapStateToProps = state => ({
@@ -63,19 +63,21 @@ class GoogleButton extends Component {
         auth2.signIn().then(response => {
             this.onSuccessGoogle(response);
         })
+        // Should only be called after logging in via button click
+        this.props.history.push('/mix')
     }
     componentDidMount() {
         var script = document.createElement('script');
         script.src = 'https://apis.google.com/js/client.js'
         document.body.appendChild(script);
-        this.loadGAPI(script);
+        this.loadGAPI(script, 0);
     }
-    loadGAPI(script) {
+    loadGAPI(script, attempt) {
         // Retries GAPI load if not ready and 'processed' yet
         // https://stackoverflow.com/questions/19892662/what-does-gapi-processed-mean/33591421
         // https://gist.github.com/mikecrittenden/28fe4877ddabff65f589311fd5f8655c
         // TODO BUTTONS NEED TO BE DISABLED UNTIL LOADED.
-        if(script.getAttribute('gapi_processed')){
+        if (script.getAttribute('gapi_processed')){
             this.setState({isLoading: false})
             window.gapi.load('auth2', () => {
                 window.gapi.auth2.init({
@@ -89,8 +91,13 @@ class GoogleButton extends Component {
                 }) 
             })
         } else {
-            console.log('Client wasn\'t ready, trying again in 100ms');
-            setTimeout(() => {this.loadGAPI(script)}, 100);
+            // TODO IF CERTAIN AMOUNT OF ATTEMPTS, SHOW ERROR
+            if (attempt >= 40) {
+                console.log('Failed to connect to Google. Aborting');
+            } else {
+                console.log('Client wasn\'t ready, trying again in 100ms');
+                setTimeout(() => {this.loadGAPI(script, attempt+1)}, 100);
+            }
         }
     }
     render() {
@@ -106,4 +113,4 @@ class GoogleButton extends Component {
         }
     }
 
-export default connect(mapStateToProps, mapDispatchToProps())(GoogleButton);
+export default connect(mapStateToProps, mapDispatchToProps())(withRouter(GoogleButton));

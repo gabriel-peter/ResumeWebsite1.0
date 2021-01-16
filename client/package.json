@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "^4.5.3",
     "formik": "^2.2.6",
+    "history": "^5.0.0",
     "react": "^16.14.0",
     "react-async-loader": "^0.1.2",
     "react-bootstrap": "^1.4.3",
@@ -40,8 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.12.12"
   }
 }

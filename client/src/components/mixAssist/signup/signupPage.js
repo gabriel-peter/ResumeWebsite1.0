@@ -1,125 +1,149 @@
+// @ts-nocheck
 import React, { Component } from 'react'
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Form } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom'
+// import { createBrowserHistory } from 'history';
+// import GoogleButton from './googleButton';
+// import FacebookButton from './facebookButton';
 // https://developers.google.com/identity/sign-in/web/reference
 // https://console.developers.google.com/apis/credentials?project=seventh-server-263618
 // https://developers.facebook.com/apps/1549733092042098/fb-login/settings/
-export default class SignUpPage extends Component {
+import { connect } from 'react-redux';
+import { loginUser, logoutUser } from '../../../actions/';
+const mapStateToProps = state => ({
+    currentUser: state.loggedReducer
+});
+const mapDispatchToProps = () => {
+    return {
+        loginUser,
+        logoutUser
+    }
+}
+class SignUpPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoggedIn: false,
-            user: null   
+            authentication: null,
+            loginMethod: ''
         }
-        this.onSuccessGoogle = this.onSuccessGoogle.bind(this);
-        this.onSuccessFB = this.onSuccessFB.bind(this);
-        this.signOutGoogle = this.signOutGoogle.bind(this);
-        this.loginFacebook = this.loginFacebook.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.handleFacebookSignUp = this.handleFacebookSignUp.bind(this);
+        this.handleGoogleSignUp = this.handleGoogleSignUp.bind(this);
     }
-    onSuccessGoogle(data) {
-        // console.log('USER IS LOGGED IN', data);
-        // console.log('GOOGLE ID', data.Ea);
-        // var profile = data.getBasicProfile();
-        // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        // console.log('Name: ' + profile.getName());
-        // console.log('Image URL: ' + profile.getImageUrl());
-        // console.log('Email: ' + profile.getEmail()); 
-        // fetch('/api/user/google-id/' + data.Ea)
-        // .then(response => response.json())
-        // .then(response => {
-        //     // TODO if error, it means they need to signup!!! redirect to sign-up page
-        //     this.setState({isLoggedIn: true, user: response[0]});
-        //     console.log(response);
-        // })
-        // OR just redirect?
-        // window.location
+    handleFacebookSignUp() {
+        // LOAD ACCOUNT INFO
+
+        // PARSE DATA
+
+        // Proceed to Additional Info
+        this.setState({authentication: 
+            {
+                first_name: "Elias",
+                last_name: 'Peter',
+                email: 'epeter1@hwemail.com',
+                facebook_id: '242424',
+                google_id: 'None',
+                date_of_birth: '06.08.2002',
+                gender: 'male',
+                liked_drinks: '',   
+            }, loginMethod: 'Facebook'})
     }
-    onSuccessFB(data) {
-    //     const userID = data.userID;
-    //     fetch('/api/user/facebook-id/' + userID)
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         // TODO if error, it means they need to signup!!! redirect to sign-up page
-    //         if (response.length === 0) {
-    //             console.log('No Account Found!');
-    //             // TODO REDIRECT
-    //             window.location = '/signup'
-    //         } else {
-    //         console.log(response);
-    //         this.setState({isLoggedIn: true, user: response[0]});
-    //         }
-    //     })
-    }
-    signOutGoogle() {
-        // var auth2 = window.gapi.auth2.getAuthInstance();
-        // auth2.signOut().then(() => {
-        //     console.log('User signed out.');
-        //     this.setState({isLoggedIn: false, user: null})
-        // });
-    }
-    loginFacebook() {
-        // window.FB.login((response) => {
-        //     // handle the response
-        //     console.log(response);
-        //     if (response.status === 'connected') {
-        //         this.onSuccessFB(response)
-        //     }
-        //   }, {scope: 'public_profile,email'});
+    handleGoogleSignUp() {
+        // LOAD ACCOUNT INFO
+
+        // PARSE DATA
+
+        // Proceed to Additional Info
+        this.setState({authentication: 
+            {
+                first_name: "Elias",
+                last_name: 'Peter',
+                email: 'epeter1@hwemail.com',
+                facebook_id: 'None',
+                google_id: '3053509',
+                date_of_birth: '06.08.2002',
+                gender: 'male',
+                liked_drinks: '',
+            }, loginMethod: 'Google'})
     }
     componentDidMount() {
-        // TODO USE HOOK HERE
-        window.FB.getLoginStatus((response) => {
-            // statusChangeCallback(response);
-            console.log(response);
-            if (response.status === 'not_authorized') {
-                this.setState({isLoggedIn: false})
-            } else if (response.status === 'connected') {
-                this.onSuccessFB(response);
-            }
+        // LOAD GOOGLE API
+
+        // LOAD FACEBOOK API
+    }
+    onSubmit(e) {
+        e.preventDefault();
+        console.log('Sending user make request')
+        fetch("/api/signup", {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+            //make sure to serialize your JSON body
+            body: JSON.stringify(this.state.authentication)
+        }).then(response => response.json()).then(res => { 
+            //do something awesome that makes the world a better place
+            // IF SUCCESS, 
+            // currentUser = response.user;
+            var currentUser = this.state.authentication;
+            currentUser.loginMethod = this.state.loginMethod;
+            this.props.loginUser(currentUser);
+            // Go back to home page
+            // createBrowserHistory().replace('/mix')
+            this.props.history.push('/mix');
         });
-        window.gapi.load('auth2', () => {
-            window.gapi.auth2.init({
-            client_id: '132477595847-r1sr878h3i4k15ubthj42s3vrrrs2lk7.apps.googleusercontent.com'
-        }).then(() => {
-            window.gapi.signin2.render('my-signIn', {
-              'scope': 'profile email',
-              'width': 250,
-              'height': 50,
-              'longtitle': false,
-              'theme': 'dark',
-              'onsuccess': this.onSuccessGoogle,
-              'onfailure': (error) => console.log(error)
-            })
-          }) 
-        })    
     }
     render() {
         return (
             <Card>
+                {/* {this.renderRedirect()} */}
                 <Card.Body>
-                <Card.Title>{this.state.isLoggedIn ? `Welcome, ${this.state.user.first_name}` : 'Sign-Up!'}</Card.Title>
-                <Card.Text>
-                    {/* GOOGLE BUTTON */}
-                    <div id="my-signIn" />
-                    <br/>
-                    {/* FACEBOOK BUTTON */}
-                    {/* <div 
-                        class="fb-login-button" 
-                        data-width="250" 
-                        data-size="large" 
-                        data-button-type="login_with"
-                        // data-layout="" 
-                        // data-auto-logout-link="true" 
-                        // data-use-continue-as="true"
-                        ></div> */}
-                    <Button onClick={this.loginFacebook}>Login With Facebook</Button>
-                </Card.Text>
-                    {this.state.isLoggedIn ? 
-                        <Button variant='link' onClick={this.signOutGoogle}>Sign-out?</Button>
-                        :
-                        <Button variant='link' onClick={() => console.log('TODO')}>Sign up?</Button>
+                    {this.props.currentUser && <p>You are already logged in (TODO)</p>}
+                    {this.state.authentication===null ?
+                    <div>
+                        <Card.Text>
+                        <Button
+                            variant='success'
+                            onClick={this.handleGoogleSignUp}
+                        >Sign-Up with Google</Button>
+                        </Card.Text>
+                        <Card.Text>
+                        <Button
+                            onClick={this.handleFacebookSignUp}
+                        >Sign-Up with Facebook</Button>
+                        </Card.Text>
+                    </div>
+                    :
+                    <div>
+                        <Card.Title>Additional Information</Card.Title>
+                        <Form onSubmit={this.onSubmit}>
+                            {/* <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email" />
+                                <Form.Text className="text-muted">
+                                We'll never share your email with anyone else.
+                                </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group controlId="formBasicPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Password" />
+                            </Form.Group> */}
+                            <Form.Group controlId="formBasicCheckbox">
+                                <Form.Check type="checkbox" label="Verify you are over 21 years of Age" />
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </Form>
+                    </div>
                     }
                 </Card.Body>
             </Card>
         )
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps())(withRouter(SignUpPage));

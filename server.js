@@ -11,6 +11,13 @@ const dotenv = require('dotenv'); // for acquiring env variables both dev and pr
 dotenv.config();
 app.use(cors());
 
+// POST body parsing
+const bodyParser = require('body-parser');
+// app.use(bodyParser.urlencoded());
+
+app.use(bodyParser.json());
+
+
 // Cookie Handling
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -108,13 +115,9 @@ app.get('/api/personal-token', (req, res) => {
  */
 
 app.post('/api/signup', (req, res) => {
-  // console.log('HITTTTTT')
-  // db.all('SELECT * FROM drinks LIMIT 20', (err, rows)=> {
-  //   if (err) {
-  //     console.log(err);
-  //   }
-  //   res.json(rows);
-  // });
+  console.log(req.body);
+  // INSERT USER TODO
+  res.send(req.body);
 });
 
 app.get('/api/user/id/:id', (req, res) => {
