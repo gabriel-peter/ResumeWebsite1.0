@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
+import { loginUser, logoutUser } from '../../../actions/';
+const mapStateToProps = state => ({
+    currentUser: state.loggedReducer
+});
+const mapDispatchToProps = () => {
+    return {
+        loginUser,
+        logoutUser
+    }
+}
 class LoginHeader extends Component {
     constructor(props) {
         super(props);
@@ -17,14 +28,18 @@ class LoginHeader extends Component {
     render() {
         return (
             <div>
+            {this.props.currentUser ?
+            <Button size='sm' variant='link' onClick={() => this.props.logoutUser()}>Logout</Button>
+            :
             <div>
                 <Button size='sm' variant='link' href='/login' onClick={this.handleLogin}><i>{this.state.googleLoggedIn ? 'Logout' : 'Login'}</i></Button>
-                {!this.state.googleLoggedIn && <Button size='sm'  variant='link' onClick={this.handleSignin}><i>Sign-in</i></Button>} 
+                {!this.state.googleLoggedIn && <Button size='sm'  variant='link' onClick={this.handleSignin}><i>Sign-up</i></Button>} 
             </div>
+            }
             <br />
             </div>
         )
     }
 }
 
-export default LoginHeader;
+export default connect(mapStateToProps, mapDispatchToProps())(LoginHeader);

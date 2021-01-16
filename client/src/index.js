@@ -11,12 +11,11 @@ import rootReducer from './reducers';
 import { Provider } from 'react-redux';
 
 // STORE
+// Best tutorial:  https://www.youtube.com/watch?v=m15hVENyYjI&list=PLoN_ejT35AEjvJwYyPCo3WTpZDpdlGrRu&index=8
 let store = createStore(
     rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
-store.subscribe(() => console.log(store.getState));
-
 // DISPATCH
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));

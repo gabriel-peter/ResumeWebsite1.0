@@ -1,3 +1,15 @@
+const loginUser = (user) => {
+    return {
+        type: 'LOGIN',
+        payload: user
+    }
+}
+const logoutUser = () => {
+    return {
+        type: 'LOGOUT'
+    }
+}
+
 const incrementCount = () => {
     return {
         type: 'INCREMENT'
@@ -10,4 +22,4 @@ const decrementCount = () => {
     }
 }
 
-export { incrementCount, decrementCount };
+export { loginUser, logoutUser, incrementCount, decrementCount };

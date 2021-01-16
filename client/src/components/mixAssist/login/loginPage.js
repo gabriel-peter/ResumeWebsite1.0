@@ -6,35 +6,36 @@ import FacebookButton from './facebookButton';
 // https://developers.google.com/identity/sign-in/web/reference
 // https://console.developers.google.com/apis/credentials?project=seventh-server-263618
 // https://developers.facebook.com/apps/1549733092042098/fb-login/settings/
-
+import { connect } from 'react-redux';
+import { loginUser, logoutUser } from '../../../actions/';
+const mapStateToProps = state => ({
+    currentUser: state.loggedReducer
+});
+const mapDispatchToProps = () => {
+    return {
+        loginUser,
+        logoutUser
+    }
+}
 class LoginPage extends Component {
     constructor(props) {
         super(props);
     }
-    componentDidMount() {
-        console.log(this.props)
-    }
-    updateUser() {
-
-    }
     render() {
-        var isLoggedIn = this.props.user ? true : false;
+        const loginMethod = this.props.currentUser ? this.props.currentUser.loginMethod : 'None';
+        console.log(this.props.currentUser)
         return (
             <Card>
                 <Card.Body>
-                <Card.Title>{isLoggedIn ? `Welcome, ${this.props.user.first_name}` : 'Login!'}</Card.Title>
-                {/* {this.props.user ? */}
-                <Card.Text><GoogleButton loginUser={this.props.loginUser} /></Card.Text>
-                <Card.Text><FacebookButton loginUser={this.props.loginUser} /></Card.Text>
-                    {isLoggedIn ? 
-                        <Button variant='link' onClick={this.signOutGoogle}>Sign-out?</Button>
-                        :
-                        <Button variant='link' href='/signup'>Sign up?</Button>
-                    }
+                <Card.Title>{this.props.currentUser!==null ? `Welcome, ${this.props.currentUser.first_name}` : 'Login!'}</Card.Title>
+                
+                {(loginMethod === 'Google' || loginMethod === 'None') && <Card.Text><GoogleButton /></Card.Text>}
+                {(loginMethod === 'Facebook' || loginMethod === 'None') && <Card.Text><FacebookButton /></Card.Text>}
+                    {!this.props.currentUser && <Button variant='link' href='/signup'>Sign up?</Button>}
                 </Card.Body>
             </Card>
         )
     }
 }
 
-export default LoginPage;
+export default connect(mapStateToProps, mapDispatchToProps())(LoginPage);

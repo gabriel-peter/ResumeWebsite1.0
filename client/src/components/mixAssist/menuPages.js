@@ -7,7 +7,7 @@ import MyDrinks from './myDrinks';
 import ShoppingList from './shoppingList';
 import LoginHeader from './login/loginHeader';
 
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import {incrementCount, decrementCount} from '../../actions/';
 const mapStateToProps = state => ({
     counter: state.counterReducer

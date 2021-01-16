@@ -29,16 +29,13 @@ class AboutMe extends Component {
     render() {
         return(
         <div>
-            {/* <h1>Updated Home Page Coming soon ... In the mean time, checkout our: </h1>
-            <h1><a href='/spotify'>Spotify Compatibility</a></h1> */}
+            {/* Test code for REDUX */}
             <div>{this.props.counter}</div>
             <button onClick={() => this.props.incrementCount()}> + </button>
             <button onClick={() => this.props.decrementCount()}> - </button>
-            {/* <div className="g-signin2" data-onsuccess={this.onSignIn}></div> */}
             <Card className="text-center">
             <Card.Header><h1>About Me</h1></Card.Header>
             <Card.Body>
-                {/* <Card.Title>Special title treatment</Card.Title> */}
                 <Card.Text>
                 This is a brief website showcasing side-projects that I toy with during breaks from school or work!
                 </Card.Text>
@@ -49,6 +46,7 @@ class AboutMe extends Component {
                 Here is my latest BETA project (currently working on evolving the authetication protocol), Check out what progress I've made so far.
                 </Card.Text>
                 <Button href='/mix' variant="primary">Try out MixAssist</Button>
+                <br />
                 <footer className="blockquote-footer">
                     (This is also now Mobile Friendly)
                 </footer>

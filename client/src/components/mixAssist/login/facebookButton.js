@@ -1,17 +1,29 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
+import { loginUser, logoutUser } from '../../../actions/';
+const mapStateToProps = state => ({
+    currentUser: state.loggedReducer
+});
+const mapDispatchToProps = () => {
+    return {
+        loginUser,
+        logoutUser
+    }
+}
 class FacebookButton extends Component {
     constructor(props) {
         super(props);
         this.state = {}
         this.onSuccessFB = this.onSuccessFB.bind(this);
         this.loginFacebook = this.loginFacebook.bind(this);
-        this.signoutFacebook = this.signoutFacebook.bind(this);
+        this.logoutFacebook = this.logoutFacebook.bind(this);
 
     }
-    signoutFacebook() {
-
+    logoutFacebook() {
+        // TODO ON FACEBOOK's END
+        this.props.logoutUser();
     }
     onSuccessFB(data) {
         const userID = data.userID;
@@ -61,9 +73,14 @@ class FacebookButton extends Component {
     }
     render() {
         return(
-            <Button onClick={this.loginFacebook}>Login With Facebook</Button>
+            <Button 
+                onClick={this.props.currentUser ? this.logoutFacebook : this.loginFacebook} 
+                variant='primary'
+            >
+                {this.props.currentUser ? 'Logout' : 'Login with Facebook'}
+            </Button>
         )
     }
 }
 
-export default FacebookButton;
+export default connect(mapStateToProps, mapDispatchToProps())(FacebookButton);

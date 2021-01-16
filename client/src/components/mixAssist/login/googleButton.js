@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
+import { loginUser, logoutUser } from '../../../actions/';
+const mapStateToProps = state => ({
+    currentUser: state.loggedReducer
+});
+const mapDispatchToProps = () => {
+    return {
+        loginUser,
+        logoutUser
+    }
+}
 class GoogleButton extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: false
+            isLoading: true
         }
         this.onSuccessGoogle = this.onSuccessGoogle.bind(this);
         this.onErrorGoogle = this.onErrorGoogle.bind(this);
@@ -24,8 +35,10 @@ class GoogleButton extends Component {
         fetch('/api/user/google-id/' + data.Ea)
         .then(response => response.json())
         .then(response => {
+            response = response[0]
+            response.loginMethod = 'Google'
             // TODO if error, it means they need to signup!!! redirect to sign-up page
-            this.setState({loggedIn: true});
+            this.props.loginUser(response);
             // TODO
             // console.log(this.props)
             // this.props.loginUser(response);
@@ -41,7 +54,7 @@ class GoogleButton extends Component {
         var auth2 = window.gapi.auth2.getAuthInstance();
         auth2.signOut().then(() => {
             console.log('User signed out.');
-            this.setState({isLoggedIn: false, user: null})
+            this.props.logoutUser();
         });
     } 
     loginGoogle() {
@@ -61,7 +74,9 @@ class GoogleButton extends Component {
         // Retries GAPI load if not ready and 'processed' yet
         // https://stackoverflow.com/questions/19892662/what-does-gapi-processed-mean/33591421
         // https://gist.github.com/mikecrittenden/28fe4877ddabff65f589311fd5f8655c
+        // TODO BUTTONS NEED TO BE DISABLED UNTIL LOADED.
         if(script.getAttribute('gapi_processed')){
+            this.setState({isLoading: false})
             window.gapi.load('auth2', () => {
                 window.gapi.auth2.init({
                 client_id: '132477595847-r1sr878h3i4k15ubthj42s3vrrrs2lk7.apps.googleusercontent.com'
@@ -80,14 +95,15 @@ class GoogleButton extends Component {
     }
     render() {
         return(
-            <Button 
-                onClick={this.state.loggedIn ? this.signOutGoogle : this.loginGoogle} 
+            <Button
+                disabled={this.state.isLoading} 
+                onClick={this.props.currentUser ? this.signOutGoogle : this.loginGoogle} 
                 variant='success'
             >
-                {this.state.loggedIn ? 'Logout' : 'Login with Google'}
+                {this.props.currentUser ? 'Logout' : 'Login with Google'}
             </Button>
         )
         }
     }
 
-export default GoogleButton;
+export default connect(mapStateToProps, mapDispatchToProps())(GoogleButton);
