@@ -168,7 +168,6 @@ app.post('/api/make-drink', (req, res) => {
   for(var i = 0; i < req.body.d_ingredients.length; i++) {
     parsed_ingredients += req.body.d_ingredients[i].item+','+req.body.d_ingredients[i].measurement + ' ' + req.body.d_ingredients[i].unit + '|';
   }
-  // let values = [
     sql += '\'' + Math.floor((Math.random() * 100) + 1) + '\', ',
     sql += '\'' + req.body.d_name + '\', '
     sql += '\'' + req.body.d_cat + '\', '
@@ -176,7 +175,7 @@ app.post('/api/make-drink', (req, res) => {
     sql += '\'' + req.body.d_glass + '\', '
     sql += '\'' + req.body.d_instructions + '\', '
     // req.body.d_img_url, 
-    sql += '\'' + '\', '
+    sql += '\'' + req.body.d_img_url +  '\', '
     sql += '\'' + parsed_ingredients + '\', '
     sql += '\'' + req.body.d_creator  + '\')'
   // ];

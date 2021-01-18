@@ -205,7 +205,7 @@ class FocusDrink extends Component {
                         <Card.Body>
                             <h5>Recommended Purchases:</h5>
                             {this.state.toBuyItems.map((item, index) => {
-                                return(<div>
+                                return(<div key={index}>
                                     <Row>
                                         <Col xs={5}>
                                         {item}
