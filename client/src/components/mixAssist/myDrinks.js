@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 import DrinkList from './drinkList/drinkList';
 import SearchBar from './search';
 
-
+import { connect } from 'react-redux';
+import {dumpDrinks } from '../../actions/';
+const mapStateToProps = state => ({
+    savedDrinks: state.savedDrinkReducer
+});
+const mapDispatchToProps = () => {
+    return {
+        dumpDrinks
+    }
+}
 class MyDrinks extends Component {
     constructor(props) {
         super(props);
@@ -52,4 +61,4 @@ class MyDrinks extends Component {
     }
 }
 
-export default MyDrinks;
+export default connect(mapStateToProps, mapDispatchToProps())(MyDrinks);

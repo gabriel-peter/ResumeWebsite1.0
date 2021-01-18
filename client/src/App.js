@@ -5,7 +5,6 @@ import NavbarHeader from './components/nav/nav';
 import Footer from './components/footer/footer';
 import Spotify_Previewer from './components/spotify_comparer/spotify';
 import AboutMe from './components/aboutMe/aboutMe';
-import MixAssist from './components/mixAssist/mixAssist';
 import LoginPage from './components/mixAssist/login/loginPage';
 import SignUpPage from './components/mixAssist/signup/signupPage';
 import MenuPages from './components/mixAssist/menuPages';

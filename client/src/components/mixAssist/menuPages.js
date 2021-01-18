@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import DrinkForm from './drinkForm';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
+import { Tabs, Tab, Alert } from 'react-bootstrap';
 import DrinkFinder from './drinkFinder';
 import MyDrinks from './myDrinks';
 import ShoppingList from './shoppingList';
 import LoginHeader from './login/loginHeader';
 
 import { connect } from 'react-redux';
-import {incrementCount, decrementCount} from '../../actions/';
+import {dumpDrinks } from '../../actions/';
 const mapStateToProps = state => ({
-    counter: state.counterReducer
+    savedDrinks: state.savedDrinkReducer
 });
 const mapDispatchToProps = () => {
     return {
-        incrementCount,
-        decrementCount
+        dumpDrinks
     }
 }
 
@@ -25,16 +23,16 @@ class MenuPages extends Component {
         this.state = {
             menuOption: 'Test Bar',
             isSearching: false,
-            savedDrinks: [],
+            // savedDrinks: [],
             shoppingItems: [],
         }
         this.addShoppingItem = this.addShoppingItem.bind(this);
         this.removeShoppingItem = this.removeShoppingItem.bind(this);
     }
     componentWillMount() {
-        fetch('/saved-drinks')
+        fetch('/api/saved-drinks')
         .then(res => res.json())
-        .then(res => this.setState({savedDrinks: res}));
+        .then(res => this.props.dumpDrinks(res));
     }
     
     addShoppingItem(item) {
@@ -50,20 +48,18 @@ class MenuPages extends Component {
     }
     render() {
         console.log('Saved Drinks Loaded', this.state.savedDrinks);
-        const myDrinksComponent = <MyDrinks addShoppingItem={this.addShoppingItem} savedDrinks={this.state.savedDrinks} />;
+        const myDrinksComponent = <MyDrinks addShoppingItem={this.addShoppingItem}/>;
         var pages = {
             'Make a Drink': <DrinkForm/>,
-            'Discover': <DrinkFinder addShoppingItem={this.addShoppingItem} savedDrinks={this.state.savedDrinks}/>,
-            'My Drinks': myDrinksComponent,
+            'Discover': <DrinkFinder addShoppingItem={this.addShoppingItem}/>,
+            'My Drinks': <MyDrinks/>,
             'Shopping List': <ShoppingList removeShoppingItem={this.removeShoppingItem} shoppingItems={this.state.shoppingItems}/>,
         }
         // TEST
         return(
             <div>
+            <Alert variant='danger'>This Feature is Currently Under Maintenance!</Alert>
             <LoginHeader />
-            <div>{this.props.counter}</div>
-            <button onClick={() => this.props.incrementCount()}> + </button>
-            <button onClick={() => this.props.decrementCount()}> - </button>
             <Tabs>
                 {Object.keys(pages).map((page, index) => {
                     return (

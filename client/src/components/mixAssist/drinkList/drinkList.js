@@ -27,7 +27,7 @@ class DrinkList extends Component {
         <div>
             {this.state.focusedDrink ?
                 <FocusDrink
-                    savedDrinks={this.props.savedDrinks}
+                    // savedDrinks={this.props.savedDrinks}
                     drink={this.state.focusedDrink}
                     focusDrink={this.focusDrink}
                     addShoppingItem={this.props.addShoppingItem}

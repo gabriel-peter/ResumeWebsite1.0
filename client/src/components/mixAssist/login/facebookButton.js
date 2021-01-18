@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Spinner } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { loginUser, logoutUser } from '../../../actions/';
@@ -74,29 +74,36 @@ class FacebookButton extends Component {
               xfbml      : true,
               version    : 'v9.0'
             });
-            console.log('Init Facebook Login API')
+            console.log('Init Facebook Login API');
+            this.setState({isLoading: false});
             window.FB.AppEvents.logPageView();  
 
             window.FB.getLoginStatus((response) => {
-                this.setState({isLoading: false});
                 console.log(response);
                 if (response.status === 'not_authorized') {
-                    this.setState({isLoggedIn: false})
+                    // this.setState({isLoggedIn: false})
                 } else if (response.status === 'connected') {
                     this.onSuccessFB(response);
                 }
             });
-          };
+          }
+        //   console.log('2 Hit');
+        //   this.setState({isLoading: false});
     }
     render() {
         return(
+            <div>
+            {this.state.isLoading ?
+            <Spinner animation="border" variant="primary" />
+            :
             <Button
-                disabled={this.state.isLoading}
                 onClick={this.props.currentUser ? this.logoutFacebook : this.loginFacebook} 
                 variant='primary'
             >
                 {this.props.currentUser ? 'Logout' : 'Login with Facebook'}
             </Button>
+            }
+            </div>
         )
     }
 }

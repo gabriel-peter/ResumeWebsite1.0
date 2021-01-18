@@ -33,6 +33,7 @@ class LoginPage extends Component {
                 {(loginMethod === 'Facebook' || loginMethod === 'None') && <Card.Text><FacebookButton /></Card.Text>}
                     {!this.props.currentUser && <Button variant='link' href='/signup'>Sign up?</Button>}
                 </Card.Body>
+                <Button variant='link' href='/mix'>Go back to Home</Button>
             </Card>
         )
     }

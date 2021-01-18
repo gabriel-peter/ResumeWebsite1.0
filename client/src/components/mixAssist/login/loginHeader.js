@@ -29,7 +29,10 @@ class LoginHeader extends Component {
         return (
             <div>
             {this.props.currentUser ?
-            <Button size='sm' variant='link' href='/login'>Logout</Button>
+            <div>
+                <div>Welcome, {this.props.currentUser.first_name}</div>
+                <Button size='sm' variant='link' href='/login'>Logout</Button>
+            </div>
             :
             <div>
                 <Button size='sm' variant='link' href='/login' onClick={this.handleLogin}><i>{this.state.googleLoggedIn ? 'Logout' : 'Login'}</i></Button>

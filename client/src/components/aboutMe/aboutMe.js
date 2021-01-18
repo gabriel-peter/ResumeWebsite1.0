@@ -29,10 +29,6 @@ class AboutMe extends Component {
     render() {
         return(
         <div>
-            {/* Test code for REDUX */}
-            <div>{this.props.counter}</div>
-            <button onClick={() => this.props.incrementCount()}> + </button>
-            <button onClick={() => this.props.decrementCount()}> - </button>
             <Card className="text-center">
             <Card.Header><h1>About Me</h1></Card.Header>
             <Card.Body>

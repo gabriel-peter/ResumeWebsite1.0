@@ -18,6 +18,17 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import Pagination from 'react-bootstrap/Pagination';
 
+
+import { connect } from 'react-redux';
+import { addDrink, removeDrink } from '../../../actions/';
+const mapStateToProps = state => ({
+    savedDrinks: state.savedDrinkReducer
+});
+const mapDispatchToProps = () => {
+    return {
+        addDrink, removeDrink
+    }
+}
 class FocusDrink extends Component {
     constructor(props) {
         super(props);
@@ -62,11 +73,12 @@ class FocusDrink extends Component {
             // addDrink
             fetch('/addDrink/'+this.props.drink.d_name);
             // Local which updates state rendering
-            this.props.savedDrinks.push(this.props.drink);
+            this.props.addDrink(this.props.drink);
         } else {
             // removeDrink
             fetch('/removeDrink/'+this.props.drink.d_name);
             // TODO
+            this.props.removeDrink(this.props.drink);
             // this.props.savedDrinks.remove(this.props.drink);
         }
     }
@@ -176,7 +188,7 @@ class FocusDrink extends Component {
                         </thead>
                         <tbody>
                         {this.state.ingredients.map((ingredient, index) => {
-                            return(<tr>
+                            return(<tr key={index}>
                             <td>{index+1}</td>
                             <td>{ingredient[0]}</td>
                             <td>{ingredient[1]}</td>
@@ -189,7 +201,7 @@ class FocusDrink extends Component {
                 </Col>
                 <Col xs={12} md={4}>
                     <Card border='primary'>
-                        <Card.Img variant='bottom' src={this.props.drink.d_img_url} roundedCircle/>
+                        <Card.Img variant='bottom' src={this.props.drink.d_img_url}/>
                         <Card.Body>
                             <h5>Recommended Purchases:</h5>
                             {this.state.toBuyItems.map((item, index) => {
@@ -220,4 +232,4 @@ class FocusDrink extends Component {
     }
 }
 
-export default FocusDrink;
+export default connect(mapStateToProps, mapDispatchToProps())(FocusDrink);

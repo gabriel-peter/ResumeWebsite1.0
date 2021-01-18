@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { Component } from 'react'
-import { Card, Button, Form } from 'react-bootstrap';
+import { Card, Button, Form, Row, Col } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 // import { createBrowserHistory } from 'history';
 // import GoogleButton from './googleButton';
@@ -101,6 +101,7 @@ class SignUpPage extends Component {
                 {/* {this.renderRedirect()} */}
                 <Card.Body>
                     {this.props.currentUser && <p>You are already logged in (TODO)</p>}
+                    <Card.Title>Sign Up!</Card.Title>
                     {this.state.authentication===null ?
                     <div>
                         <Card.Text>
@@ -140,6 +141,8 @@ class SignUpPage extends Component {
                         </Form>
                     </div>
                     }
+                    <br/>
+                    <Card.Text>Already have an account? <a href='/login'>Log-in!</a></Card.Text>
                 </Card.Body>
             </Card>
         )

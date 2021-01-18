@@ -158,8 +158,36 @@ app.get('/api/all-drinks', (req, res) => {
   });
 });
 
-app.post('/api/make', (req, res) => {
-  // TODO
+// https://www.w3schools.com/nodejs/nodejs_mysql_insert.asp
+app.post('/api/make-drink', (req, res) => {
+  console.log('Received Submission Request for:', req.body);
+  // res.send(req.body);
+  var sql = "INSERT INTO drinks (id, d_name, d_cat, d_alcohol, d_glass, d_instructions, d_img_url, d_ingredients, d_creator) VALUES (";
+  var parsed_ingredients = '';
+  // var ingredients = req.body.d_ingredients
+  for(var i = 0; i < req.body.d_ingredients.length; i++) {
+    parsed_ingredients += req.body.d_ingredients[i].item+','+req.body.d_ingredients[i].measurement + ' ' + req.body.d_ingredients[i].unit + '|';
+  }
+  // let values = [
+    sql += '\'' + Math.floor((Math.random() * 100) + 1) + '\', ',
+    sql += '\'' + req.body.d_name + '\', '
+    sql += '\'' + req.body.d_cat + '\', '
+    sql += '\'' + req.body.d_alcohol + '\', '
+    sql += '\'' + req.body.d_glass + '\', '
+    sql += '\'' + req.body.d_instructions + '\', '
+    // req.body.d_img_url, 
+    sql += '\'' + '\', '
+    sql += '\'' + parsed_ingredients + '\', '
+    sql += '\'' + req.body.d_creator  + '\')'
+  // ];
+    console.log(sql);
+  db.run(sql, (err, data, fields) => {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "New user added successfully"
+    })
+  })
 });
 
 app.get('/setuser', (req, res)=>{ 
@@ -199,7 +227,7 @@ app.get('/clearCookie', (req, res)=>{
   res.send('user logout successfully'); 
 });
 
-app.get('/api/saved-drinks/:id', (req, res) => {
+app.get('/api/saved-drinks', (req, res) => {
   let drinkNames = req.cookies.savedDrinks;
   console.log(drinkNames);
   var results = [];
@@ -229,17 +257,6 @@ app.get('/api/search/:name', (req, res) => {
     res.json(rows);
   })
 });
-// app.get('/api/search/contains/:value', (req, res) => {
-//   // let sqlQuery = 'SELECT * FROM drinks WHERE instr(d_ingredients, \''+ req.params.value + '%\') > 0 LIMIT 20';
-//   let sqlQuery = 'SELECT * FROM drinks WHERE d_ingredients LIKE\''+ req.params.value + '%\') > 0 LIMIT 20';
-//   db.all(sqlQuery, (err, rows) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//     console.log(sqlQuery, rows.length);
-//     res.json(rows);
-//   })
-// });
 
 app.get('/api/search/:filter/:value', (req, res) => {
   let sqlQuery = 'SELECT * FROM drinks WHERE '+ req.params.filter +' LIKE \'' + req.params.value + '%\' LIMIT 20'

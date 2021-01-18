@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Spinner } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { loginUser, logoutUser } from '../../../actions/';
@@ -102,13 +102,17 @@ class GoogleButton extends Component {
     }
     render() {
         return(
+            <div>
+            {this.state.isLoading ?
+            <Spinner animation="border" variant="success" />
+            :
             <Button
-                disabled={this.state.isLoading} 
                 onClick={this.props.currentUser ? this.signOutGoogle : this.loginGoogle} 
                 variant='success'
             >
                 {this.props.currentUser ? 'Logout' : 'Login with Google'}
-            </Button>
+            </Button>}
+            </div>
         )
         }
     }
