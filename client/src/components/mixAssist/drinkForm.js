@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -9,7 +9,6 @@ import Alert from 'react-bootstrap/Alert';
 import { Formik, FieldArray, FieldAttributes, Field } from 'formik';
 import { Select, MenuItem, TextField } from "@material-ui/core";
 import * as yup from 'yup';
-
 
 import { connect } from 'react-redux';
 import { Dropdown, NavDropdown } from 'react-bootstrap';
@@ -37,6 +36,34 @@ const schema = yup.object({
 //   file: yup.file().required(),
 });
 
+// TODO, fix memory leak warning.
+function AlertDismissible(props) {
+    const [show, setShow] = useState(true);
+    
+    return (
+      <>
+        <Alert show={show} variant="success">
+          <Alert.Heading>Success!</Alert.Heading>
+          <p>
+            You submitted a drink, you can check it out in the 'Discover' tab.
+          </p>
+          <hr />
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => {
+                setShow(false)
+                props.dismissAlert()
+                }
+            } variant="outline-success">
+              Dismiss
+            </Button>
+          </div>
+        </Alert>
+  
+        {/* {!show && <Button onClick={() => setShow(true)}>Show Alert</Button>} */}
+      </>
+    );
+  }
+
 const maximumIngredients = 15;
 const minimumIngredients = 2;
 
@@ -44,8 +71,7 @@ class DrinkForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ingredientCount: 3,
-            ingredients: {},
+            success: false
         }
         this.units = ['ml', 'oz', 'grams', 'ct'];
         this.categories = ['Ordinary Drink','Cocktail','Milk / Float / Shake', 'Other/Unknown',
@@ -83,21 +109,14 @@ class DrinkForm extends Component {
                 'Balloon Glass',
                 'Coupe Glass',];
 
-        this.handleAdd = this.handleAdd.bind(this);
-        this.handleRemove = this.handleRemove.bind(this);
+        this.dismissAlert = this.dismissAlert.bind(this);
     }
-    handleAdd() {
-        if (this.state.ingredientCount !== maximumIngredients) {
-            this.setState(prev => ({ingredientCount: prev.ingredientCount+1}))
-        }
-    }
-    handleRemove() {
-        if (this.state.ingredientCount !== minimumIngredients) {
-            this.setState(prev => ({ingredientCount: prev.ingredientCount-1}))
-        }
+    dismissAlert() {
+        this.setState({success: false})
     }
     render(){
         return (<div>
+            {this.state.success ? <AlertDismissible dismissAlert={this.dismissAlert} />:
             <Formik
                 validateOnChange={true}
                 validationSchema={schema}
@@ -126,6 +145,7 @@ class DrinkForm extends Component {
                         body: JSON.stringify(data)
                     }).then(response => response.json()).then(res => {
                         console.log(res);
+                        this.setState({success: true});
                         // TODO Handle failed submission.
                         setSubmitting(false);
                     })
@@ -166,7 +186,7 @@ class DrinkForm extends Component {
                             type="text" 
                             placeholder="John Doe"
                             name='d_creator'
-                            feedback={errors.d_creator}
+                            // feedback={errors.d_creator}
                             onChange={handleChange}
                             isValid={touched.d_creator && !errors.d_creator}
                         />
@@ -291,7 +311,7 @@ class DrinkForm extends Component {
                 <pre>{JSON.stringify(errors, null, 2)}</pre> */}
                 </Form>
                 )}
-                </Formik>
+                </Formik>}
         </div>);
     }
 }
