@@ -52,17 +52,17 @@ class AboutMe extends Component {
             <Card.Footer className="text-muted">Updated 12.26.20</Card.Footer>
             </Card>
             <br />
-            <h3>Website Upgrades:</h3>
-                <ListGroup variant="flush">
-                    <ListGroup.Item variant="success" className='item-complete'>Refactor code inheritance for future scalability</ListGroup.Item>
-                    <ListGroup.Item variant="success" className='item-complete'>Incorporate DB and back-end from old project</ListGroup.Item>
-                    <ListGroup.Item variant="success" className='item-complete'>Make Spotify Component more mobile responsive.</ListGroup.Item>
-                    <ListGroup.Item variant="success" className='item-complete'>Acquire SSL Certifs for HTTPS Support.</ListGroup.Item>
-                    <ListGroup.Item variant="success" className='item-complete'>Combine OAuth authentication for user personalization on Mix Assist</ListGroup.Item>
-                    <ListGroup.Item variant="warning">Implement Redux</ListGroup.Item>
-                    <ListGroup.Item variant="warning">Develop Spotify Playlist Generator Algorithm</ListGroup.Item>
-                    <ListGroup.Item variant="success" className='item-complete'>Update DB for better schema</ListGroup.Item>
-                </ListGroup>
+            <h3>Recent Website Upgrades:</h3>
+                <ul>
+                    <li className='item-complete'>Refactor code inheritance for future scalability</li>
+                    <li className='item-complete'>Incorporate DB and back-end from old project</li>
+                    <li className='item-complete'>Make Spotify Component more mobile responsive.</li>
+                    <li className='item-complete'>Acquire SSL Certifs for HTTPS Support.</li>
+                    <li className='item-complete'>Combine OAuth authentication for user personalization on Mix Assist</li>
+                    <li className='item-complete'>Implement Redux</li>
+                    <li>Develop Spotify Playlist Generator Algorithm</li>
+                    <li className='item-complete'>Update DB for better schema</li>
+                </ul>
         </div>);
     }
 }
