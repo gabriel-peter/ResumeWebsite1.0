@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
+// https://www.youtube.com/watch?v=FD50LPJ6bjE
 import { Formik, FieldArray, FieldAttributes, Field } from 'formik';
 import { Select, MenuItem, TextField } from "@material-ui/core";
 import * as yup from 'yup';
@@ -108,10 +109,10 @@ class DrinkForm extends Component {
                     d_glass: this.glasses[0],
                     d_instructions: '',
                     d_img_url: '',
-                    d_ingredients: [],
+                    d_ingredients: [{item: '', measurement: '', unit: 'ml'}],
                 }}
                 onSubmit={(data, { setSubmitting, resetForm }) => {
-                    // setSubmitting(true);
+                    setSubmitting(true);
                     // make async call
                     console.log("submitting /api/make-drink: ", data);
                     fetch("/api/make-drink", {
@@ -128,7 +129,7 @@ class DrinkForm extends Component {
                         // TODO Handle failed submission.
                         setSubmitting(false);
                     })
-                    // resetForm();
+                    resetForm();
                 }}
             >
         {({
@@ -165,6 +166,7 @@ class DrinkForm extends Component {
                             type="text" 
                             placeholder="John Doe"
                             name='d_creator'
+                            feedback={errors.d_creator}
                             onChange={handleChange}
                             isValid={touched.d_creator && !errors.d_creator}
                         />
@@ -200,43 +202,44 @@ class DrinkForm extends Component {
                 </Form.Row>
                 <Form.Row>
                 <Form.Group as={Col} sm="12" md="6">
-                    <Form.Label>Ingredients ({this.state.ingredientCount})</Form.Label>
+                    <Form.Label>Ingredients ({values.d_ingredients.length})</Form.Label>
                     <FieldArray name='d_ingredients'>
                         {(arrayHelpers) => (
                             <div>
-                                <Button onClick={() => arrayHelpers.push({item: '', measurement: '', unit: 'ml'})}>Add Item</Button>
                                 {values.d_ingredients.map((ingredient, index) => {
                                     return(
-                                        <Container fluid key={index}>
-                                        {/* <Row>
-                                            <Col> */}
+                                        <div key={index} style={{ display: 'inline-flex' }}>
                                             <TextField
+                                                size="small"
+                                                margin="dense"
+                                                // variant="filled"
+                                                variant="outlined"
                                                 placeholder="Untitled"
                                                 name={`d_ingredients.${index}.item`}
                                                 onChange={handleChange}
                                             />
-                                            {/* </Col>
-                                            <Col> */}
                                             <TextField
+                                                size="small"
+                                                // variant="filled"
+                                                // // color="secondary"
+                                                margin="dense"
+                                                variant="outlined"
                                                 placeholder="Measurement"
                                                 name={`d_ingredients.${index}.measurement`}
                                                 onChange={handleChange}
                                             />
-                                            {/* </Col>
-                                            <Col> */}
-                                            <Field type='select' name={`d_ingredients.${index}.unit`} as={Select}>
+                                            <Field style={{marginLeft: '10px'}} size='small' type='select' name={`d_ingredients.${index}.unit`} as={Select}>
                                                 {this.units.map((unit, i) => <MenuItem key={i} value={unit}>{unit}</MenuItem>)}
                                             </Field>
-                                            {/* </Col>
-                                            <Col> */}
-                                            <Button variant='outline-secondary' onClick={() => arrayHelpers.remove(index)}>
-                                                X
+                                            <Button size="sm" variant='outline-secondary' onClick={() => arrayHelpers.remove(index)}>
+                                                x
                                             </Button>
-                                            {/* </Col> */}
-                                        {/* </Row> */}
-                                        </Container>
+                                        </div>
                                         );
+
                                 })}
+                                <br/>
+                                <Button onClick={() => arrayHelpers.push({item: '', measurement: '', unit: 'ml'})}>Add Item</Button>
                             </div>
                         )}
                     </FieldArray> 
@@ -266,7 +269,8 @@ class DrinkForm extends Component {
                         className="position-relative"
                         // required
                         name="file"
-                        label="File"
+                        label="File (image uploading coming in next update)"
+                        disabled
                         onChange={handleChange}
                         // isInvalid={!!errors.file}
                         // feedback={errors.file}
@@ -283,8 +287,8 @@ class DrinkForm extends Component {
                 >
                     Submit
                 </Button>
-                <pre>{JSON.stringify(values, null, 2)}</pre>
-                <pre>{JSON.stringify(errors, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(values, null, 2)}</pre>
+                <pre>{JSON.stringify(errors, null, 2)}</pre> */}
                 </Form>
                 )}
                 </Formik>

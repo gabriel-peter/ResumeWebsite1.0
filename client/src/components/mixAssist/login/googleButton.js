@@ -93,6 +93,7 @@ class GoogleButton extends Component {
         } else {
             // TODO IF CERTAIN AMOUNT OF ATTEMPTS, SHOW ERROR
             if (attempt >= 40) {
+                // TODO 
                 console.log('Failed to connect to Google. Aborting');
             } else {
                 console.log('Client wasn\'t ready, trying again in 100ms');

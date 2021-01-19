@@ -226,8 +226,14 @@ app.get('/clearCookie', (req, res)=>{
   res.send('user logout successfully'); 
 });
 
-app.get('/api/saved-drinks', (req, res) => {
-  let drinkNames = req.cookies.savedDrinks;
+app.get('/api/saved-drinks/:user_id', (req, res) => {
+  let drinkNames = '';
+  if(req.params.user_id === 'none') {
+    drinkNames = req.cookies.savedDrinks;
+  } else {
+    // TODO find saved-Drinks of certain user-id
+  }
+  
   console.log(drinkNames);
   var results = [];
   var querystring = 'SELECT * FROM drinks WHERE ';

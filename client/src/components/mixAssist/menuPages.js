@@ -9,6 +9,7 @@ import LoginHeader from './login/loginHeader';
 import { connect } from 'react-redux';
 import {dumpDrinks } from '../../actions/';
 const mapStateToProps = state => ({
+    currentUser: state.loggedReducer,
     savedDrinks: state.savedDrinkReducer
 });
 const mapDispatchToProps = () => {
@@ -30,7 +31,8 @@ class MenuPages extends Component {
         this.removeShoppingItem = this.removeShoppingItem.bind(this);
     }
     componentWillMount() {
-        fetch('/api/saved-drinks')
+        let user_id = this.props.currentUser ? this.props.currentUser.id : 'none';
+        fetch('/api/saved-drinks/'+ user_id)
         .then(res => res.json())
         .then(res => this.props.dumpDrinks(res));
     }
@@ -58,7 +60,7 @@ class MenuPages extends Component {
         // TEST
         return(
             <div>
-            <Alert variant='danger'>This Feature is Currently Under Maintenance!</Alert>
+            <Alert variant='danger'>Login Functionality is Currently Under Maintenance!</Alert>
             <LoginHeader />
             <Tabs>
                 {Object.keys(pages).map((page, index) => {

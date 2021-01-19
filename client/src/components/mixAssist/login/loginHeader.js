@@ -19,12 +19,12 @@ class LoginHeader extends Component {
             googleLoggedIn: false,
         }
     }
-    handleLogin(e) {
-        console.log('Handling Login');
-    }
-    handleSignin(e) {
-        console.log('Handling Sign In');
-    }
+    // handleLogin(e) {
+    //     console.log('Handling Login');
+    // }
+    // handleSignin(e) {
+    //     console.log('Handling Sign In');
+    // }
     render() {
         return (
             <div>
@@ -35,8 +35,8 @@ class LoginHeader extends Component {
             </div>
             :
             <div>
-                <Button size='sm' variant='link' href='/login' onClick={this.handleLogin}><i>{this.state.googleLoggedIn ? 'Logout' : 'Login'}</i></Button>
-                {!this.state.googleLoggedIn && <Button size='sm'  variant='link' onClick={this.handleSignin}><i>Sign-up</i></Button>} 
+                <Button disabled size='sm' variant='link' href='/login'><i>{this.state.googleLoggedIn ? 'Logout' : 'Login'}</i></Button>
+                {!this.state.googleLoggedIn && <Button size='sm' disabled variant='link' href='/signup'><i>Sign-up</i></Button>} 
             </div>
             }
             <br />
