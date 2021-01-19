@@ -23,20 +23,18 @@ class MyDrinks extends Component {
             'Creator': 'd_glass',
             'Contains': 'd_ingredients',
         }
-        this.state = {
-            drinks: this.props.savedDrinks,
-        }
+        this.state = {}
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
-    componentDidMount() {
-        // this.handleKeyPress(null, 'Name');
-        // this.setState({drinks: this.props.savedDrinks});
+    handleKeyPress(e, filter) {
+        this.setState({filter: this.attributeConv[filter]});
     }
-    handleKeyPress = (event, filter) => {
-        filter = this.attributeConv[filter];
+    getFilteredDrinks() {
         var newArr = [];
-        let queryName = this.searchInputRef.current.value;
+        const filter = this.state.filter;
+        let queryName = this.searchInputRef.current ? this.searchInputRef.current.value : '';
         if (queryName === '') {
-            this.setState({drinks: this.props.savedDrinks});
+            return this.props.savedDrinks;
         } else {
             for (var i = 0; i < this.props.savedDrinks.length; i++) {
                 let drink = this.props.savedDrinks[i];
@@ -46,17 +44,17 @@ class MyDrinks extends Component {
                     newArr.push(this.props.savedDrinks[i]);
                 }
             }
-            this.setState({drinks: newArr});
+            return newArr;
         }
     }
     render() {
-        console.log(this.state.drinks);
+        const drinks = this.getFilteredDrinks()
         return (
         <div>
             <h6>These are drinks you haved liked!</h6>
             <SearchBar searchInputRef={this.searchInputRef} handleKeyPress={this.handleKeyPress}/>
             <br/>
-            <DrinkList addShoppingItem={this.props.addShoppingItem} drinks={this.state.drinks} savedDrinks={this.props.savedDrinks}/>
+            <DrinkList addShoppingItem={this.props.addShoppingItem} drinks={drinks} savedDrinks={this.props.savedDrinks}/>
         </div>);
     }
 }
