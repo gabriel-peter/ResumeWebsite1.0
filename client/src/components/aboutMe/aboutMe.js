@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import ImageCarousel from '../mixAssist/imageCarousel';
@@ -38,31 +39,36 @@ class AboutMe extends Component {
                 <Card.Text>
                 I am currently a Junior with interests in Web-development, Python scripting, and even Systems-oriented code.
                 </Card.Text>
-                <Card.Text>
-                Here is my latest BETA project (currently working on evolving the authetication protocol), Check out what progress I've made so far.
-                </Card.Text>
-                <Button href='/mix' variant="primary">Try out MixAssist</Button>
+
+                <Button href='/mix' variant="primary" block>Try out MixAssist</Button>
+                <br/>
+                <Button href='/spotify' variant="success" block>Compare our Spotify's</Button>
+                
                 <br />
                 <footer className="blockquote-footer">
                     (This is also now Mobile Friendly)
                 </footer>
                 </Card.Body>
+
                 
             
             <Card.Footer className="text-muted">Updated 12.26.20</Card.Footer>
+            
+
             </Card>
+            {/* <Card>
+                <a href='/spotify'>
+                    <Card.Header><h1>Spotify</h1></Card.Header>
+                </a>
+            </Card>
+
+            <Card>
+                <a href='/mix'>
+                    <Card.Header><h1>Mix Assist</h1></Card.Header>
+                </a>
+            </Card> */}
+            
             <br />
-            <h3>Recent Website Upgrades:</h3>
-                <ul>
-                    <li className='item-complete'>Refactor code inheritance for future scalability</li>
-                    <li className='item-complete'>Incorporate DB and back-end from old project</li>
-                    <li className='item-complete'>Make Spotify Component more mobile responsive.</li>
-                    <li className='item-complete'>Acquire SSL Certifs for HTTPS Support.</li>
-                    <li className='item-complete'>Combine OAuth authentication for user personalization on Mix Assist</li>
-                    <li className='item-complete'>Implement Redux</li>
-                    <li>Develop Spotify Playlist Generator Algorithm</li>
-                    <li className='item-complete'>Update DB for better schema</li>
-                </ul>
         </div>);
     }
 }

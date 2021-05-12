@@ -18,7 +18,7 @@ class DrinkList extends Component {
         this.focusDrink = this.focusDrink.bind(this);
     }
     focusDrink(index) {
-        console.log(index);
+        // console.log(index);
         this.setState({focusedDrink: this.props.drinks[index]});
     }
     render() {
